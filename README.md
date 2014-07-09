@@ -1,0 +1,4 @@
+AMPopTip
+========
+
+An animated tooltip
