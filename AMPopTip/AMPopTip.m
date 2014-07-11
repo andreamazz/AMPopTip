@@ -70,14 +70,18 @@
     
     _textBounds.origin = (CGPoint){self.padding, self.padding};
     
-    CGRect frame;
+    CGRect frame = CGRectZero;
     if (self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionDown) {
         frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 + self.arrowSize.height};
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
         if (x < 0) { x = 0; }
         if (x + frame.size.width > self.containerView.frame.size.width) { x = self.containerView.frame.size.width - frame.size.width; }
-        frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height};
+        if (self.direction == AMPopTipDirectionDown) {
+            frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height};
+        } else {
+
+        }
     } else {
         frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.height, self.textBounds.size.height + self.padding * 2.0};
         // TODO: maxWidth = MIN(maxWidth, space_between_bound_and_tip)
@@ -87,7 +91,8 @@
         case AMPopTipDirectionDown: {
             self.arrowPosition = (CGPoint){
                 self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
-                self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y};
+                self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y
+            };
             _textBounds.origin = (CGPoint){ self.textBounds.origin.x, self.textBounds.origin.y + self.arrowSize.height };
             self.layer.anchorPoint = (CGPoint){ 0.5, 0 };
             self.layer.position = (CGPoint){ self.layer.position.x, self.layer.position.y - frame.size.height / 2 };
@@ -95,6 +100,7 @@
             break;
         }
         case AMPopTipDirectionUp: {
+
             break;
         }
         case AMPopTipDirectionLeft: {
