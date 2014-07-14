@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                     direction of the popover and the arrow that points to its origin.
                     Color, border radius and font can be easily customized.
                     This popover can be used to leave subtle hints about your UI and
-                    provide a fun looking onboarding popups.
+                    provide fun looking onboarding popups.
                    DESC
   s.homepage     = "https://github.com/andreamazz/AMPopTip"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }

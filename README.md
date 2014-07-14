@@ -1,7 +1,9 @@
 AMPopTip
 ========
 
-Animated popover, great for subtle UI tips and onboarding.
+Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized. 
+This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.
+
 
 #Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/screenshot.gif)
