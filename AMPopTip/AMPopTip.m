@@ -13,7 +13,7 @@
 #define kDefaultFont [UIFont systemFontOfSize:[UIFont systemFontSize]]
 #define kDefaultTextColor [UIColor whiteColor]
 #define kDefaultBackgroundColor [UIColor redColor]
-#define kDefaultRadius 8
+#define kDefaultRadius 4
 #define kDefaultPadding 6
 #define kDefaultArrowSize CGSizeMake(16, 8)
 
@@ -63,6 +63,13 @@
 
 - (void)setup
 {
+    if (self.direction == AMPopTipDirectionLeft) {
+        self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.arrowSize.width);
+    }
+    if (self.direction == AMPopTipDirectionRight) {
+        self.maxWidth = MIN(self.maxWidth, self.containerView.frame.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
+    }
+
     self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName: self.font}
@@ -83,8 +90,21 @@
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y - frame.size.height};
         }
     } else {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.height, self.textBounds.size.height + self.padding * 2.0};
-        // TODO: maxWidth = MIN(maxWidth, space_between_bound_and_tip)
+        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0};
+
+        CGFloat x = 0;
+        if (self.direction == AMPopTipDirectionLeft) {
+            x = self.fromFrame.origin.x - frame.size.width;
+        }
+        if (self.direction == AMPopTipDirectionRight) {
+            x = self.fromFrame.origin.x + self.fromFrame.size.width;
+        }
+        
+        CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
+        
+        if (y < 0) { y = 0; }
+        if (y + frame.size.height > self.containerView.frame.size.height) { x = self.containerView.frame.size.height - frame.size.height; }
+        frame.origin = (CGPoint){ x, y };
     }
     
     switch (self.direction) {
@@ -110,9 +130,24 @@
             break;
         }
         case AMPopTipDirectionLeft: {
+            self.arrowPosition = (CGPoint){
+                self.fromFrame.origin.x - frame.origin.x,
+                self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
+            };
+            self.layer.anchorPoint = (CGPoint){ 1, 0.5 };
+            self.layer.position = (CGPoint){ self.layer.position.x - frame.size.width / 2, self.layer.position.y };
+            
             break;
         }
         case AMPopTipDirectionRight: {
+            self.arrowPosition = (CGPoint){
+                self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x,
+                self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
+            };
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width, self.textBounds.origin.y };
+            self.layer.anchorPoint = (CGPoint){ 0, 0.5 };
+            self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width / 2, self.layer.position.y };
+            
             break;
         }
     }
@@ -147,18 +182,34 @@
             [arrow moveToPoint:self.arrowPosition];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
-                        NSLog(@"%@", NSStringFromCGPoint(self.arrowPosition));
+
             [self.popoverColor setFill];
             [arrow fill];
             
             break;
         }
         case AMPopTipDirectionLeft: {
-            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
+            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width - self.arrowSize.width, self.frame.size.height } };
+            
+            [arrow moveToPoint:self.arrowPosition];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width, self.arrowPosition.y - self.arrowSize.height / 2 }];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width, self.arrowPosition.y + self.arrowSize.height / 2 }];
+            
+            [self.popoverColor setFill];
+            [arrow fill];
+            
             break;
         }
         case AMPopTipDirectionRight: {
-            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
+            baloonFrame = (CGRect){ (CGPoint) { self.arrowSize.width, 0 }, (CGSize){ self.frame.size.width - self.arrowSize.width, self.frame.size.height } };
+
+            [arrow moveToPoint:self.arrowPosition];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width, self.arrowPosition.y - self.arrowSize.height / 2 }];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width, self.arrowPosition.y + self.arrowSize.height / 2 }];
+            
+            [self.popoverColor setFill];
+            [arrow fill];
+            
             break;
         }
     }
