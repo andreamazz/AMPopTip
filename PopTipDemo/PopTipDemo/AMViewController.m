@@ -67,7 +67,6 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.popTip hide];
-    [self.popTip setNeedsLayout];
 }
 
 @end

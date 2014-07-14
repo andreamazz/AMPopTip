@@ -29,6 +29,8 @@ Use the appearance proxy to customize the popover before creating the instance, 
 [[AMPopTip appearance] setRadius:<#CGFloat#>];
 [[AMPopTip appearance] setPadding:<#CGFloat#>];
 [[AMPopTip appearance] setArrowSize:<#CGSize#>];
+[[AMPopTip appearance] setAnimationIn:<#NSInterval#>];
+[[AMPopTip appearance] setAnimationOut:<#NSInterval#>];
 ```
 
 #MIT License

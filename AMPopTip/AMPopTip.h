@@ -21,6 +21,8 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
 @property (nonatomic, assign) CGFloat radius UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGFloat padding UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign) CGSize  arrowSize UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) NSTimeInterval animationIn UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) NSTimeInterval animationOut UI_APPEARANCE_SELECTOR;
 @property (nonatomic, assign, readonly) BOOL isVisible;
 
 + (instancetype)popTip;
