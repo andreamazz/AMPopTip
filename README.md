@@ -3,6 +3,11 @@ AMPopTip
 
 Animated popover, great for subtle UI tips and onboarding.
 
+#Screenshot
+![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/screenshot.gif)
+
+
+
 #Setup
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
 * Run ```pod install```
