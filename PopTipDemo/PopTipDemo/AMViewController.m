@@ -16,7 +16,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *buttonBottomLeft;
 @property (nonatomic, weak) IBOutlet UIButton *buttonBottomRight;
 @property (nonatomic, weak) IBOutlet UIButton *buttonCenter;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *segment;
 
 @property (nonatomic, strong) AMPopTip *popTip;
 
@@ -27,25 +26,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
+    
     self.popTip = [AMPopTip popTip];
 }
 
 - (IBAction)actionButton:(UIButton *)sender
 {
+    [self.popTip hide];
+
+    if ([self.popTip isVisible]) {
+        return;
+    }
+    
     if (sender == self.buttonTopLeft) {
+        self.popTip.popoverColor = [UIColor colorWithRed:0.95 green:0.65 blue:0.21 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonTopRight) {
+        self.popTip.popoverColor = [UIColor colorWithRed:0.97 green:0.9 blue:0.23 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonBottomLeft) {
+        self.popTip.popoverColor = [UIColor colorWithRed:0.73 green:0.91 blue:0.55 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonBottomRight) {
+        self.popTip.popoverColor = [UIColor colorWithRed:0.81 green:0.04 blue:0.14 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonCenter) {
-        [self.popTip showText:@"I'm a popover popping over" direction:self.segment.selectedSegmentIndex maxWidth:200 inView:self.view fromFrame:sender.frame];
+        self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
+        static int direction = 0;
+        [self.popTip showText:@"Animated popover, great for subtle UI tips and onboarding" direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame];
+        direction = (direction + 1) % 4;
     }
 }
 

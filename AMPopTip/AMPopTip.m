@@ -15,7 +15,7 @@
 #define kDefaultBackgroundColor [UIColor redColor]
 #define kDefaultRadius 4
 #define kDefaultPadding 6
-#define kDefaultArrowSize CGSizeMake(16, 8)
+#define kDefaultArrowSize CGSizeMake(8, 8)
 
 @interface AMPopTip()
 
@@ -103,7 +103,7 @@
         CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
         
         if (y < 0) { y = 0; }
-        if (y + frame.size.height > self.containerView.frame.size.height) { x = self.containerView.frame.size.height - frame.size.height; }
+        if (y + frame.size.height > self.containerView.frame.size.height) { y = self.containerView.frame.size.height - frame.size.height; }
         frame.origin = (CGPoint){ x, y };
     }
     
@@ -113,9 +113,10 @@
                 self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
                 self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y
             };
+            CGFloat anchor = self.arrowPosition.x / frame.size.width;
             _textBounds.origin = (CGPoint){ self.textBounds.origin.x, self.textBounds.origin.y + self.arrowSize.height };
-            self.layer.anchorPoint = (CGPoint){ 0.5, 0 };
-            self.layer.position = (CGPoint){ self.layer.position.x, self.layer.position.y - frame.size.height / 2 };
+            self.layer.anchorPoint = (CGPoint){ anchor, 0 };
+            self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width * anchor, self.layer.position.y - frame.size.height / 2 };
             
             break;
         }
@@ -124,8 +125,9 @@
                 self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
                 frame.size.height
             };
-            self.layer.anchorPoint = (CGPoint){ 0.5, 1 };
-            self.layer.position = (CGPoint){ self.layer.position.x, self.layer.position.y + frame.size.height / 2 };
+            CGFloat anchor = self.arrowPosition.x / frame.size.width;
+            self.layer.anchorPoint = (CGPoint){ anchor, 1 };
+            self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width * anchor, self.layer.position.y + frame.size.height / 2 };
             
             break;
         }
@@ -134,8 +136,9 @@
                 self.fromFrame.origin.x - frame.origin.x,
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
-            self.layer.anchorPoint = (CGPoint){ 1, 0.5 };
-            self.layer.position = (CGPoint){ self.layer.position.x - frame.size.width / 2, self.layer.position.y };
+            CGFloat anchor = self.arrowPosition.y / frame.size.height;
+            self.layer.anchorPoint = (CGPoint){ 1, anchor };
+            self.layer.position = (CGPoint){ self.layer.position.x - frame.size.width / 2, self.layer.position.y + frame.size.height * anchor };
             
             break;
         }
@@ -145,8 +148,9 @@
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
             _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width, self.textBounds.origin.y };
-            self.layer.anchorPoint = (CGPoint){ 0, 0.5 };
-            self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width / 2, self.layer.position.y };
+            CGFloat anchor = self.arrowPosition.y / frame.size.height;
+            self.layer.anchorPoint = (CGPoint){ 0, anchor };
+            self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width / 2, self.layer.position.y + frame.size.height * anchor };
             
             break;
         }
