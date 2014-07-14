@@ -78,9 +78,9 @@
         if (x < 0) { x = 0; }
         if (x + frame.size.width > self.containerView.frame.size.width) { x = self.containerView.frame.size.width - frame.size.width; }
         if (self.direction == AMPopTipDirectionDown) {
-            frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height};
+            frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height };
         } else {
-
+            frame.origin = (CGPoint){ x, self.fromFrame.origin.y - frame.size.height};
         }
     } else {
         frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.height, self.textBounds.size.height + self.padding * 2.0};
@@ -100,7 +100,13 @@
             break;
         }
         case AMPopTipDirectionUp: {
-
+            self.arrowPosition = (CGPoint){
+                self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
+                frame.size.height
+            };
+            self.layer.anchorPoint = (CGPoint){ 0.5, 1 };
+            self.layer.position = (CGPoint){ self.layer.position.x, self.layer.position.y + frame.size.height / 2 };
+            
             break;
         }
         case AMPopTipDirectionLeft: {
@@ -137,6 +143,14 @@
         }
         case AMPopTipDirectionUp: {
             baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
+
+            [arrow moveToPoint:self.arrowPosition];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
+            [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
+                        NSLog(@"%@", NSStringFromCGPoint(self.arrowPosition));
+            [self.popoverColor setFill];
+            [arrow fill];
+            
             break;
         }
         case AMPopTipDirectionLeft: {

@@ -26,7 +26,7 @@
 
 - (IBAction)actionButton:(id)sender
 {
-    [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:arc4random()%300 inView:self.view fromFrame:self.button.frame];
+    [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:self.button.frame];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
