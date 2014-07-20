@@ -30,6 +30,7 @@
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
 @property (nonatomic, assign) BOOL isAnimating;
+@property (nonatomic, assign) BOOL askedToHide;
 
 @end
 
@@ -292,6 +293,10 @@
     } completion:^(BOOL finished) {
         self.isAnimating = NO;
         self->_isVisible = YES;
+        
+       if (self.askedToHide) {
+            [self hide];
+        }
     }];
     
     return YES;
@@ -300,6 +305,7 @@
 - (BOOL)hide
 {
     if (!_isVisible || _isAnimating) {
+        _askedToHide = YES;
         return NO;
     }
     self.isAnimating = YES;
