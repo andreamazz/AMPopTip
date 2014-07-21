@@ -29,7 +29,6 @@
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
-@property (nonatomic, assign) BOOL isAnimating;
 
 @end
 
@@ -60,7 +59,6 @@
         _animationIn = kDefaultAnimationIn;
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
-        _isAnimating = NO;
     }
     return self;
 }
@@ -269,12 +267,8 @@
     [self.text drawInRect:self.textBounds withAttributes:titleAttributes];
 }
 
-- (BOOL)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
 {
-    if (_isVisible || _isAnimating) {
-        return NO;
-    }
-    
     self.text = text;
     self.direction = direction;
     self.containerView = view;
@@ -283,35 +277,26 @@
     
     [self setNeedsLayout];
 
-    self.isAnimating = YES;
     self.transform = CGAffineTransformMakeScale(0, 0);
     [self.containerView addSubview:self];
+    _isVisible = YES;
     
-    [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        self.isAnimating = NO;
-        self->_isVisible = YES;
-    }];
-    
-    return YES;
+    } completion:nil];
 }
 
-- (BOOL)hide
+- (void)hide
 {
-    if (!_isVisible || _isAnimating) {
-        return NO;
-    }
-    self.isAnimating = YES;
-    [UIView animateWithDuration:self.animationOut delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
     } completion:^(BOOL finished) {
-        [self removeFromSuperview];
-        self.transform = CGAffineTransformIdentity;
-        self.isAnimating = NO;
-        self->_isVisible = NO;
+        if (finished) {
+            [self removeFromSuperview];
+            self.transform = CGAffineTransformIdentity;
+            self->_isVisible = NO;
+        }
     }];
-    return YES;
 }
 
 @end

@@ -1,0 +1,10 @@
+body: '"Futura", "Helvetica Neue", "Arial", san-serif'
+code: '"Monaco", "Menlo", "Consolas", "Courier New", monospace'
+
+highlight_color: "#e06431;" 
+highlight-dark-color: "#bb4312;"
+darker-color: "#de906f;" 
+darker-dark-color: "#917f78;"
+background-color: "#ede8e6;"
+alt-link-color: "#bb4312;"
+warning-color: "#ff4a00;"
