@@ -1,536 +1,1218 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		65CC5729196FF827001B189F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC5728196FF827001B189F /* Foundation.framework */; };
-		65CC572B196FF827001B189F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC572A196FF827001B189F /* CoreGraphics.framework */; };
-		65CC572D196FF827001B189F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC572C196FF827001B189F /* UIKit.framework */; };
-		65CC5733196FF827001B189F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65CC5731196FF827001B189F /* InfoPlist.strings */; };
-		65CC5735196FF827001B189F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC5734196FF827001B189F /* main.m */; };
-		65CC5739196FF827001B189F /* AMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC5738196FF827001B189F /* AMAppDelegate.m */; };
-		65CC573C196FF827001B189F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CC573A196FF827001B189F /* Main.storyboard */; };
-		65CC573F196FF827001B189F /* AMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC573E196FF827001B189F /* AMViewController.m */; };
-		65CC5741196FF827001B189F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CC5740196FF827001B189F /* Images.xcassets */; };
-		65CC5748196FF827001B189F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC5747196FF827001B189F /* XCTest.framework */; };
-		65CC5749196FF827001B189F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC5728196FF827001B189F /* Foundation.framework */; };
-		65CC574A196FF827001B189F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC572C196FF827001B189F /* UIKit.framework */; };
-		65CC5752196FF827001B189F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65CC5750196FF827001B189F /* InfoPlist.strings */; };
-		65CC5754196FF827001B189F /* PopTipDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC5753196FF827001B189F /* PopTipDemoTests.m */; };
-		65CC5760196FF8B5001B189F /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 65CC575F196FF8B5001B189F /* AMPopTip.m */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		65CC574B196FF827001B189F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 65CC571D196FF827001B189F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 65CC5724196FF827001B189F;
-			remoteInfo = PopTipDemo;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		65CC5725196FF827001B189F /* PopTipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopTipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CC5728196FF827001B189F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		65CC572A196FF827001B189F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		65CC572C196FF827001B189F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		65CC5730196FF827001B189F /* PopTipDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PopTipDemo-Info.plist"; sourceTree = "<group>"; };
-		65CC5732196FF827001B189F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65CC5734196FF827001B189F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		65CC5736196FF827001B189F /* PopTipDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PopTipDemo-Prefix.pch"; sourceTree = "<group>"; };
-		65CC5737196FF827001B189F /* AMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMAppDelegate.h; sourceTree = "<group>"; };
-		65CC5738196FF827001B189F /* AMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMAppDelegate.m; sourceTree = "<group>"; };
-		65CC573B196FF827001B189F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		65CC573D196FF827001B189F /* AMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMViewController.h; sourceTree = "<group>"; };
-		65CC573E196FF827001B189F /* AMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AMViewController.m; sourceTree = "<group>"; };
-		65CC5740196FF827001B189F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		65CC5746196FF827001B189F /* PopTipDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopTipDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		65CC5747196FF827001B189F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		65CC574F196FF827001B189F /* PopTipDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PopTipDemoTests-Info.plist"; sourceTree = "<group>"; };
-		65CC5751196FF827001B189F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		65CC5753196FF827001B189F /* PopTipDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopTipDemoTests.m; sourceTree = "<group>"; };
-		65CC575E196FF8B5001B189F /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
-		65CC575F196FF8B5001B189F /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		65CC5722196FF827001B189F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC572B196FF827001B189F /* CoreGraphics.framework in Frameworks */,
-				65CC572D196FF827001B189F /* UIKit.framework in Frameworks */,
-				65CC5729196FF827001B189F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65CC5743196FF827001B189F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC5748196FF827001B189F /* XCTest.framework in Frameworks */,
-				65CC574A196FF827001B189F /* UIKit.framework in Frameworks */,
-				65CC5749196FF827001B189F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		65CC571C196FF827001B189F = {
-			isa = PBXGroup;
-			children = (
-				65CC572E196FF827001B189F /* PopTipDemo */,
-				65CC574D196FF827001B189F /* PopTipDemoTests */,
-				65CC5727196FF827001B189F /* Frameworks */,
-				65CC5726196FF827001B189F /* Products */,
-			);
-			indentWidth = 4;
-			sourceTree = "<group>";
-			tabWidth = 4;
-			usesTabs = 0;
-		};
-		65CC5726196FF827001B189F /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				65CC5725196FF827001B189F /* PopTipDemo.app */,
-				65CC5746196FF827001B189F /* PopTipDemoTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		65CC5727196FF827001B189F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				65CC5728196FF827001B189F /* Foundation.framework */,
-				65CC572A196FF827001B189F /* CoreGraphics.framework */,
-				65CC572C196FF827001B189F /* UIKit.framework */,
-				65CC5747196FF827001B189F /* XCTest.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		65CC572E196FF827001B189F /* PopTipDemo */ = {
-			isa = PBXGroup;
-			children = (
-				65CC575D196FF884001B189F /* AMPopTip */,
-				65CC5737196FF827001B189F /* AMAppDelegate.h */,
-				65CC5738196FF827001B189F /* AMAppDelegate.m */,
-				65CC573A196FF827001B189F /* Main.storyboard */,
-				65CC573D196FF827001B189F /* AMViewController.h */,
-				65CC573E196FF827001B189F /* AMViewController.m */,
-				65CC5740196FF827001B189F /* Images.xcassets */,
-				65CC572F196FF827001B189F /* Supporting Files */,
-			);
-			path = PopTipDemo;
-			sourceTree = "<group>";
-		};
-		65CC572F196FF827001B189F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65CC5730196FF827001B189F /* PopTipDemo-Info.plist */,
-				65CC5731196FF827001B189F /* InfoPlist.strings */,
-				65CC5734196FF827001B189F /* main.m */,
-				65CC5736196FF827001B189F /* PopTipDemo-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65CC574D196FF827001B189F /* PopTipDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				65CC5753196FF827001B189F /* PopTipDemoTests.m */,
-				65CC574E196FF827001B189F /* Supporting Files */,
-			);
-			path = PopTipDemoTests;
-			sourceTree = "<group>";
-		};
-		65CC574E196FF827001B189F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				65CC574F196FF827001B189F /* PopTipDemoTests-Info.plist */,
-				65CC5750196FF827001B189F /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		65CC575D196FF884001B189F /* AMPopTip */ = {
-			isa = PBXGroup;
-			children = (
-				65CC575E196FF8B5001B189F /* AMPopTip.h */,
-				65CC575F196FF8B5001B189F /* AMPopTip.m */,
-			);
-			name = AMPopTip;
-			path = ../../AMPopTip;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		65CC5724196FF827001B189F /* PopTipDemo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65CC5757196FF827001B189F /* Build configuration list for PBXNativeTarget "PopTipDemo" */;
-			buildPhases = (
-				65CC5721196FF827001B189F /* Sources */,
-				65CC5722196FF827001B189F /* Frameworks */,
-				65CC5723196FF827001B189F /* Resources */,
-				70C61442D9724946A074A875 /* Warn for TODO and FIXME comments */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PopTipDemo;
-			productName = PopTipDemo;
-			productReference = 65CC5725196FF827001B189F /* PopTipDemo.app */;
-			productType = "com.apple.product-type.application";
-		};
-		65CC5745196FF827001B189F /* PopTipDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65CC575A196FF827001B189F /* Build configuration list for PBXNativeTarget "PopTipDemoTests" */;
-			buildPhases = (
-				65CC5742196FF827001B189F /* Sources */,
-				65CC5743196FF827001B189F /* Frameworks */,
-				65CC5744196FF827001B189F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				65CC574C196FF827001B189F /* PBXTargetDependency */,
-			);
-			name = PopTipDemoTests;
-			productName = PopTipDemoTests;
-			productReference = 65CC5746196FF827001B189F /* PopTipDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		65CC571D196FF827001B189F /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				CLASSPREFIX = AM;
-				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Fancy Pixel";
-				TargetAttributes = {
-					65CC5745196FF827001B189F = {
-						TestTargetID = 65CC5724196FF827001B189F;
-					};
-				};
-			};
-			buildConfigurationList = 65CC5720196FF827001B189F /* Build configuration list for PBXProject "PopTipDemo" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = 65CC571C196FF827001B189F;
-			productRefGroup = 65CC5726196FF827001B189F /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				65CC5724196FF827001B189F /* PopTipDemo */,
-				65CC5745196FF827001B189F /* PopTipDemoTests */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		65CC5723196FF827001B189F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC5741196FF827001B189F /* Images.xcassets in Resources */,
-				65CC5733196FF827001B189F /* InfoPlist.strings in Resources */,
-				65CC573C196FF827001B189F /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65CC5744196FF827001B189F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC5752196FF827001B189F /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		70C61442D9724946A074A875 /* Warn for TODO and FIXME comments */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Warn for TODO and FIXME comments";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		65CC5721196FF827001B189F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC5739196FF827001B189F /* AMAppDelegate.m in Sources */,
-				65CC573F196FF827001B189F /* AMViewController.m in Sources */,
-				65CC5735196FF827001B189F /* main.m in Sources */,
-				65CC5760196FF8B5001B189F /* AMPopTip.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		65CC5742196FF827001B189F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65CC5754196FF827001B189F /* PopTipDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		65CC574C196FF827001B189F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 65CC5724196FF827001B189F /* PopTipDemo */;
-			targetProxy = 65CC574B196FF827001B189F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		65CC5731196FF827001B189F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65CC5732196FF827001B189F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		65CC573A196FF827001B189F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65CC573B196FF827001B189F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		65CC5750196FF827001B189F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				65CC5751196FF827001B189F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
-/* Begin XCBuildConfiguration section */
-		65CC5755196FF827001B189F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		65CC5756196FF827001B189F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_SHADOW = YES;
-				GCC_WARN_SIGN_COMPARE = YES;
-				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_LABEL = YES;
-				GCC_WARN_UNUSED_VALUE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		65CC5758196FF827001B189F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
-				INFOPLIST_FILE = "PopTipDemo/PopTipDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		65CC5759196FF827001B189F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
-				INFOPLIST_FILE = "PopTipDemo/PopTipDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		65CC575B196FF827001B189F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PopTipDemo.app/PopTipDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "PopTipDemoTests/PopTipDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		65CC575C196FF827001B189F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PopTipDemo.app/PopTipDemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
-				INFOPLIST_FILE = "PopTipDemoTests/PopTipDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		65CC5720196FF827001B189F /* Build configuration list for PBXProject "PopTipDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65CC5755196FF827001B189F /* Debug */,
-				65CC5756196FF827001B189F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65CC5757196FF827001B189F /* Build configuration list for PBXNativeTarget "PopTipDemo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65CC5758196FF827001B189F /* Debug */,
-				65CC5759196FF827001B189F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		65CC575A196FF827001B189F /* Build configuration list for PBXNativeTarget "PopTipDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				65CC575B196FF827001B189F /* Debug */,
-				65CC575C196FF827001B189F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = 65CC571D196FF827001B189F /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>1E7FDD55A0D748C79E71BDE9</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods-PopTipDemoTests.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>4DD15A1A43534356ADF3B101</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Pods-PopTipDemoTests-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>536B8E3690DD43E89CFB18F7</key>
+		<dict>
+			<key>fileRef</key>
+			<string>1E7FDD55A0D748C79E71BDE9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC571C196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC572E196FF827001B189F</string>
+				<string>65CC574D196FF827001B189F</string>
+				<string>65CC5727196FF827001B189F</string>
+				<string>65CC5726196FF827001B189F</string>
+				<string>6E86E387C90A4434B4E1F245</string>
+			</array>
+			<key>indentWidth</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>tabWidth</key>
+			<string>4</string>
+			<key>usesTabs</key>
+			<string>0</string>
+		</dict>
+		<key>65CC571D196FF827001B189F</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>CLASSPREFIX</key>
+				<string>AM</string>
+				<key>LastUpgradeCheck</key>
+				<string>0510</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>Fancy Pixel</string>
+				<key>TargetAttributes</key>
+				<dict>
+					<key>65CC5745196FF827001B189F</key>
+					<dict>
+						<key>TestTargetID</key>
+						<string>65CC5724196FF827001B189F</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>65CC5720196FF827001B189F</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+				<string>Base</string>
+			</array>
+			<key>mainGroup</key>
+			<string>65CC571C196FF827001B189F</string>
+			<key>productRefGroup</key>
+			<string>65CC5726196FF827001B189F</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>65CC5724196FF827001B189F</string>
+				<string>65CC5745196FF827001B189F</string>
+			</array>
+		</dict>
+		<key>65CC5720196FF827001B189F</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>65CC5755196FF827001B189F</string>
+				<string>65CC5756196FF827001B189F</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>65CC5721196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC5739196FF827001B189F</string>
+				<string>65CC573F196FF827001B189F</string>
+				<string>65CC5735196FF827001B189F</string>
+				<string>65CC5760196FF8B5001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5722196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC572B196FF827001B189F</string>
+				<string>65CC572D196FF827001B189F</string>
+				<string>65CC5729196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5723196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC5741196FF827001B189F</string>
+				<string>65CC5733196FF827001B189F</string>
+				<string>65CC573C196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5724196FF827001B189F</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>65CC5757196FF827001B189F</string>
+			<key>buildPhases</key>
+			<array>
+				<string>65CC5721196FF827001B189F</string>
+				<string>65CC5722196FF827001B189F</string>
+				<string>65CC5723196FF827001B189F</string>
+				<string>70C61442D9724946A074A875</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>PopTipDemo</string>
+			<key>productName</key>
+			<string>PopTipDemo</string>
+			<key>productReference</key>
+			<string>65CC5725196FF827001B189F</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>65CC5725196FF827001B189F</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>PopTipDemo.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>65CC5726196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5725196FF827001B189F</string>
+				<string>65CC5746196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5727196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5728196FF827001B189F</string>
+				<string>65CC572A196FF827001B189F</string>
+				<string>65CC572C196FF827001B189F</string>
+				<string>65CC5747196FF827001B189F</string>
+				<string>1E7FDD55A0D748C79E71BDE9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5728196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>65CC5729196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5728196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC572A196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreGraphics.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreGraphics.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>65CC572B196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC572A196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC572C196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>UIKit.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/UIKit.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>65CC572D196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC572C196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC572E196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC575D196FF884001B189F</string>
+				<string>65CC5737196FF827001B189F</string>
+				<string>65CC5738196FF827001B189F</string>
+				<string>65CC573A196FF827001B189F</string>
+				<string>65CC573D196FF827001B189F</string>
+				<string>65CC573E196FF827001B189F</string>
+				<string>65CC5740196FF827001B189F</string>
+				<string>65CC572F196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>PopTipDemo</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC572F196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5730196FF827001B189F</string>
+				<string>65CC5731196FF827001B189F</string>
+				<string>65CC5734196FF827001B189F</string>
+				<string>65CC5736196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5730196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>PopTipDemo-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5731196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5732196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5732196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5733196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5731196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5734196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>main.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5735196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5734196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5736196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>PopTipDemo-Prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5737196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>AMAppDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5738196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>AMAppDelegate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5739196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5738196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC573A196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC573B196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC573B196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>Base</string>
+			<key>path</key>
+			<string>Base.lproj/Main.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC573C196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC573A196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC573D196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>AMViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC573E196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>AMViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC573F196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC573E196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5740196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5741196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5740196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5742196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC5754196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5743196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC5748196FF827001B189F</string>
+				<string>65CC574A196FF827001B189F</string>
+				<string>65CC5749196FF827001B189F</string>
+				<string>536B8E3690DD43E89CFB18F7</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5744196FF827001B189F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>65CC5752196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>65CC5745196FF827001B189F</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>65CC575A196FF827001B189F</string>
+			<key>buildPhases</key>
+			<array>
+				<string>FB9B1B1D22C14998970C7DCC</string>
+				<string>65CC5742196FF827001B189F</string>
+				<string>65CC5743196FF827001B189F</string>
+				<string>65CC5744196FF827001B189F</string>
+				<string>4DD15A1A43534356ADF3B101</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>65CC574C196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>PopTipDemoTests</string>
+			<key>productName</key>
+			<string>PopTipDemoTests</string>
+			<key>productReference</key>
+			<string>65CC5746196FF827001B189F</string>
+			<key>productType</key>
+			<string>com.apple.product-type.bundle.unit-test</string>
+		</dict>
+		<key>65CC5746196FF827001B189F</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.cfbundle</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>PopTipDemoTests.xctest</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>65CC5747196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>XCTest.framework</string>
+			<key>path</key>
+			<string>Library/Frameworks/XCTest.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>65CC5748196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5747196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5749196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5728196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC574A196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC572C196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC574B196FF827001B189F</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>65CC571D196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>65CC5724196FF827001B189F</string>
+			<key>remoteInfo</key>
+			<string>PopTipDemo</string>
+		</dict>
+		<key>65CC574C196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>target</key>
+			<string>65CC5724196FF827001B189F</string>
+			<key>targetProxy</key>
+			<string>65CC574B196FF827001B189F</string>
+		</dict>
+		<key>65CC574D196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5753196FF827001B189F</string>
+				<string>65CC574E196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>PopTipDemoTests</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC574E196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC574F196FF827001B189F</string>
+				<string>65CC5750196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC574F196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>PopTipDemoTests-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5750196FF827001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC5751196FF827001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5751196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5752196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5750196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5753196FF827001B189F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>PopTipDemoTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5754196FF827001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC5753196FF827001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>65CC5755196FF827001B189F</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_MISSING_NEWLINE</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_CHECK_SWITCH_STATEMENTS</key>
+				<string>YES</string>
+				<key>GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED</key>
+				<string>YES</string>
+				<key>GCC_WARN_MISSING_PARENTHESES</key>
+				<string>YES</string>
+				<key>GCC_WARN_SHADOW</key>
+				<string>YES</string>
+				<key>GCC_WARN_SIGN_COMPARE</key>
+				<string>YES</string>
+				<key>GCC_WARN_TYPECHECK_CALLS_TO_PRINTF</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_LABEL</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VALUE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>RUN_CLANG_STATIC_ANALYZER</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>65CC5756196FF827001B189F</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_MISSING_NEWLINE</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES</string>
+				<key>GCC_WARN_CHECK_SWITCH_STATEMENTS</key>
+				<string>YES</string>
+				<key>GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED</key>
+				<string>YES</string>
+				<key>GCC_WARN_MISSING_PARENTHESES</key>
+				<string>YES</string>
+				<key>GCC_WARN_SHADOW</key>
+				<string>YES</string>
+				<key>GCC_WARN_SIGN_COMPARE</key>
+				<string>YES</string>
+				<key>GCC_WARN_TYPECHECK_CALLS_TO_PRINTF</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_LABEL</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VALUE</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>RUN_CLANG_STATIC_ANALYZER</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>65CC5757196FF827001B189F</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>65CC5758196FF827001B189F</string>
+				<string>65CC5759196FF827001B189F</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>65CC5758196FF827001B189F</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>PopTipDemo/PopTipDemo-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>PopTipDemo/PopTipDemo-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>65CC5759196FF827001B189F</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>PopTipDemo/PopTipDemo-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>PopTipDemo/PopTipDemo-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>65CC575A196FF827001B189F</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>65CC575B196FF827001B189F</string>
+				<string>65CC575C196FF827001B189F</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>65CC575B196FF827001B189F</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>6E86E387C90A4434B4E1F245</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/PopTipDemo.app/PopTipDemo</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>PopTipDemo/PopTipDemo-Prefix.pch</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>INFOPLIST_FILE</key>
+				<string>PopTipDemoTests/PopTipDemoTests-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>65CC575C196FF827001B189F</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>6E86E387C90A4434B4E1F245</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>BUNDLE_LOADER</key>
+				<string>$(BUILT_PRODUCTS_DIR)/PopTipDemo.app/PopTipDemo</string>
+				<key>FRAMEWORK_SEARCH_PATHS</key>
+				<array>
+					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
+					<string>$(inherited)</string>
+					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
+				</array>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>PopTipDemo/PopTipDemo-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>PopTipDemoTests/PopTipDemoTests-Info.plist</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TEST_HOST</key>
+				<string>$(BUNDLE_LOADER)</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>xctest</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>65CC575D196FF884001B189F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>65CC575E196FF8B5001B189F</string>
+				<string>65CC575F196FF8B5001B189F</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>AMPopTip</string>
+			<key>path</key>
+			<string>../../AMPopTip</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC575E196FF8B5001B189F</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>AMPopTip.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC575F196FF8B5001B189F</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>AMPopTip.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>65CC5760196FF8B5001B189F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>65CC575F196FF8B5001B189F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>6E86E387C90A4434B4E1F245</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods-PopTipDemoTests.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Pods-PopTipDemoTests.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>70C61442D9724946A074A875</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Warn for TODO and FIXME comments</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>KEYWORDS="TODO:|FIXME:|\?\?\?:|\!\!\!:"
+FILE_EXTENSIONS="h|m|mm|c|cpp"
+find -E "${SRCROOT}" -ipath "${SRCROOT}/pods" -prune -o \( -regex ".*\.($FILE_EXTENSIONS)$" \) -print0 | xargs -0 egrep --with-filename --line-number --only-matching "($KEYWORDS).*\$" | perl -p -e "s/($KEYWORDS)/ warning: \$1/"
+</string>
+		</dict>
+		<key>FB9B1B1D22C14998970C7DCC</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>65CC571D196FF827001B189F</string>
+</dict>
+</plist>

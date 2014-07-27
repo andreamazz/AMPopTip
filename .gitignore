@@ -21,11 +21,15 @@ build/
 *~
 *.dat
 *.dep
-# Cocoapods
-Pods
+
 # AppCode specific files
 .idea/
 *.iml
 
 *.swp
 *.orig
+
+#CocoaPods
+Pods
+*.xcworkspace
+

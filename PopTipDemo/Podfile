@@ -1,0 +1,13 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, "6.0"
+
+target "PopTipDemo" do
+
+end
+
+target "PopTipDemoTests" do
+  pod 'Specta', '~> 0.2.1'
+  pod 'Expecta', '~> 0.3.1'
+  pod 'Expecta+Snapshots', '~> 1.0'
+end
+

@@ -20,6 +20,10 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * -----------------------------------------------------------------------------
  */
 
+/** Create a popotip
+ *
+ * Create a new popotip object
+ */
 + (instancetype)popTip;
 
 /** Show the popover
