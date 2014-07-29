@@ -19,6 +19,10 @@ SpecBegin(PopTipDemoTests)
 
 describe(@"AMPopTip", ^{
    
+    beforeAll(^{
+        setGlobalReferenceImageDir(FB_REFERENCE_IMAGE_DIR);
+    });
+    
     it(@"Top left", ^{
         UIViewController *controller = [[UIViewController alloc] init];
         
