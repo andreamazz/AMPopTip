@@ -74,7 +74,7 @@
         self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.arrowSize.width);
     }
     if (self.direction == AMPopTipDirectionRight) {
-        self.maxWidth = MIN(self.maxWidth, self.containerView.frame.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
+        self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
     }
 
     self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
@@ -90,7 +90,7 @@
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
         if (x < 0) { x = 0; }
-        if (x + frame.size.width > self.containerView.frame.size.width) { x = self.containerView.frame.size.width - frame.size.width; }
+        if (x + frame.size.width > self.containerView.bounds.size.width) { x = self.containerView.bounds.size.width - frame.size.width; }
         if (self.direction == AMPopTipDirectionDown) {
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height };
         } else {
@@ -110,7 +110,7 @@
         CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
         
         if (y < 0) { y = 0; }
-        if (y + frame.size.height > self.containerView.frame.size.height) { y = self.containerView.frame.size.height - frame.size.height; }
+        if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height; }
         frame.origin = (CGPoint){ x, y };
     }
     
