@@ -66,6 +66,11 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
+/** Text Alignment
+ *  Holds the NSTextAlignment of the text
+ */
+@property (nonatomic, assign) NSTextAlignment textAlignment UI_APPEARANCE_SELECTOR;
+
 /** Popover Background Color
  *
  * Holds the UIColor for the popover's background

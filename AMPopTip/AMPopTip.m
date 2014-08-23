@@ -49,7 +49,7 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        _paragraphStyle.alignment = NSTextAlignmentCenter;
+        _textAlignment = NSTextAlignmentCenter;
         _font = kDefaultFont;
         _textColor = kDefaultTextColor;
         _popoverColor = kDefaultBackgroundColor;
@@ -257,6 +257,8 @@
             break;
         }
     }
+    
+    self.paragraphStyle.alignment = self.textAlignment;
     
     NSDictionary *titleAttributes = @{
                            NSParagraphStyleAttributeName: self.paragraphStyle,
