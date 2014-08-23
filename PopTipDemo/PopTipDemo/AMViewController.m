@@ -30,7 +30,6 @@
     [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
 
     self.popTip = [AMPopTip popTip];
-    self.popTip.textAlignment = NSTextAlignmentLeft;
 }
 
 - (IBAction)actionButton:(UIButton *)sender
