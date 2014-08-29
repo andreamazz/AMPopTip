@@ -290,15 +290,17 @@
 
 - (void)hide
 {
-    [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [self removeFromSuperview];
-            self.transform = CGAffineTransformIdentity;
-            self->_isVisible = NO;
-        }
-    }];
+    if (self.superview) {
+        [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self removeFromSuperview];
+                self.transform = CGAffineTransformIdentity;
+                self->_isVisible = NO;
+            }
+        }];
+    }
 }
 
 @end
