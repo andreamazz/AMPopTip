@@ -299,6 +299,14 @@
     } completion:nil];
 }
 
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
+{
+    [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self hide];
+    });
+}
+
 - (void)hide
 {
     if (self.superview) {
