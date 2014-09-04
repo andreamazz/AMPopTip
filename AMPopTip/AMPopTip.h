@@ -114,4 +114,10 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign, readonly) BOOL isVisible;
 
+/** Dismiss on tap
+ *
+ * A boolean value that determines wether the poptip is dismissed on tap.
+ */
+@property (nonatomic, assign) BOOL shouldDismissOnTap;
+
 @end

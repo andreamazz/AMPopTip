@@ -30,6 +30,7 @@
     [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
 
     self.popTip = [AMPopTip popTip];
+    self.popTip.shouldDismissOnTap = YES;
 }
 
 - (IBAction)actionButton:(UIButton *)sender

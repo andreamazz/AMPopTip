@@ -22,11 +22,12 @@
 @interface AMPopTip()
 
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, assign) AMPopTipDirection direction;
+@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
+@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
 @property (nonatomic, weak  ) UIView *containerView;
+@property (nonatomic, assign) AMPopTipDirection direction;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGPoint arrowPosition;
-@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
 
@@ -166,7 +167,17 @@
     self.backgroundColor = [UIColor clearColor];
     self.frame = frame;
     
+    self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer:self.gestureRecognizer];
+    
     [self setNeedsDisplay];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture
+{
+    if (self.shouldDismissOnTap) {
+        [self hide];
+    }
 }
 
 - (void)drawRect:(CGRect)rect
