@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "AMPopTip"
-  s.version      = "0.4"
+  s.version      = "0.4.1"
   s.summary      = "Animated popover, great for subtle UI tips and onboarding."
 
   s.description  = <<-DESC
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/andreamazz/AMPopTip"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Andrea Mazzini" => "andrea.mazzini@gmail.com" }
-  s.source       = { :git => "https://github.com/andreamazz/AMPopTip.git", :tag => '0.4' }
+  s.source       = { :git => "https://github.com/andreamazz/AMPopTip.git", :tag => '0.4.1' }
   s.platform     = :ios, '7.0'
   s.source_files = 'AMPopTip', '*.{h,m}'
   s.requires_arc = true
