@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) NSTimer *dismissTimer;
 @property (nonatomic, weak  ) UIView *containerView;
 @property (nonatomic, assign) AMPopTipDirection direction;
 @property (nonatomic, assign) CGRect textBounds;
@@ -302,13 +303,18 @@
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
 {
     [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self hide];
-    });
+    [self.dismissTimer invalidate];
+    self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                         target:self
+                                                       selector:@selector(hide)
+                                                       userInfo:nil 
+                                                        repeats:NO];
 }
 
 - (void)hide
 {
+    [self.dismissTimer invalidate];
+    self.dismissTimer = nil;
     if (self.superview) {
         [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
