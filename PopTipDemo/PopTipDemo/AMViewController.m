@@ -55,7 +55,9 @@
     }
     if (sender == self.buttonBottomRight) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.81 green:0.04 blue:0.14 alpha:1];
-        [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:@"I'm a popover popping over" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17]}];
+        [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"with attributes!" attributes:@{NSForegroundColorAttributeName: [UIColor greenColor]}]];
+        [self.popTip showAttributedText:attributedText direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonCenter) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
