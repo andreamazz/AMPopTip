@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * Shows an animated popover in a given view, from a given rectangle.
  * The property isVisible will be set as YES as soon as the popover is added to the given view.
  *
- * @param text The text displayed.
+ * @param text The attributed text displayed.
  * @param direction The direction of the popover.
  * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
  * @param view The view that will hold the popover.
@@ -69,6 +69,18 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
 
+/** Show the popover
+ *
+ * Shows an animated popover in a given view, from a given rectangle.
+ * The property isVisible will be set as YES as soon as the popover is added to the given view.
+ *
+ * @param text The attributed text displayed.
+ * @param direction The direction of the popover.
+ * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
+ * @param view The view that will hold the popover.
+ * @param frame The originating frame. The popover's arrow will point to the center of this frame.
+ * @param interval The time interval that determines when the poptip will self-dismiss
+ */
 - (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
 
 /** Hide the popover
