@@ -33,6 +33,8 @@
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
 
+@property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
+
 @end
 
 @implementation AMPopTip
@@ -62,6 +64,8 @@
         _animationIn = kDefaultAnimationIn;
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
+        
+        _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
     }
     return self;
 }
@@ -302,7 +306,11 @@
     
     [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
-    } completion:nil];
+    } completion:^(BOOL completed){
+        if (completed) {
+            [self.containerView addGestureRecognizer:self.removeGesture];
+        }
+    }];
 }
 
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
@@ -355,6 +363,7 @@
 {
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
+    [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
         [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
