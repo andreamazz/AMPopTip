@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSAttributedString *attributedText;
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
 @property (nonatomic, strong) NSTimer *dismissTimer;
 @property (nonatomic, weak  ) UIView *containerView;
 @property (nonatomic, assign) AMPopTipDirection direction;
@@ -32,8 +33,6 @@
 @property (nonatomic, assign) CGPoint arrowPosition;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
-
-@property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
 
 @end
 
@@ -83,7 +82,7 @@
     if (self.direction == AMPopTipDirectionRight) {
         self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
     }
-
+    
     if (self.text != nil) {
         self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                                   options:NSStringDrawingUsesLineFragmentOrigin
@@ -91,8 +90,8 @@
                                                   context:nil];
     } else if (self.attributedText != nil) {
         self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
-                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                                  context:nil];
+                                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                                            context:nil];
     }
     
     _textBounds.origin = (CGPoint){self.padding, self.padding};
@@ -111,7 +110,7 @@
         }
     } else {
         frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0};
-
+        
         CGFloat x = 0;
         if (self.direction == AMPopTipDirectionLeft) {
             x = self.fromFrame.origin.x - frame.size.width;
@@ -190,6 +189,9 @@
     if (self.shouldDismissOnTap) {
         [self hide];
     }
+    if (self.tapHandler) {
+        self.tapHandler();
+    }
 }
 
 - (void)drawRect:(CGRect)rect
@@ -221,7 +223,7 @@
         }
         case AMPopTipDirectionUp: {
             baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
-
+            
             [arrow moveToPoint:self.arrowPosition];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
             [arrow addLineToPoint:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height }];
@@ -261,7 +263,7 @@
         }
         case AMPopTipDirectionRight: {
             baloonFrame = (CGRect){ (CGPoint) { self.arrowSize.width, 0 }, (CGSize){ self.frame.size.width - self.arrowSize.width, self.frame.size.height } };
-
+            
             [arrow moveToPoint:self.arrowPosition];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width, self.arrowPosition.y - self.arrowSize.height / 2 }];
             [arrow addLineToPoint:(CGPoint){ baloonFrame.origin.x, baloonFrame.origin.y + self.radius }];
@@ -284,10 +286,10 @@
     self.paragraphStyle.alignment = self.textAlignment;
     
     NSDictionary *titleAttributes = @{
-                           NSParagraphStyleAttributeName: self.paragraphStyle,
-                           NSFontAttributeName: self.font,
-                           NSForegroundColorAttributeName: self.textColor
-                           };
+                                      NSParagraphStyleAttributeName: self.paragraphStyle,
+                                      NSFontAttributeName: self.font,
+                                      NSForegroundColorAttributeName: self.textColor
+                                      };
     
     if (self.text != nil) {
         [self.text drawInRect:self.textBounds withAttributes:titleAttributes];
@@ -344,7 +346,7 @@
     self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                          target:self
                                                        selector:@selector(hide)
-                                                       userInfo:nil 
+                                                       userInfo:nil
                                                         repeats:NO];
 }
 

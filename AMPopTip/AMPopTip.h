@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^AMTapBlock)();
+
 typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionUp,
     AMPopTipDirectionDown,
@@ -161,5 +163,11 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * A boolean value that determines wether the poptip is dismissed on tap.
  */
 @property (nonatomic, assign) BOOL shouldDismissOnTap;
+
+/** Tap handler
+ *
+ * A block that will be fired when the user taps the popover.
+ */
+@property (nonatomic, copy) void (^tapHandler)();
 
 @end
