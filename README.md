@@ -43,6 +43,12 @@ You can also let the user dismiss the popover by tapping on it:
 ```objc
 self.popTip.shouldDismissOnTap = YES;
 ```
+You can add a block that will be fired when the user taps the popover:
+```objc
+self.popTip.tapHandler = ^{
+     NSLog(@"Popover selected!");
+};
+```
 
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
