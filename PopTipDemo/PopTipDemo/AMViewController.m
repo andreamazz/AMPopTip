@@ -28,8 +28,9 @@
     [super viewDidLoad];
     
     [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
-    
+
     self.popTip = [AMPopTip popTip];
+    self.popTip.shouldDismissOnTap = YES;
 }
 
 - (IBAction)actionButton:(UIButton *)sender
@@ -54,12 +55,14 @@
     }
     if (sender == self.buttonBottomRight) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.81 green:0.04 blue:0.14 alpha:1];
-        [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
+        NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:@"I'm a popover popping over" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17]}];
+        [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"with attributes!" attributes:@{NSForegroundColorAttributeName: [UIColor greenColor]}]];
+        [self.popTip showAttributedText:attributedText direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonCenter) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
         static int direction = 0;
-        [self.popTip showText:@"Animated popover, great for subtle UI tips and onboarding" direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame];
+        [self.popTip showText:@"Animated popover, great for subtle UI tips and onboarding" direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:2];
         direction = (direction + 1) % 4;
     }
 }

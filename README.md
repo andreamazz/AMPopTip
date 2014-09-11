@@ -21,10 +21,27 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 * Run ```open App.xcworkspace```
 
 #Usage
+The API is fairly straight forward, you can show and hide the popover at any time.
+
+##Showing the popover
 You must specify the text that you want to display alongside the popover direction, its max width, the view that will contain it and the frame of the view that the popover's arrow will point to.
 ```objc
 self.popTip = [AMPopTip popTip];
 [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame];
+```
+
+##Dismissing the popover
+You can hide the popover by calling:
+```objc
+[self.popTip hide];
+```
+Or you can specify the duration of the popover:
+```objc
+[self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame duration:3];
+```
+You can also let the user dismiss the popover by tapping on it:
+```objc
+self.popTip.shouldDismissOnTap = YES;
 ```
 
 #Customization

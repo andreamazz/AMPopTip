@@ -22,13 +22,18 @@
 @interface AMPopTip()
 
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, assign) AMPopTipDirection direction;
+@property (nonatomic, strong) NSAttributedString *attributedText;
+@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
+@property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) NSTimer *dismissTimer;
 @property (nonatomic, weak  ) UIView *containerView;
+@property (nonatomic, assign) AMPopTipDirection direction;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGPoint arrowPosition;
-@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGRect fromFrame;
+
+@property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
 
 @end
 
@@ -49,7 +54,7 @@
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        _paragraphStyle.alignment = NSTextAlignmentCenter;
+        _textAlignment = NSTextAlignmentCenter;
         _font = kDefaultFont;
         _textColor = kDefaultTextColor;
         _popoverColor = kDefaultBackgroundColor;
@@ -59,6 +64,8 @@
         _animationIn = kDefaultAnimationIn;
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
+        
+        _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
     }
     return self;
 }
@@ -77,10 +84,16 @@
         self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
     }
 
-    self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:@{NSFontAttributeName: self.font}
-                                              context:nil];
+    if (self.text != nil) {
+        self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:@{NSFontAttributeName: self.font}
+                                                  context:nil];
+    } else if (self.attributedText != nil) {
+        self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                                  context:nil];
+    }
     
     _textBounds.origin = (CGPoint){self.padding, self.padding};
     
@@ -166,7 +179,17 @@
     self.backgroundColor = [UIColor clearColor];
     self.frame = frame;
     
+    self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self addGestureRecognizer:self.gestureRecognizer];
+    
     [self setNeedsDisplay];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture
+{
+    if (self.shouldDismissOnTap) {
+        [self hide];
+    }
 }
 
 - (void)drawRect:(CGRect)rect
@@ -258,45 +281,100 @@
         }
     }
     
+    self.paragraphStyle.alignment = self.textAlignment;
+    
     NSDictionary *titleAttributes = @{
                            NSParagraphStyleAttributeName: self.paragraphStyle,
                            NSFontAttributeName: self.font,
                            NSForegroundColorAttributeName: self.textColor
                            };
     
-    [self.text drawInRect:self.textBounds withAttributes:titleAttributes];
+    if (self.text != nil) {
+        [self.text drawInRect:self.textBounds withAttributes:titleAttributes];
+    } else if (self.attributedText != nil) {
+        [self.attributedText drawInRect:self.textBounds];
+    }
 }
 
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
+- (void)show
 {
-    self.text = text;
-    self.direction = direction;
-    self.containerView = view;
-    self.maxWidth = maxWidth;
-    self.fromFrame = frame;
-    
     [self setNeedsLayout];
-
+    
     self.transform = CGAffineTransformMakeScale(0, 0);
     [self.containerView addSubview:self];
     _isVisible = YES;
     
     [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
-    } completion:nil];
+    } completion:^(BOOL completed){
+        if (completed) {
+            [self.containerView addGestureRecognizer:self.removeGesture];
+        }
+    }];
+}
+
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
+{
+    self.attributedText = nil;
+    self.text = text;
+    self.direction = direction;
+    self.containerView = view;
+    self.maxWidth = maxWidth;
+    self.fromFrame = frame;
+    
+    [self show];
+}
+
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
+{
+    self.text = nil;
+    self.attributedText = text;
+    self.direction = direction;
+    self.containerView = view;
+    self.maxWidth = maxWidth;
+    self.fromFrame = frame;
+    
+    [self show];
+}
+
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
+{
+    [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
+    [self.dismissTimer invalidate];
+    self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                         target:self
+                                                       selector:@selector(hide)
+                                                       userInfo:nil 
+                                                        repeats:NO];
+}
+
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
+{
+    [self showAttributedText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
+    [self.dismissTimer invalidate];
+    self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                         target:self
+                                                       selector:@selector(hide)
+                                                       userInfo:nil
+                                                        repeats:NO];
 }
 
 - (void)hide
 {
-    [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [self removeFromSuperview];
-            self.transform = CGAffineTransformIdentity;
-            self->_isVisible = NO;
-        }
-    }];
+    [self.dismissTimer invalidate];
+    self.dismissTimer = nil;
+    [self.containerView removeGestureRecognizer:self.removeGesture];
+    if (self.superview) {
+        [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self removeFromSuperview];
+                self.transform = CGAffineTransformIdentity;
+                self->_isVisible = NO;
+            }
+        }];
+    }
 }
 
 @end
