@@ -160,9 +160,15 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
 
 /** Dismiss on tap
  *
- * A boolean value that determines wether the poptip is dismissed on tap.
+ * A boolean value that determines whether the poptip is dismissed on tap.
  */
 @property (nonatomic, assign) BOOL shouldDismissOnTap;
+
+/** Dismiss on tap outside
+ *
+ * A boolean value that determines whether to dismiss when tapping outside the popover.
+ */
+@property (nonatomic, assign) BOOL shouldDismissOnTapOutside;
 
 /** Tap handler
  *
