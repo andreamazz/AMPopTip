@@ -63,6 +63,7 @@
         _animationIn = kDefaultAnimationIn;
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
+        _shouldDismissOnTapOutside = YES;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
     }
@@ -310,7 +311,9 @@
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
-            [self.containerView addGestureRecognizer:self.removeGesture];
+            if (_shouldDismissOnTapOutside) {
+                [self.containerView addGestureRecognizer:self.removeGesture];
+            }
         }
     }];
 }
