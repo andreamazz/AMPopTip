@@ -65,7 +65,7 @@
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
         
-        _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
+        _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
     return self;
 }
@@ -195,6 +195,13 @@
     }
 }
 
+- (void)removeGestureHandler
+{
+    if (self.shouldDismissOnTapOutside) {
+        [self hide];
+    }
+}
+
 - (void)drawRect:(CGRect)rect
 {
     UIBezierPath *arrow = [[UIBezierPath alloc] init];
@@ -311,9 +318,7 @@
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
-            if (_shouldDismissOnTapOutside) {
-                [self.containerView addGestureRecognizer:self.removeGesture];
-            }
+            [self.containerView addGestureRecognizer:self.removeGesture];
         }
     }];
 }
