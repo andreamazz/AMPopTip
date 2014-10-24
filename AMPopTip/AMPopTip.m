@@ -70,6 +70,11 @@
     return self;
 }
 
+- (void)dealloc{
+  [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
+  _removeGesture = nil;
+}
+
 - (void)layoutSubviews
 {
     [self setup];
