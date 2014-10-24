@@ -40,7 +40,7 @@ class Popover: UIView {
         loadDefaults()
 
         // The text bound is the rect that contains the label, it will be drawn at (padding, padding)
-        self.textBound = text.boundingRectWithSize(CGSize(width: maxWidth, height: DBL_MAX), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(name: "Futura", size: 12)], context: nil)
+        self.textBound = text.boundingRectWithSize(CGSize(width: maxWidth, height: FLT_MAX), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(name: "Futura", size: 12)], context: nil)
 
         self.textBound.origin = CGPoint(x: self.padding, y: self.padding)
 
