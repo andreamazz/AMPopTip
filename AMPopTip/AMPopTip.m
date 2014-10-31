@@ -70,6 +70,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
+    _removeGesture = nil;
+}
+
 - (void)setPadding:(CGFloat)padding
 {
     _padding = _horizontalPadding = _verticalPadding = padding;
@@ -356,22 +362,26 @@
 {
     [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
-    self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
-                                                         target:self
-                                                       selector:@selector(hide)
-                                                       userInfo:nil
-                                                        repeats:NO];
+    if (interval > 0) {
+        self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                             target:self
+                                                           selector:@selector(hide)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    }
 }
 
 - (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
 {
     [self showAttributedText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
-    self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
-                                                         target:self
-                                                       selector:@selector(hide)
-                                                       userInfo:nil
-                                                        repeats:NO];
+    if(interval > 0){
+        self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                             target:self
+                                                           selector:@selector(hide)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    }
 }
 
 - (void)hide
