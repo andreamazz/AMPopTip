@@ -49,6 +49,12 @@ self.popTip.tapHandler = ^{
      NSLog(@"Popover selected!");
 };
 ```
+Or a block that will be fired after the dismiss (manual or automatic):
+```objc
+self.popTip.dismissHandler = ^{
+    NSLog(@"Dismissed!");
+};
+```
 
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:

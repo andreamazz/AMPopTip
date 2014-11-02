@@ -391,6 +391,9 @@
                 [self removeFromSuperview];
                 self.transform = CGAffineTransformIdentity;
                 self->_isVisible = NO;
+                if (self.dismissHandler) {
+                    self.dismissHandler();
+                }
             }
         }];
     }
