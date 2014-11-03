@@ -34,6 +34,9 @@
     self.popTip.tapHandler = ^{
         NSLog(@"Tap!");
     };
+    self.popTip.dismissHandler = ^{
+        NSLog(@"Dismiss!");
+    };
 }
 
 - (IBAction)actionButton:(UIButton *)sender

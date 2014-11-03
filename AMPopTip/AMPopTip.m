@@ -330,6 +330,9 @@
     } completion:^(BOOL completed){
         if (completed) {
             [self.containerView addGestureRecognizer:self.removeGesture];
+            if (self.appearHandler) {
+                self.appearHandler();
+            }
         }
     }];
 }
@@ -397,6 +400,9 @@
                 [self removeFromSuperview];
                 self.transform = CGAffineTransformIdentity;
                 self->_isVisible = NO;
+                if (self.dismissHandler) {
+                    self.dismissHandler();
+                }
             }
         }];
     }

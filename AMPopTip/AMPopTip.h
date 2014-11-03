@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^AMTapBlock)();
-
 typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionUp,
     AMPopTipDirectionDown,
@@ -187,5 +185,17 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * A block that will be fired when the user taps the popover.
  */
 @property (nonatomic, copy) void (^tapHandler)();
+
+/** Dismiss handler
+ *
+ * A block that will be fired when the popover appears.
+ */
+@property (nonatomic, copy) void (^appearHandler)();
+
+/** Dismiss handler
+ *
+ * A block that will be fired when the popover is dismissed.
+ */
+@property (nonatomic, copy) void (^dismissHandler)();
 
 @end
