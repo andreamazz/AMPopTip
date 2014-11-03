@@ -176,6 +176,12 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
 
 /** Dismiss handler
  *
+ * A block that will be fired when the popover appears.
+ */
+@property (nonatomic, copy) void (^appearHandler)();
+
+/** Dismiss handler
+ *
  * A block that will be fired when the popover is dismissed.
  */
 @property (nonatomic, copy) void (^dismissHandler)();

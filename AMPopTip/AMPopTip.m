@@ -324,6 +324,9 @@
     } completion:^(BOOL completed){
         if (completed) {
             [self.containerView addGestureRecognizer:self.removeGesture];
+            if (self.appearHandler) {
+                self.appearHandler();
+            }
         }
     }];
 }
