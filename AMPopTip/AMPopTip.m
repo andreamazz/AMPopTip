@@ -319,7 +319,7 @@
     [self.containerView addSubview:self];
     _isVisible = YES;
     
-    [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
@@ -387,7 +387,7 @@
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
-        [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
         } completion:^(BOOL finished) {
             if (finished) {
