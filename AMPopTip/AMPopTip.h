@@ -168,6 +168,12 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign, readonly) BOOL isVisible;
 
+/**
+ * margin from edge 
+ */
+@property (nonatomic, assign) CGFloat edgeMargin UI_APPEARANCE_SELECTOR;
+
+
 /** Dismiss on tap
  *
  * A boolean value that determines whether the poptip is dismissed on tap.
