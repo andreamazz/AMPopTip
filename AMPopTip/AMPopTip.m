@@ -336,6 +336,7 @@
 {
     self.attributedText = nil;
     self.text = text;
+    self.accessibilityLabel = text;
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
@@ -348,6 +349,7 @@
 {
     self.text = nil;
     self.attributedText = text;
+    self.accessibilityLabel = [text string];
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
