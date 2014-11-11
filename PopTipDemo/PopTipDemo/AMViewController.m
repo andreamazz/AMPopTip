@@ -31,6 +31,7 @@
     
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
+    self.popTip.edgeMargin = 5;
     self.popTip.tapHandler = ^{
         NSLog(@"Tap!");
     };

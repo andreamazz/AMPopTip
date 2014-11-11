@@ -64,6 +64,7 @@
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
+        _edgeMargin = 0;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
@@ -107,8 +108,8 @@
         frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 + self.arrowSize.height};
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
-        if (x < 0) { x = 0; }
-        if (x + frame.size.width > self.containerView.bounds.size.width) { x = self.containerView.bounds.size.width - frame.size.width; }
+        if (x < 0) { x = self.edgeMargin; }
+        if (x + frame.size.width > self.containerView.bounds.size.width) { x = self.containerView.bounds.size.width - frame.size.width - self.edgeMargin; }
         if (self.direction == AMPopTipDirectionDown) {
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height };
         } else {
@@ -127,8 +128,8 @@
         
         CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
         
-        if (y < 0) { y = 0; }
-        if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height; }
+        if (y < 0) { y = self.edgeMargin; }
+        if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
     }
     
