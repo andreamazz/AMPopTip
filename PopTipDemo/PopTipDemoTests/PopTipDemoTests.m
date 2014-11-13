@@ -7,11 +7,11 @@
 //
 
 #define EXP_SHORTHAND
-#include <Specta/Specta.h>
-#include <Expecta/Expecta.h>
-#include <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
+#import <Specta/Specta.h>
+#import <Expecta/Expecta.h>
+#import <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
 
-#include "AMPopTip.h"
+#import "AMPopTip.h"
 
 SpecBegin(PopTipDemoTests)
 

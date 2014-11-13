@@ -64,6 +64,7 @@
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
         self.padding = kDefaultPadding;
+        _edgeMargin = 0;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
@@ -113,8 +114,8 @@
         frame.size = (CGSize){self.textBounds.size.width + self.horizontalPadding * 2.0, self.textBounds.size.height + self.verticalPadding * 2.0 + self.arrowSize.height};
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
-        if (x < 0) { x = 0; }
-        if (x + frame.size.width > self.containerView.bounds.size.width) { x = self.containerView.bounds.size.width - frame.size.width; }
+        if (x < 0) { x = self.edgeMargin; }
+        if (x + frame.size.width > self.containerView.bounds.size.width) { x = self.containerView.bounds.size.width - frame.size.width - self.edgeMargin; }
         if (self.direction == AMPopTipDirectionDown) {
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y + self.fromFrame.size.height };
         } else {
@@ -133,8 +134,8 @@
         
         CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
         
-        if (y < 0) { y = 0; }
-        if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height; }
+        if (y < 0) { y = self.edgeMargin; }
+        if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
     }
     
@@ -325,7 +326,7 @@
     [self.containerView addSubview:self];
     _isVisible = YES;
     
-    [UIView animateWithDuration:self.animationIn delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
@@ -341,6 +342,7 @@
 {
     self.attributedText = nil;
     self.text = text;
+    self.accessibilityLabel = text;
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
@@ -353,6 +355,7 @@
 {
     self.text = nil;
     self.attributedText = text;
+    self.accessibilityLabel = [text string];
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
@@ -393,7 +396,7 @@
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
-        [UIView animateWithDuration:self.animationOut delay:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
         } completion:^(BOOL finished) {
             if (finished) {

@@ -161,12 +161,30 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) NSTimeInterval animationOut UI_APPEARANCE_SELECTOR;
 
+/** Revealing Animation delay
+ *
+ * Holds the NSTimeInterval with the delay of the revealing animation
+ */
+@property (nonatomic, assign) NSTimeInterval delayIn UI_APPEARANCE_SELECTOR;
+
+/** Disappearing Animation delay
+ *
+ * Holds the NSTimeInterval with the delay of the disappearing animation
+ */
+@property (nonatomic, assign) NSTimeInterval delayOut UI_APPEARANCE_SELECTOR;
+
 /** Visibility
  *
  * Holds the readonly BOOL with the popover visiblity. The popover is considered visible as soon as
  * it's added as a subview, and invisible when the subview is removed from its parent.
  */
 @property (nonatomic, assign, readonly) BOOL isVisible;
+
+/** Margin from the left efge
+ *
+ * CGfloat value that determines the leftmost margin from the screen
+ */
+@property (nonatomic, assign) CGFloat edgeMargin UI_APPEARANCE_SELECTOR;
 
 /** Dismiss on tap
  *
