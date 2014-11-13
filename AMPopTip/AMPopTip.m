@@ -58,12 +58,12 @@
         _textColor = kDefaultTextColor;
         _popoverColor = kDefaultBackgroundColor;
         _radius = kDefaultRadius;
-        _padding = kDefaultPadding;
         _arrowSize = kDefaultArrowSize;
         _animationIn = kDefaultAnimationIn;
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
+        self.padding = kDefaultPadding;
         _edgeMargin = 0;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
@@ -71,9 +71,15 @@
     return self;
 }
 
-- (void)dealloc{
-  [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
-  _removeGesture = nil;
+- (void)dealloc
+{
+    [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
+    _removeGesture = nil;
+}
+
+- (void)setPadding:(CGFloat)padding
+{
+    _padding = _horizontalPadding = _verticalPadding = padding;
 }
 
 - (void)layoutSubviews
@@ -84,10 +90,10 @@
 - (void)setup
 {
     if (self.direction == AMPopTipDirectionLeft) {
-        self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.arrowSize.width);
+        self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.horizontalPadding * 2 - self.arrowSize.width);
     }
     if (self.direction == AMPopTipDirectionRight) {
-        self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
+        self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.horizontalPadding * 2 - self.arrowSize.width);
     }
     
     if (self.text != nil) {
@@ -101,11 +107,11 @@
                                                             context:nil];
     }
     
-    _textBounds.origin = (CGPoint){self.padding, self.padding};
+    _textBounds.origin = (CGPoint){self.horizontalPadding, self.verticalPadding};
     
     CGRect frame = CGRectZero;
     if (self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionDown) {
-        frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 + self.arrowSize.height};
+        frame.size = (CGSize){self.textBounds.size.width + self.horizontalPadding * 2.0, self.textBounds.size.height + self.verticalPadding * 2.0 + self.arrowSize.height};
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
         if (x < 0) { x = self.edgeMargin; }
@@ -116,7 +122,7 @@
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y - frame.size.height};
         }
     } else {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0};
+        frame.size = (CGSize){ self.textBounds.size.width + self.horizontalPadding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.verticalPadding * 2.0};
         
         CGFloat x = 0;
         if (self.direction == AMPopTipDirectionLeft) {

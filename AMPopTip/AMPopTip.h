@@ -131,6 +131,18 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) CGFloat padding UI_APPEARANCE_SELECTOR;
 
+/** Text Vertical Padding
+ *
+ * Holds the CGFloat with the vertical padding used for the inner text
+ */
+@property (nonatomic, assign) CGFloat verticalPadding UI_APPEARANCE_SELECTOR;
+
+/** Text Horizontal Padding
+ *
+ * Holds the CGFloat with the horizontal padding used for the inner text
+ */
+@property (nonatomic, assign) CGFloat horizontalPadding UI_APPEARANCE_SELECTOR;
+
 /** Arrow size
  *
  * Holds the CGSize with the width and height of the arrow
