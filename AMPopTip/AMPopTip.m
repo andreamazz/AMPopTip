@@ -115,7 +115,7 @@
         } else {
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y - frame.size.height};
         }
-    } else {
+    } else if (self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight) {
         frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0};
         
         CGFloat x = 0;
@@ -131,9 +131,18 @@
         if (y < 0) { y = self.edgeMargin; }
         if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
+    } else {
+        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 };
+        frame.origin = (CGPoint){ CGRectGetMidX(self.fromFrame) - frame.size.width / 2, CGRectGetMidY(self.fromFrame) - frame.size.height / 2 };
     }
     
     switch (self.direction) {
+        case AMPopTipDirectionNone: {
+            self.arrowPosition = CGPointZero;
+            self.layer.anchorPoint = (CGPoint){ 0.5, 0.5 };
+            self.layer.position = (CGPoint){ CGRectGetMidX(self.fromFrame), CGRectGetMidY(self.fromFrame) };
+            break;
+        }
         case AMPopTipDirectionDown: {
             self.arrowPosition = (CGPoint){
                 self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
@@ -215,6 +224,15 @@
     CGRect baloonFrame;
     // Drawing a round rect and the arrow alone sometime show a white halfpixel line, so here's a fun bit of code...
     switch (self.direction) {
+        case AMPopTipDirectionNone: {
+            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height } };
+            arrow = [UIBezierPath bezierPathWithRoundedRect:baloonFrame cornerRadius:self.radius];
+            
+            [self.popoverColor setFill];
+            [arrow fill];
+            
+            break;
+        }
         case AMPopTipDirectionDown: {
             baloonFrame = (CGRect){ (CGPoint) { 0, self.arrowSize.height }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
             

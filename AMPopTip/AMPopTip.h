@@ -12,7 +12,8 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionUp,
     AMPopTipDirectionDown,
     AMPopTipDirectionLeft,
-    AMPopTipDirectionRight
+    AMPopTipDirectionRight,
+    AMPopTipDirectionNone
 };
 
 @interface AMPopTip : UIView
