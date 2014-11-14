@@ -29,6 +29,10 @@ You must specify the text that you want to display alongside the popover directi
 self.popTip = [AMPopTip popTip];
 [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame];
 ```
+You can also display the popover in the center, with no arrow, in this case the `fromFrame` parameter will be the whole view:
+```objc
+[self.popTip showText:@"I'm a popover" direction:AMPopTipDirectionNone maxWidth:200 inView:self.view fromFrame:self.view.frame];
+```
 
 ##Dismissing the popover
 You can hide the popover by calling:
