@@ -18,6 +18,8 @@
 #define kDefaultArrowSize CGSizeMake(8, 8)
 #define kDefaultAnimationIn 0.4
 #define kDefaultAnimationOut 0.2
+#define kDefaultEdgeInsets UIEdgeInsetsZero
+#define kDefaultDistance 0
 
 @interface AMPopTip()
 
@@ -65,6 +67,9 @@
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
         _edgeMargin = 0;
+        _edgeInsets = kDefaultEdgeInsets;
+        _isRounded = NO;
+        _distance = kDefaultDistance;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
@@ -84,10 +89,10 @@
 - (void)setup
 {
     if (self.direction == AMPopTipDirectionLeft) {
-        self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.arrowSize.width);
+        self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.edgeInsets.left - self.edgeInsets.right - self.arrowSize.width);
     }
     if (self.direction == AMPopTipDirectionRight) {
-        self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.arrowSize.width);
+        self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.edgeInsets.left - self.edgeInsets.right - self.arrowSize.width);
     }
     
     if (self.text != nil) {
@@ -101,11 +106,13 @@
                                                             context:nil];
     }
     
-    _textBounds.origin = (CGPoint){self.padding, self.padding};
+    _textBounds.origin = (CGPoint){self.padding + self.edgeInsets.left, self.padding + self.edgeInsets.top};
     
     CGRect frame = CGRectZero;
+    float offset = self.distance * ((self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionNone) ? -1 : 1);
+    
     if (self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionDown) {
-        frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 + self.arrowSize.height};
+        frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom + self.arrowSize.height};
         
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
         if (x < 0) { x = self.edgeMargin; }
@@ -115,8 +122,11 @@
         } else {
             frame.origin = (CGPoint){ x, self.fromFrame.origin.y - frame.size.height};
         }
+        
+        frame.origin.y += offset;
+        
     } else if (self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight) {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0};
+        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom};
         
         CGFloat x = 0;
         if (self.direction == AMPopTipDirectionLeft) {
@@ -126,14 +136,16 @@
             x = self.fromFrame.origin.x + self.fromFrame.size.width;
         }
         
+        x += offset;
+        
         CGFloat y = self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.size.height / 2;
         
         if (y < 0) { y = self.edgeMargin; }
         if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
     } else {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0, self.textBounds.size.height + self.padding * 2.0 };
-        frame.origin = (CGPoint){ CGRectGetMidX(self.fromFrame) - frame.size.width / 2, CGRectGetMidY(self.fromFrame) - frame.size.height / 2 };
+        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom };
+        frame.origin = (CGPoint){ CGRectGetMidX(self.fromFrame) - frame.size.width / 2, CGRectGetMidY(self.fromFrame) - frame.size.height / 2 + offset };
     }
     
     switch (self.direction) {
@@ -146,7 +158,7 @@
         case AMPopTipDirectionDown: {
             self.arrowPosition = (CGPoint){
                 self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x,
-                self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y
+                self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y + offset
             };
             CGFloat anchor = self.arrowPosition.x / frame.size.width;
             _textBounds.origin = (CGPoint){ self.textBounds.origin.x, self.textBounds.origin.y + self.arrowSize.height };
@@ -168,7 +180,7 @@
         }
         case AMPopTipDirectionLeft: {
             self.arrowPosition = (CGPoint){
-                self.fromFrame.origin.x - frame.origin.x,
+                self.fromFrame.origin.x - frame.origin.x + offset,
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
             CGFloat anchor = self.arrowPosition.y / frame.size.height;
@@ -179,7 +191,7 @@
         }
         case AMPopTipDirectionRight: {
             self.arrowPosition = (CGPoint){
-                self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x,
+                self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x + offset,
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
             _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width, self.textBounds.origin.y };
@@ -220,6 +232,11 @@
 - (void)drawRect:(CGRect)rect
 {
     UIBezierPath *arrow = [[UIBezierPath alloc] init];
+    
+    if (self.isRounded) {
+        BOOL showHorizontally = self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight;
+        self.radius = (self.frame.size.height - (showHorizontally ? 0 : self.arrowSize.height)) / 2 ;
+    }
     
     CGRect baloonFrame;
     // Drawing a round rect and the arrow alone sometime show a white halfpixel line, so here's a fun bit of code...
@@ -338,7 +355,7 @@
     [self.containerView addSubview:self];
     _isVisible = YES;
     
-    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.5 initialSpringVelocity:3 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
@@ -421,6 +438,13 @@
             }
         }];
     }
+}
+
+- (void)setTextToPoptip:(NSString *)string
+{
+    self.text = string;
+    self.accessibilityLabel = string;
+    [self setNeedsLayout];
 }
 
 @end
