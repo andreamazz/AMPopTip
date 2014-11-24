@@ -126,11 +126,29 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) CGFloat radius UI_APPEARANCE_SELECTOR;
 
+/**
+ *
+ * Holds the setting with the popover, if isRounded = YES then radius = frame.height / 2
+ */
+@property (nonatomic, assign) BOOL isRounded;
+
+/**
+ *
+ * Holds the distance between the popover and origin
+ */
+@property (nonatomic, assign) float distance;
+
 /** Text Padding
  *
  * Holds the CGFloat with the padding used for the inner text
  */
 @property (nonatomic, assign) CGFloat padding UI_APPEARANCE_SELECTOR;
+
+/** Text EdgeInsets
+ *
+ * Holds the insets setting for padding different direction
+ */
+@property (nonatomic, assign) UIEdgeInsets edgeInsets;
 
 /** Arrow size
  *
@@ -204,5 +222,11 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * A block that will be fired when the popover is dismissed.
  */
 @property (nonatomic, copy) void (^dismissHandler)();
+
+/**
+ *
+ * Set new text to showing poptip
+ */
+- (void)setTextToPoptip:(NSString *)string;
 
 @end
