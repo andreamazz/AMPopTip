@@ -32,6 +32,8 @@
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
     self.popTip.edgeMargin = 5;
+    self.popTip.offset = 2;
+    self.popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     self.popTip.tapHandler = ^{
         NSLog(@"Tap!");
     };
@@ -73,8 +75,6 @@
     if (sender == self.buttonCenter) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.31 green:0.57 blue:0.87 alpha:1];
         static int direction = 0;
-        self.popTip.distance = 15;
-        self.popTip.edgeInsets = UIEdgeInsetsMake(0, 20, 0, 20);
         [self.popTip showText:@"Animated popover, great for subtle UI tips and onboarding" direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
         direction = (direction + 1) % 4;
     }

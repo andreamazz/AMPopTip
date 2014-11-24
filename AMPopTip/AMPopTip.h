@@ -91,6 +91,12 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 - (void)hide;
 
+/** Update the text
+ *
+ * Set the new text shown in the poptip
+ * @param text The new text
+ */
+- (void)updateText:(NSString *)text;
 
 /**-----------------------------------------------------------------------------
 * @name AMPopTip Properties
@@ -126,17 +132,17 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) CGFloat radius UI_APPEARANCE_SELECTOR;
 
-/**
+/** Rounded popover
  *
- * Holds the setting with the popover, if isRounded = YES then radius = frame.height / 2
+ * Holds the BOOL that determines wether the popover is rounded. If set to YES the radius will equal frame.height / 2
  */
-@property (nonatomic, assign) BOOL isRounded;
+@property (nonatomic, assign, getter=isRounded) BOOL rounded UI_APPEARANCE_SELECTOR;
 
-/**
+/** Offset from the origin
  *
- * Holds the distance between the popover and origin
+ * Holds the offset between the popover and origin
  */
-@property (nonatomic, assign) float distance;
+@property (nonatomic, assign) float offset UI_APPEARANCE_SELECTOR;
 
 /** Text Padding
  *
@@ -222,11 +228,5 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * A block that will be fired when the popover is dismissed.
  */
 @property (nonatomic, copy) void (^dismissHandler)();
-
-/**
- *
- * Set new text to showing poptip
- */
-- (void)setTextToPoptip:(NSString *)string;
 
 @end

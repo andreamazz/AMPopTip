@@ -19,7 +19,7 @@
 #define kDefaultAnimationIn 0.4
 #define kDefaultAnimationOut 0.2
 #define kDefaultEdgeInsets UIEdgeInsetsZero
-#define kDefaultDistance 0
+#define kDefaultOffset 0
 
 @interface AMPopTip()
 
@@ -68,8 +68,8 @@
         _shouldDismissOnTapOutside = YES;
         _edgeMargin = 0;
         _edgeInsets = kDefaultEdgeInsets;
-        _isRounded = NO;
-        _distance = kDefaultDistance;
+        _rounded = NO;
+        _offset = kDefaultOffset;
         
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
@@ -109,7 +109,7 @@
     _textBounds.origin = (CGPoint){self.padding + self.edgeInsets.left, self.padding + self.edgeInsets.top};
     
     CGRect frame = CGRectZero;
-    float offset = self.distance * ((self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionNone) ? -1 : 1);
+    float offset = self.offset * ((self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionNone) ? -1 : 1);
     
     if (self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionDown) {
         frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom + self.arrowSize.height};
@@ -440,10 +440,10 @@
     }
 }
 
-- (void)setTextToPoptip:(NSString *)string
+- (void)updateText:(NSString *)text
 {
-    self.text = string;
-    self.accessibilityLabel = string;
+    self.text = text;
+    self.accessibilityLabel = text;
     [self setNeedsLayout];
 }
 
