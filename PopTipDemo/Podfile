@@ -8,9 +8,9 @@ target "PopTipDemo" do
 end
 
 target "PopTipDemoTests" do
-  pod 'Specta', git: 'https://github.com/specta/specta.git', tag: 'v0.3.0.beta1'
-  pod 'Expecta', '~> 0.3'
-  pod 'Expecta+Snapshots', '~> 1.3'
+    pod 'Specta', git: 'https://github.com/specta/specta.git', tag: 'v0.3.0.beta1'
+    pod 'Expecta', '~> 0.3.1'
+    pod 'Expecta+Snapshots', git: 'https://github.com/andreamazz/ios-snapshot-test-case-expecta.git'
 end
 
 inhibit_all_warnings!
