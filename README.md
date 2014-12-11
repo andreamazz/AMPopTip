@@ -1,5 +1,6 @@
-AMPopTip
-========
+<p align="center">
+  <img width="640" height="240" src="assets/logo.png"/>
+</p>
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.png)](https://travis-ci.org/andreamazz/AMPopTip)
 [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.png)](http://cocoapods.org/?q=ampoptip)
@@ -11,7 +12,7 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 
 
 #Screenshot
-![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/screenshot.gif)
+![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
 
 
