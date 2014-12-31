@@ -186,6 +186,12 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) NSTimeInterval delayOut UI_APPEARANCE_SELECTOR;
 
+/** The frame the poptip is pointing to
+ *
+ * Holds the CGrect with the rect the tip is pointing to
+ */
+@property (nonatomic, assign) CGRect fromFrame;
+
 /** Visibility
  *
  * Holds the readonly BOOL with the popover visiblity. The popover is considered visible as soon as

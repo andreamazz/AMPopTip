@@ -34,7 +34,6 @@
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGPoint arrowPosition;
 @property (nonatomic, assign) CGFloat maxWidth;
-@property (nonatomic, assign) CGRect fromFrame;
 
 @end
 
@@ -375,7 +374,7 @@
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
-    self.fromFrame = frame;
+    _fromFrame = frame;
     
     [self show];
 }
@@ -388,9 +387,15 @@
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
-    self.fromFrame = frame;
+    _fromFrame = frame;
     
     [self show];
+}
+
+- (void)setFromFrame:(CGRect)fromFrame
+{
+    _fromFrame = fromFrame;
+    [self setup];
 }
 
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
