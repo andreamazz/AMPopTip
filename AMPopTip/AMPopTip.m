@@ -13,6 +13,8 @@
 #define kDefaultFont [UIFont systemFontOfSize:[UIFont systemFontSize]]
 #define kDefaultTextColor [UIColor whiteColor]
 #define kDefaultBackgroundColor [UIColor redColor]
+#define kDefaultBorderColor [UIColor blackColor]
+#define kDefaultBorderWidth 1
 #define kDefaultRadius 4
 #define kDefaultPadding 6
 #define kDefaultArrowSize CGSizeMake(8, 8)
@@ -58,6 +60,8 @@
         _font = kDefaultFont;
         _textColor = kDefaultTextColor;
         _popoverColor = kDefaultBackgroundColor;
+        _borderColor = kDefaultBorderColor;
+        _borderWidth = kDefaultBorderWidth;
         _radius = kDefaultRadius;
         _padding = kDefaultPadding;
         _arrowSize = kDefaultArrowSize;
@@ -264,8 +268,12 @@
             [arrow addArcWithCenter:(CGPoint){ self.radius, self.arrowSize.height + self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(270) clockwise:YES];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y + self.arrowSize.height }];
             
+            [arrow closePath];
             [self.popoverColor setFill];
             [arrow fill];
+            
+            [self.borderColor setStroke];
+            [arrow stroke];
             
             break;
         }
@@ -284,8 +292,12 @@
             [arrow addArcWithCenter:(CGPoint){ self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
             
+            [arrow closePath];
             [self.popoverColor setFill];
             [arrow fill];
+            
+            [self.borderColor setStroke];
+            [arrow stroke];
             
             break;
         }
@@ -304,8 +316,12 @@
             [arrow addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(0) clockwise:NO];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width, self.arrowPosition.y + self.arrowSize.height / 2 }];
             
+            [arrow closePath];
             [self.popoverColor setFill];
             [arrow fill];
+            
+            [self.borderColor setStroke];
+            [arrow stroke];
             
             break;
         }
@@ -324,8 +340,12 @@
             [arrow addArcWithCenter:(CGPoint){ baloonFrame.origin.x + self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(180) clockwise:YES];
             [arrow addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width, self.arrowPosition.y + self.arrowSize.height / 2 }];
             
+            [arrow closePath];
             [self.popoverColor setFill];
             [arrow fill];
+            
+            [self.borderColor setStroke];
+            [arrow stroke];
             
             break;
         }
