@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Fancy Pixel. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionUp,
@@ -125,6 +125,19 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * Holds the UIColor for the popover's background
  */
 @property (nonatomic, strong) UIColor *popoverColor UI_APPEARANCE_SELECTOR;
+
+/** Popover Border Color
+ *
+ * Holds the UIColor for the popover's bordedr
+ */
+@property (nonatomic, strong) UIColor *borderColor UI_APPEARANCE_SELECTOR;
+
+/** Popover Border Width
+ *
+ * Holds the width for the popover's border
+ */
+@property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+
 
 /** Popover border radius
  *
