@@ -13,8 +13,8 @@
 #define kDefaultFont [UIFont systemFontOfSize:[UIFont systemFontSize]]
 #define kDefaultTextColor [UIColor whiteColor]
 #define kDefaultBackgroundColor [UIColor redColor]
-#define kDefaultBorderColor [UIColor blackColor]
-#define kDefaultBorderWidth 1
+#define kDefaultBorderColor [UIColor colorWithWhite:0.182 alpha:1.000]
+#define kDefaultBorderWidth 0
 #define kDefaultRadius 4
 #define kDefaultPadding 6
 #define kDefaultArrowSize CGSizeMake(8, 8)
@@ -240,7 +240,7 @@
     // Drawing a round rect and the arrow alone sometime show a white halfpixel line, so here's a fun bit of code...
     switch (self.direction) {
         case AMPopTipDirectionNone: {
-            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height } };
+            baloonFrame = (CGRect){ (CGPoint) { self.borderWidth, self.borderWidth }, (CGSize){ self.frame.size.width - self.borderWidth * 2, self.frame.size.height - self.borderWidth * 2} };
             path = [UIBezierPath bezierPathWithRoundedRect:baloonFrame cornerRadius:self.radius];
             
             break;
@@ -264,19 +264,19 @@
             break;
         }
         case AMPopTipDirectionUp: {
-            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ self.frame.size.width, self.frame.size.height - self.arrowSize.height } };
+            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ rect.size.width - self.borderWidth * 2, rect.size.height - self.arrowSize.height - self.borderWidth * 2 } };
             
-            [path moveToPoint:self.arrowPosition];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
-            [path addLineToPoint:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height }];
-            [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(0) clockwise:NO];
-            [path addLineToPoint:(CGPoint){ baloonFrame.size.width, baloonFrame.origin.y + self.radius }];
-            [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(0) endAngle:DEGREES_TO_RADIANS(270) clockwise:NO];
-            [path addLineToPoint:(CGPoint){ self.radius, baloonFrame.origin.y }];
-            [path addArcWithCenter:(CGPoint){ self.radius, baloonFrame.origin.y + self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(270) endAngle:DEGREES_TO_RADIANS(180) clockwise:NO];
-            [path addLineToPoint:(CGPoint){ 0, baloonFrame.origin.y + baloonFrame.size.height - self.radius }];
-            [path addArcWithCenter:(CGPoint){ self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height }];
+            [path moveToPoint:(CGPoint){ self.arrowPosition.x + self.borderWidth, self.arrowPosition.y - self.borderWidth }];
+            [path addLineToPoint:(CGPoint){ self.borderWidth + self.arrowPosition.x + self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height - self.borderWidth }];
+            [path addLineToPoint:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height + self.borderWidth }];
+            [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(0) clockwise:NO];
+            [path addLineToPoint:(CGPoint){ baloonFrame.size.width, baloonFrame.origin.y + self.radius + self.borderWidth }];
+            [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius, baloonFrame.origin.y + self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(0) endAngle:DEGREES_TO_RADIANS(270) clockwise:NO];
+            [path addLineToPoint:(CGPoint){ self.borderWidth + self.radius, baloonFrame.origin.y + self.borderWidth }];
+            [path addArcWithCenter:(CGPoint){ self.borderWidth + self.radius, baloonFrame.origin.y + self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(270) endAngle:DEGREES_TO_RADIANS(180) clockwise:NO];
+            [path addLineToPoint:(CGPoint){ self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.radius + self.borderWidth }];
+            [path addArcWithCenter:(CGPoint){ self.borderWidth + self.radius, baloonFrame.origin.y + baloonFrame.size.height - self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
+            [path addLineToPoint:(CGPoint){ self.borderWidth + self.arrowPosition.x - self.arrowSize.width / 2, self.arrowPosition.y - self.arrowSize.height - self.borderWidth }];
             [path closePath];
             
             break;
