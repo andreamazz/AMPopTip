@@ -60,7 +60,9 @@
     }
     if (sender == self.buttonBottomLeft) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.73 green:0.91 blue:0.55 alpha:1];
-        [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame];
+        
+        UIImage *image = [UIImage imageNamed:@"avatar"];
+        [self.popTip showTextWithAvatar:@"Hello! I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:sender.frame avatar:image];
     }
     if (sender == self.buttonBottomRight) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.81 green:0.04 blue:0.14 alpha:1];
