@@ -84,6 +84,64 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 - (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
 
+/** Show the popover
+ *
+ * Shows an animated popover in a given view, from a given rectangle.
+ * The property isVisible will be set as YES as soon as the popover is added to the given view.
+ *
+ * @param text The text displayed.
+ * @param direction The direction of the popover.
+ * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
+ * @param view The view that will hold the popover.
+ * @param frame The originating frame. The popover's arrow will point to the center of this frame.
+ * @param avatar The image to be shown as an avatar
+ */
+- (void)showTextWithAvatar:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage*) avatar;
+
+/** Show the popover
+ *
+ * Shows an animated popover in a given view, from a given rectangle.
+ * The property isVisible will be set as YES as soon as the popover is added to the given view.
+ *
+ * @param text The attributed text displayed.
+ * @param direction The direction of the popover.
+ * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
+ * @param view The view that will hold the popover.
+ * @param frame The originating frame. The popover's arrow will point to the center of this frame.
+ * @param avatar The image to be shown as an avatar
+ */
+- (void)showAttributedTextWithAvatar:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage*) avatar;
+
+/** Show the popover
+ *
+ * Shows an animated popover in a given view, from a given rectangle.
+ * The property isVisible will be set as YES as soon as the popover is added to the given view.
+ *
+ * @param text The text displayed.
+ * @param direction The direction of the popover.
+ * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
+ * @param view The view that will hold the popover.
+ * @param frame The originating frame. The popover's arrow will point to the center of this frame.
+ * @param avatar The image to be shown as an avatar
+ * @param interval The time interval that determines when the poptip will self-dismiss
+ */
+- (void)showTextWithAvatar:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage*) avatar duration:(NSTimeInterval)interval;
+
+/** Show the popover
+ *
+ * Shows an animated popover in a given view, from a given rectangle.
+ * The property isVisible will be set as YES as soon as the popover is added to the given view.
+ *
+ * @param text The attributed text displayed.
+ * @param direction The direction of the popover.
+ * @param maxWidth The maximum width of the popover. If the popover won't fit in the given space, this will be overridden.
+ * @param view The view that will hold the popover.
+ * @param frame The originating frame. The popover's arrow will point to the center of this frame.
+ * @param avatar The image to be shown as an avatar
+ * @param interval The time interval that determines when the poptip will self-dismiss
+ */
+- (void)showAttributedTextWithAvatar:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view avatar:(UIImage*) avatar fromFrame:(CGRect)frame duration:(NSTimeInterval)interval;
+
 /** Hide the popover
  *
  * Hides the popover and removes it from the view.
@@ -247,5 +305,7 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * A block that will be fired when the popover is dismissed.
  */
 @property (nonatomic, copy) void (^dismissHandler)();
+
+@property (nonatomic, assign) CGFloat avatarSize;
 
 @end

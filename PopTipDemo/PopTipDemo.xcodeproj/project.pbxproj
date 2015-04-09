@@ -62,6 +62,7 @@
 		65CC5753196FF827001B189F /* PopTipDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopTipDemoTests.m; sourceTree = "<group>"; };
 		65CC575E196FF8B5001B189F /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
 		65CC575F196FF8B5001B189F /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPopTip.m; sourceTree = "<group>"; };
+		985E28A01AD6CADA00810163 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 		65CC5727196FF827001B189F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				985E28A01AD6CADA00810163 /* QuartzCore.framework */,
 				65CC5728196FF827001B189F /* Foundation.framework */,
 				65CC572A196FF827001B189F /* CoreGraphics.framework */,
 				65CC572C196FF827001B189F /* UIKit.framework */,

@@ -22,6 +22,7 @@
 #define kDefaultAnimationOut 0.2
 #define kDefaultEdgeInsets UIEdgeInsetsZero
 #define kDefaultOffset 0
+#define kDefaultAvatarSize 30
 
 @interface AMPopTip()
 
@@ -34,8 +35,10 @@
 @property (nonatomic, weak  ) UIView *containerView;
 @property (nonatomic, assign) AMPopTipDirection direction;
 @property (nonatomic, assign) CGRect textBounds;
+@property (nonatomic, assign) CGRect avatarBounds;
 @property (nonatomic, assign) CGPoint arrowPosition;
 @property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, strong) UIImageView *avatar;
 
 @end
 
@@ -92,7 +95,20 @@
         self.maxWidth = MIN(self.maxWidth, self.containerView.bounds.size.width - self.fromFrame.origin.x - self.fromFrame.size.width - self.padding * 2 - self.edgeInsets.left - self.edgeInsets.right - self.arrowSize.width);
     }
 
-    if (self.text != nil) {
+    if (self.text != nil && self.avatar != nil) {
+        self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
+                                                  options:NSStringDrawingUsesLineFragmentOrigin
+                                               attributes:@{NSFontAttributeName: self.font}
+                                                  context:nil];
+        
+        self.avatarBounds = CGRectMake(0, 0, self.avatar.bounds.size.width, self.avatar.bounds.size.height);
+    } else if (self.attributedText != nil && self.avatar != nil) {
+        self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
+                                                            options:NSStringDrawingUsesLineFragmentOrigin
+                                                            context:nil];
+        
+        self.avatarBounds = CGRectMake(0, 0, self.avatar.bounds.size.width, self.avatar.bounds.size.height);
+    } else if (self.text != nil) {
         self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                                   options:NSStringDrawingUsesLineFragmentOrigin
                                                attributes:@{NSFontAttributeName: self.font}
@@ -104,12 +120,21 @@
     }
 
     _textBounds.origin = (CGPoint){self.padding + self.edgeInsets.left, self.padding + self.edgeInsets.top};
+    _avatarBounds.origin = (CGPoint) {self.padding, self.padding};
 
     CGRect frame = CGRectZero;
     float offset = self.offset * ((self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionNone) ? -1 : 1);
 
+    float height = 0.0;
+    
     if (self.direction == AMPopTipDirectionUp || self.direction == AMPopTipDirectionDown) {
-        frame.size = (CGSize){self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom + self.arrowSize.height};
+        if (self.textBounds.size.height >= self.avatarBounds.size.height) {
+            height = self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom + self.arrowSize.height;
+        } else {
+            height = self.avatarBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom + self.arrowSize.height;
+        }
+        
+        frame.size = (CGSize){self.textBounds.size.width + self.avatarBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, height};
 
         CGFloat x = self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.size.width / 2;
         if (x < 0) { x = self.edgeMargin; }
@@ -123,7 +148,13 @@
         frame.origin.y += offset;
 
     } else if (self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight) {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom};
+        if (self.textBounds.size.height >= self.avatarBounds.size.height) {
+            height = self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom;
+        } else {
+            height = self.avatarBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom;
+        }
+        
+        frame.size = (CGSize){ self.textBounds.size.width + self.avatarBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right + self.arrowSize.width, height };
 
         CGFloat x = 0;
         if (self.direction == AMPopTipDirectionLeft) {
@@ -141,7 +172,7 @@
         if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
     } else {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom };
+        frame.size = (CGSize){ self.textBounds.size.width + self.avatarBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right, self.textBounds.size.height + self.avatarBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom };
         frame.origin = (CGPoint){ CGRectGetMidX(self.fromFrame) - frame.size.width / 2, CGRectGetMidY(self.fromFrame) - frame.size.height / 2 + offset };
     }
 
@@ -160,7 +191,8 @@
                 self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y + offset
             };
             CGFloat anchor = self.arrowPosition.x / frame.size.width;
-            _textBounds.origin = (CGPoint){ self.textBounds.origin.x, self.textBounds.origin.y + self.arrowSize.height };
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.avatarBounds.size.width, self.textBounds.origin.y + self.arrowSize.height };
+            _avatarBounds.origin = (CGPoint){ self.avatarBounds.origin.x, self.avatarBounds.origin.y + self.arrowSize.height };
             self.layer.anchorPoint = (CGPoint){ anchor, 0 };
             self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width * anchor, self.layer.position.y - frame.size.height / 2 };
 
@@ -172,6 +204,7 @@
                 frame.size.height
             };
             CGFloat anchor = self.arrowPosition.x / frame.size.width;
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.avatarBounds.size.width, self.textBounds.origin.y };
             self.layer.anchorPoint = (CGPoint){ anchor, 1 };
             self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width * anchor, self.layer.position.y + frame.size.height / 2 };
 
@@ -183,6 +216,7 @@
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
             CGFloat anchor = self.arrowPosition.y / frame.size.height;
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.avatarBounds.size.width, self.textBounds.origin.y };
             self.layer.anchorPoint = (CGPoint){ 1, anchor };
             self.layer.position = (CGPoint){ self.layer.position.x - frame.size.width / 2, self.layer.position.y + frame.size.height * anchor };
 
@@ -193,7 +227,8 @@
                 self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x + offset,
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
-            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width, self.textBounds.origin.y };
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width + self.avatarBounds.size.width, self.textBounds.origin.y };
+            _avatarBounds.origin = (CGPoint){ self.avatarBounds.origin.x + self.arrowSize.width, self.avatarBounds.origin.y };
             CGFloat anchor = self.arrowPosition.y / frame.size.height;
             self.layer.anchorPoint = (CGPoint){ 0, anchor };
             self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width / 2, self.layer.position.y + frame.size.height * anchor };
@@ -339,6 +374,10 @@
     } else if (self.attributedText != nil) {
         [self.attributedText drawInRect:self.textBounds];
     }
+    
+    if (self.avatar != nil) {
+        [self.avatar.image drawAtPoint:self.avatarBounds.origin];
+    }
 }
 
 - (void)show
@@ -369,6 +408,8 @@
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
+    self.avatar = nil;
+    self.avatarBounds = CGRectZero;
     _fromFrame = frame;
 
     [self show];
@@ -382,6 +423,8 @@
     self.direction = direction;
     self.containerView = view;
     self.maxWidth = maxWidth;
+    self.avatar = nil;
+    self.avatarBounds = CGRectZero;
     _fromFrame = frame;
 
     [self show];
@@ -419,6 +462,61 @@
     }
 }
 
+- (void)showTextWithAvatar:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage *)avatar
+{
+    self.attributedText = nil;
+    self.text = text;
+    self.accessibilityLabel = text;
+    self.direction = direction;
+    self.containerView = view;
+    self.maxWidth = maxWidth;
+    self.avatar = [[UIImageView alloc] initWithImage: [self scaleImage:avatar newSize:CGSizeMake(kDefaultAvatarSize, kDefaultAvatarSize)] ];
+    _fromFrame = frame;
+    
+    [self show];
+}
+
+- (void)showAttributedTextWithAvatar:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage *)avatar
+{
+    self.text = nil;
+    self.attributedText = text;
+    self.accessibilityLabel = [text string];
+    self.direction = direction;
+    self.containerView = view;
+    self.maxWidth = maxWidth;
+    self.avatar = [[UIImageView alloc] initWithImage: [self scaleImage:avatar newSize:CGSizeMake(kDefaultAvatarSize, kDefaultAvatarSize)] ];
+    self.avatarBounds = CGRectZero;
+    _fromFrame = frame;
+    
+    [self show];
+}
+
+- (void)showTextWithAvatar:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage*)avatar duration:(NSTimeInterval)interval
+{
+    [self showTextWithAvatar:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame avatar:avatar];
+    [self.dismissTimer invalidate];
+    if (interval > 0) {
+        self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                             target:self
+                                                           selector:@selector(hide)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    }
+}
+
+- (void)showAttributedTextWithAvatar:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame avatar:(UIImage*)avatar duration:(NSTimeInterval)interval
+{
+    [self showAttributedTextWithAvatar:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame avatar:avatar];
+    [self.dismissTimer invalidate];
+    if(interval > 0){
+        self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                             target:self
+                                                           selector:@selector(hide)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    }
+}
+
 - (void)hide
 {
     [self.dismissTimer invalidate];
@@ -443,6 +541,22 @@
     self.text = text;
     self.accessibilityLabel = text;
     [self setNeedsLayout];
+}
+
+- (UIImage*)scaleImage: (UIImage*)image newSize: (CGSize)newSize
+{
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGAffineTransform flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height);
+    CGContextConcatCTM(context, flipVertical);
+    
+    CGContextDrawImage(context, (CGRect){ CGPointMake(0,0), newSize }, [image CGImage]);
+    
+    UIImage *i = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return i;
 }
 
 - (void)dealloc
