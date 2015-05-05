@@ -2,8 +2,8 @@
   <img width="640" height="240" src="assets/logo.png"/>
 </p>
 
-[![Build Status](https://travis-ci.org/andreamazz/AMPopTip.png)](https://travis-ci.org/andreamazz/AMPopTip)
-[![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.png)](http://cocoapods.org/?q=ampoptip)
+[![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
+[![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Analytics](https://ga-beacon.appspot.com/UA-42282237-8/AMPopTip/README)](https://github.com/igrigorik/ga-beacon)
 
 
