@@ -98,6 +98,18 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 - (void)updateText:(NSString *)text;
 
+/** Makes the popover bounce
+ *
+ * Makes the popover bounce indefinitely.
+ */
+- (void)bounce;
+
+/** Makes the popover stop boucing.
+ *
+ * Makes the popover stop bouncing. Does nothing if popover was not bouncing.
+ */
+- (void)stopBouncing;
+
 /**-----------------------------------------------------------------------------
 * @name AMPopTip Properties
 * -----------------------------------------------------------------------------
@@ -198,6 +210,42 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * Holds the NSTimeInterval with the delay of the disappearing animation
  */
 @property (nonatomic, assign) NSTimeInterval delayOut UI_APPEARANCE_SELECTOR;
+
+/** Bouncing popover
+ *
+ * Holds the BOOL that determines wether the popover should bounce or not. If set to YES the popover will be automatically bouncing
+ */
+@property (nonatomic, assign, getter=shouldBounce) BOOL bounce UI_APPEARANCE_SELECTOR;
+
+/** Offset from the origin to where the popover will bounce
+ *
+ * Holds the offset between the popover initial place and the popover bounced place
+ */
+@property (nonatomic, assign) CGFloat bounceOffset UI_APPEARANCE_SELECTOR;
+
+/** Bouncing Animation time
+ *
+ * Holds the NSTimeInterval with the duration of the bouncing animation
+ */
+@property (nonatomic, assign) NSTimeInterval bounceAnimationIn UI_APPEARANCE_SELECTOR;
+
+/** Stop Bouncing Animation time
+ *
+ * Holds the NSTimeInterval with the duration of the stop bouncing animation
+ */
+@property (nonatomic, assign) NSTimeInterval bounceAnimationOut UI_APPEARANCE_SELECTOR;
+
+/** Bouncing Animation delay
+ *
+ * Holds the NSTimeInterval with the delay of the bouncing animation
+ */
+@property (nonatomic, assign) NSTimeInterval bounceDelayIn UI_APPEARANCE_SELECTOR;
+
+/** Stop Bouncing Animation delay
+ *
+ * Holds the NSTimeInterval with the delay of the stop bouncing animation
+ */
+@property (nonatomic, assign) NSTimeInterval bounceDelayOut UI_APPEARANCE_SELECTOR;
 
 /** The frame the poptip is pointing to
  *

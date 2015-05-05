@@ -20,8 +20,11 @@
 #define kDefaultArrowSize CGSizeMake(8, 8)
 #define kDefaultAnimationIn 0.4
 #define kDefaultAnimationOut 0.2
+#define kDefaultBounceAnimationIn 1.2
+#define kDefaultBounceAnimationOut 1.0
 #define kDefaultEdgeInsets UIEdgeInsetsZero
 #define kDefaultOffset 0
+#define kDefaultBounceOffset 0
 
 @interface AMPopTip()
 
@@ -73,6 +76,10 @@
         _edgeInsets = kDefaultEdgeInsets;
         _rounded = NO;
         _offset = kDefaultOffset;
+        _bounce = NO;
+        _bounceOffset = kDefaultBounceOffset;
+        _bounceAnimationIn = kDefaultBounceAnimationIn;
+		_bounceAnimationOut = kDefaultBounceAnimationOut;
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
     return self;
@@ -357,6 +364,9 @@
             if (self.appearHandler) {
                 self.appearHandler();
             }
+			if (self.shouldBounce) {
+				[self bounce];
+			}
         }
     }];
 }
@@ -443,6 +453,46 @@
     self.text = text;
     self.accessibilityLabel = text;
     [self setNeedsLayout];
+}
+
+- (void)bounce
+{
+	if (self.direction == AMPopTipDirectionNone) {
+		return;
+	}
+	
+	CGFloat xOffset = 0;
+	CGFloat yOffset = 0;
+	switch (self.direction) {
+		case AMPopTipDirectionUp:
+			yOffset = -self.bounceOffset;
+			break;
+		case AMPopTipDirectionDown:
+			yOffset = self.bounceOffset;
+			break;
+		case AMPopTipDirectionLeft:
+			xOffset = -self.bounceOffset;
+			break;
+		case AMPopTipDirectionRight:
+			xOffset = self.bounceOffset;
+			break;
+		case AMPopTipDirectionNone:
+			// Should never happened
+			break;
+	}
+	
+	[UIView animateWithDuration:(self.bounceAnimationIn / 2) delay:self.bounceDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
+		self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
+	} completion:nil];
+}
+
+- (void)stopBouncing
+{
+	[UIView animateWithDuration:(self.bounceAnimationOut / 2) delay:self.bounceDelayOut options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+		self.transform = CGAffineTransformIdentity;
+	} completion:^(BOOL finished) {
+		[self.layer removeAllAnimations];
+	}];
 }
 
 - (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside
