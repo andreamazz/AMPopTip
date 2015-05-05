@@ -4,8 +4,6 @@
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
 [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
-[![Analytics](https://ga-beacon.appspot.com/UA-42282237-8/AMPopTip/README)](https://github.com/igrigorik/ga-beacon)
-
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized. 
 This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.
@@ -83,7 +81,7 @@ Use the appearance proxy to customize the popover before creating the instance, 
 
 #MIT License
 
-	Copyright (c) 2014 Andrea Mazzini. All rights reserved.
+	Copyright (c) 2015 Andrea Mazzini. All rights reserved.
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
