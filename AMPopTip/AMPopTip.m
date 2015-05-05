@@ -445,6 +445,12 @@
     [self setNeedsLayout];
 }
 
+- (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside
+{
+    _shouldDismissOnTapOutside = shouldDismissOnTapOutside;
+    _removeGesture.enabled = shouldDismissOnTapOutside;
+}
+
 - (void)dealloc
 {
     [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
