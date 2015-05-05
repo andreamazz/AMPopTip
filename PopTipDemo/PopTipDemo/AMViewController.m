@@ -50,7 +50,10 @@
         return;
     }
     
+    self.popTip.bounce = NO;
+    
     if (sender == self.buttonTopLeft) {
+        self.popTip.bounce = YES;
         self.popTip.popoverColor = [UIColor colorWithRed:0.95 green:0.65 blue:0.21 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:200 inView:self.view fromFrame:sender.frame];
     }

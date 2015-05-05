@@ -24,7 +24,7 @@
 #define kDefaultBounceAnimationOut 1.0
 #define kDefaultEdgeInsets UIEdgeInsetsZero
 #define kDefaultOffset 0
-#define kDefaultBounceOffset 0
+#define kDefaultBounceOffset 8
 
 @interface AMPopTip()
 
