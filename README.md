@@ -68,6 +68,7 @@ self.popTip.dismissHandler = ^{
 
 ##Making the popover bounce
 ![AMPopTip bounce](assets/bounce_effect.gif)
+
 You can make the popover bounce by calling:
 ```objc
 [self.popTip bounce];
