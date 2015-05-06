@@ -66,6 +66,18 @@ self.popTip.dismissHandler = ^{
 };
 ```
 
+##Making the popover bounce
+![AMPopTip bounce](assets/bounce_effect.gif)
+
+You can make the popover bounce by calling:
+```objc
+[self.popTip bounce];
+```
+after the popover has appeared or make him bounce once appeared by calling (whenever you want)
+```objc
+self.popTip.bounce = YES;
+```
+
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
@@ -77,6 +89,12 @@ Use the appearance proxy to customize the popover before creating the instance, 
 [[AMPopTip appearance] setArrowSize:<#CGSize#>];
 [[AMPopTip appearance] setAnimationIn:<#NSInterval#>];
 [[AMPopTip appearance] setAnimationOut:<#NSInterval#>];
+[[AMPopTip appearance] setBounce:<#BOOL#>];
+[[AMPopTip appearance] setBounceOffset:<#NSInterval#>];
+[[AMPopTip appearance] setBounceAnimationIn:<#NSInterval#>];
+[[AMPopTip appearance] setBounceAnimationOut:<#NSInterval#>];
+[[AMPopTip appearance] setBounceDelayIn:<#NSInterval#>];
+[[AMPopTip appearance] setBounceDelayOut:<#NSInterval#>];
 ```
 
 #MIT License
