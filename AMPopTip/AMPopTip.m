@@ -130,7 +130,7 @@
         frame.origin.y += offset;
 
     } else if (self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight) {
-        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right + self.arrowSize.width, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom};
+        frame.size = (CGSize){ self.textBounds.size.width + self.padding * 2.0 + self.edgeInsets.left + self.edgeInsets.right + self.arrowSize.height, self.textBounds.size.height + self.padding * 2.0 + self.edgeInsets.top + self.edgeInsets.bottom};
 
         CGFloat x = 0;
         if (self.direction == AMPopTipDirectionLeft) {
@@ -200,7 +200,7 @@
                 self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x + offset,
                 self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y
             };
-            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.width, self.textBounds.origin.y };
+            _textBounds.origin = (CGPoint){ self.textBounds.origin.x + self.arrowSize.height, self.textBounds.origin.y };
             CGFloat anchor = self.arrowPosition.y / frame.size.height;
             self.layer.anchorPoint = (CGPoint){ 0, anchor };
             self.layer.position = (CGPoint){ self.layer.position.x + frame.size.width / 2, self.layer.position.y + frame.size.height * anchor };
@@ -244,7 +244,7 @@
     }
 
     CGRect baloonFrame;
-    // Drawing a round rect and the arrow alone sometime show a white halfpixel line, so here's a fun bit of code...
+    // Drawing a round rect and the arrow alone sometime shows a white halfpixel line, so here's a fun bit of code... feel free to fall asleep
     switch (self.direction) {
         case AMPopTipDirectionNone: {
             baloonFrame = (CGRect){ (CGPoint) { self.borderWidth, self.borderWidth }, (CGSize){ self.frame.size.width - self.borderWidth * 2, self.frame.size.height - self.borderWidth * 2} };
@@ -289,10 +289,12 @@
             break;
         }
         case AMPopTipDirectionLeft: {
-            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ rect.size.width - self.arrowSize.width - self.borderWidth * 2, rect.size.height - self.borderWidth * 2} };
+            // Flip the size around for the left/right poptip
+            CGSize arrowSize = CGSizeMake(self.arrowSize.height, self.arrowSize.width);
+            baloonFrame = (CGRect){ (CGPoint) { 0, 0 }, (CGSize){ rect.size.width - arrowSize.width - self.borderWidth * 2, rect.size.height - self.borderWidth * 2} };
 
             [path moveToPoint:(CGPoint){ self.arrowPosition.x - self.borderWidth, self.arrowPosition.y }];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width - self.borderWidth, self.arrowPosition.y - self.arrowSize.height / 2 }];
+            [path addLineToPoint:(CGPoint){ self.arrowPosition.x - arrowSize.width - self.borderWidth, self.arrowPosition.y - arrowSize.height / 2 }];
             [path addLineToPoint:(CGPoint){ baloonFrame.size.width - self.borderWidth, baloonFrame.origin.y + self.radius }];
             [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius - self.borderWidth, baloonFrame.origin.y + self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(0) endAngle:DEGREES_TO_RADIANS(270) clockwise:NO];
             [path addLineToPoint:(CGPoint){ self.radius + self.borderWidth, baloonFrame.origin.y + self.borderWidth}];
@@ -301,16 +303,18 @@
             [path addArcWithCenter:(CGPoint){ self.radius + self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.radius - self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(90) clockwise:NO];
             [path addLineToPoint:(CGPoint){ baloonFrame.size.width - self.radius - self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.borderWidth }];
             [path addArcWithCenter:(CGPoint){ baloonFrame.size.width - self.radius -  self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.radius -  self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(0) clockwise:NO];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x - self.arrowSize.width - self.borderWidth, self.arrowPosition.y + self.arrowSize.height / 2 }];
+            [path addLineToPoint:(CGPoint){ self.arrowPosition.x - arrowSize.width - self.borderWidth, self.arrowPosition.y + arrowSize.height / 2 }];
             [path closePath];
 
             break;
         }
         case AMPopTipDirectionRight: {
-            baloonFrame = (CGRect){ (CGPoint) { self.arrowSize.width, 0 }, (CGSize){ rect.size.width - self.arrowSize.width - self.borderWidth * 2, rect.size.height - self.borderWidth * 2} };
+            // Flip the size around for the left/right poptip
+            CGSize arrowSize = CGSizeMake(self.arrowSize.height, self.arrowSize.width);
+            baloonFrame = (CGRect){ (CGPoint) { arrowSize.width, 0 }, (CGSize){ rect.size.width - arrowSize.width - self.borderWidth * 2, rect.size.height - self.borderWidth * 2} };
 
             [path moveToPoint:(CGPoint){ self.arrowPosition.x + self.borderWidth, self.arrowPosition.y }];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width + self.borderWidth, self.arrowPosition.y - self.arrowSize.height / 2 }];
+            [path addLineToPoint:(CGPoint){ self.arrowPosition.x + arrowSize.width + self.borderWidth, self.arrowPosition.y - arrowSize.height / 2 }];
             [path addLineToPoint:(CGPoint){ baloonFrame.origin.x + self.borderWidth, baloonFrame.origin.y + self.radius + self.borderWidth }];
             [path addArcWithCenter:(CGPoint){ baloonFrame.origin.x + self.radius + self.borderWidth, baloonFrame.origin.y + self.radius + self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(270) clockwise:YES];
             [path addLineToPoint:(CGPoint){ baloonFrame.origin.x + baloonFrame.size.width - self.radius - self.borderWidth, baloonFrame.origin.y + self.borderWidth}];
@@ -319,7 +323,7 @@
             [path addArcWithCenter:(CGPoint){ baloonFrame.origin.x + baloonFrame.size.width - self.radius - self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.radius - self.borderWidth} radius:self.radius startAngle:DEGREES_TO_RADIANS(0) endAngle:DEGREES_TO_RADIANS(90) clockwise:YES];
             [path addLineToPoint:(CGPoint){ baloonFrame.origin.x + self.radius + self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.borderWidth}];
             [path addArcWithCenter:(CGPoint){ baloonFrame.origin.x + self.radius + self.borderWidth, baloonFrame.origin.y + baloonFrame.size.height - self.radius - self.borderWidth } radius:self.radius startAngle:DEGREES_TO_RADIANS(90) endAngle:DEGREES_TO_RADIANS(180) clockwise:YES];
-            [path addLineToPoint:(CGPoint){ self.arrowPosition.x + self.arrowSize.width + self.borderWidth, self.arrowPosition.y + self.arrowSize.height / 2 }];
+            [path addLineToPoint:(CGPoint){ self.arrowPosition.x + arrowSize.width + self.borderWidth, self.arrowPosition.y + arrowSize.height / 2 }];
             [path closePath];
 
             break;
