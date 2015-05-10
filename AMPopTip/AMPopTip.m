@@ -23,6 +23,7 @@
 #define kDefaultBounceAnimationIn 1.2
 #define kDefaultBounceAnimationOut 1.0
 #define kDefaultEdgeInsets UIEdgeInsetsZero
+#define kDefaultEdgeMargin 0
 #define kDefaultOffset 0
 #define kDefaultBounceOffset 8
 #define kDefaultFloatOffset 8
@@ -72,10 +73,11 @@
         _animationOut = kDefaultAnimationOut;
         _isVisible = NO;
         _shouldDismissOnTapOutside = YES;
-        _edgeMargin = 0;
+        _edgeMargin = kDefaultEdgeMargin;
         _edgeInsets = kDefaultEdgeInsets;
         _rounded = NO;
         _offset = kDefaultOffset;
+        _entranceAnimation = AMPopTipEntranceAnimationScale;
         _actionAnimation = AMPopTipActionAnimationNone;
         _actionFloatOffset = kDefaultFloatOffset;
         _actionBounceOffset = kDefaultBounceOffset;
@@ -351,7 +353,59 @@
 
 - (void)show {
     [self setNeedsLayout];
+    
+    switch (self.entranceAnimation) {
+        case AMPopTipEntranceAnimationScale:
+            [self entranceScale];
+            break;
+        case AMPopTipEntranceAnimationTransition:
+            [self entranceTransition];
+            break;
+        case AMPopTipEntranceAnimationNone:
+            [self.containerView addSubview:self];
+            _isVisible = YES;
+            [self entranceCompletion];
+            break;
+        default:
+            break;
+    }
+}
 
+- (void)entranceTransition {
+    self.transform = CGAffineTransformMakeScale(0.6, 0.6);
+    switch (self.direction) {
+        case AMPopTipDirectionUp:
+            self.transform = CGAffineTransformTranslate(self.transform, 0, -_fromFrame.origin.y);
+            break;
+        case AMPopTipDirectionDown:
+            self.transform = CGAffineTransformTranslate(self.transform, 0, (self.containerView.frame.size.height - _fromFrame.origin.y));
+            break;
+        case AMPopTipDirectionLeft:
+            self.transform = CGAffineTransformTranslate(self.transform, -_fromFrame.origin.x, 0);
+            break;
+        case AMPopTipDirectionRight:
+            self.transform = CGAffineTransformTranslate(self.transform, (self.containerView.frame.size.width - _fromFrame.origin.x), 0);
+            break;
+        case AMPopTipDirectionNone:
+            self.transform = CGAffineTransformTranslate(self.transform, 0, (self.containerView.frame.size.height - _fromFrame.origin.y));
+            break;
+            
+        default:
+            break;
+    }
+    [self.containerView addSubview:self];
+    _isVisible = YES;
+    
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+        self.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL completed){
+        if (completed) {
+            [self entranceCompletion];
+        }
+    }];
+}
+
+- (void)entranceScale {
     self.transform = CGAffineTransformMakeScale(0, 0);
     [self.containerView addSubview:self];
     _isVisible = YES;
@@ -360,15 +414,19 @@
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
-            [self.containerView addGestureRecognizer:self.removeGesture];
-            if (self.appearHandler) {
-                self.appearHandler();
-            }
-			if (self.actionAnimation != AMPopTipActionAnimationNone) {
-				[self startActionAnimation];
-			}
+            [self entranceCompletion];
         }
     }];
+}
+
+- (void)entranceCompletion {
+    [self.containerView addGestureRecognizer:self.removeGesture];
+    if (self.appearHandler) {
+        self.appearHandler();
+    }
+    if (self.actionAnimation != AMPopTipActionAnimationNone) {
+        [self startActionAnimation];
+    }
 }
 
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {

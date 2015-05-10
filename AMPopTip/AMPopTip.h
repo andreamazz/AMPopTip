@@ -16,6 +16,12 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionNone
 };
 
+typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
+    AMPopTipEntranceAnimationScale,
+    AMPopTipEntranceAnimationTransition,
+    AMPopTipEntranceAnimationNone
+};
+
 typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
     AMPopTipActionAnimationBounce,
     AMPopTipActionAnimationFloat,
@@ -217,7 +223,13 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, assign) NSTimeInterval delayOut UI_APPEARANCE_SELECTOR;
 
-/** Acction animation type
+/** Entrance animation type
+ *
+ * Holds the enum with the type of entrance animation (triggered once the popover is shown)
+ */
+@property (nonatomic, assign) AMPopTipEntranceAnimation entranceAnimation UI_APPEARANCE_SELECTOR;
+
+/** Action animation type
  *
  * Holds the enum with the type of action animation (triggered once the popover is shown)
  */
