@@ -16,6 +16,13 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionNone
 };
 
+typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
+    AMPopTipActionAnimationBounce,
+    AMPopTipActionAnimationFloat,
+    AMPopTipActionAnimationPulse,
+    AMPopTipActionAnimationNone
+};
+
 @interface AMPopTip : UIView
 
 /**-----------------------------------------------------------------------------
@@ -98,17 +105,17 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 - (void)updateText:(NSString *)text;
 
-/** Makes the popover bounce
+/** Makes the popover perform the action animation
  *
- * Makes the popover bounce indefinitely.
+ * Makes the popover perform the action indefinitely. The action animation calls for the user's attention after the popover is shown
  */
-- (void)bounce;
+- (void)startActionAnimation;
 
-/** Makes the popover stop boucing.
+/** Stops the popover action animation
  *
- * Makes the popover stop bouncing. Does nothing if popover was not bouncing.
+ * Stops the popover action animation. Does nothing if the popover wasn't animating in the first place.
  */
-- (void)stopBouncing;
+- (void)stopActionAnimation;
 
 /**-----------------------------------------------------------------------------
 * @name AMPopTip Properties
@@ -150,7 +157,6 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) CGFloat borderWidth UI_APPEARANCE_SELECTOR;
 
-
 /** Popover border radius
  *
  * Holds the CGFloat with the popover's border radius
@@ -179,7 +185,7 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  *
  * Holds the insets setting for padding different direction
  */
-@property (nonatomic, assign) UIEdgeInsets edgeInsets;
+@property (nonatomic, assign) UIEdgeInsets edgeInsets UI_APPEARANCE_SELECTOR;
 
 /** Arrow size
  *
@@ -211,41 +217,59 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  */
 @property (nonatomic, assign) NSTimeInterval delayOut UI_APPEARANCE_SELECTOR;
 
-/** Bouncing popover
+/** Acction animation type
  *
- * Holds the BOOL that determines wether the popover should bounce or not. If set to YES the popover will be automatically bouncing
+ * Holds the enum with the type of action animation (triggered once the popover is shown)
  */
-@property (nonatomic, assign, getter=shouldBounce) BOOL bounce UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) AMPopTipActionAnimation actionAnimation UI_APPEARANCE_SELECTOR;
 
-/** Offset from the origin to where the popover will bounce
+/** Offset for the float action animation
  *
- * Holds the offset between the popover initial place and the popover bounced place
+ * Holds the offset between the popover initial and ending state during the float action animation
  */
-@property (nonatomic, assign) CGFloat bounceOffset UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat actionFloatOffset UI_APPEARANCE_SELECTOR;
 
-/** Bouncing Animation time
+/** Offset for the float action animation
  *
- * Holds the NSTimeInterval with the duration of the bouncing animation
+ * Holds the offset between the popover initial and ending state during the float action animation
  */
-@property (nonatomic, assign) NSTimeInterval bounceAnimationIn UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat actionBounceOffset UI_APPEARANCE_SELECTOR;
 
-/** Stop Bouncing Animation time
+/** Offset for the pulse action animation
  *
- * Holds the NSTimeInterval with the duration of the stop bouncing animation
+ * Holds the offset in the popover size during the  pulse action animation
  */
-@property (nonatomic, assign) NSTimeInterval bounceAnimationOut UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat actionPulseOffset UI_APPEARANCE_SELECTOR;
 
-/** Bouncing Animation delay
+/** Action Animation time
  *
- * Holds the NSTimeInterval with the delay of the bouncing animation
+ * Holds the NSTimeInterval with the duration of the action animation
  */
-@property (nonatomic, assign) NSTimeInterval bounceDelayIn UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) NSTimeInterval actionAnimationIn UI_APPEARANCE_SELECTOR;
 
-/** Stop Bouncing Animation delay
+/** Action Animation stop time
  *
- * Holds the NSTimeInterval with the delay of the stop bouncing animation
+ * Holds the NSTimeInterval with the duration of the action stop animation
  */
-@property (nonatomic, assign) NSTimeInterval bounceDelayOut UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) NSTimeInterval actionAnimationOut UI_APPEARANCE_SELECTOR;
+
+/** Action Animation delay
+ *
+ * Holds the NSTimeInterval with the delay of the action animation
+ */
+@property (nonatomic, assign) NSTimeInterval actionDelayIn UI_APPEARANCE_SELECTOR;
+
+/** Action Animation stop delay
+ *
+ * Holds the NSTimeInterval with the delay of the action animation stop
+ */
+@property (nonatomic, assign) NSTimeInterval actionDelayOut UI_APPEARANCE_SELECTOR;
+
+/** Margin from the left efge
+ *
+ * CGfloat value that determines the leftmost margin from the screen
+ */
+@property (nonatomic, assign) CGFloat edgeMargin UI_APPEARANCE_SELECTOR;
 
 /** The frame the poptip is pointing to
  *
@@ -259,12 +283,6 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
  * it's added as a subview, and invisible when the subview is removed from its parent.
  */
 @property (nonatomic, assign, readonly) BOOL isVisible;
-
-/** Margin from the left efge
- *
- * CGfloat value that determines the leftmost margin from the screen
- */
-@property (nonatomic, assign) CGFloat edgeMargin UI_APPEARANCE_SELECTOR;
 
 /** Dismiss on tap
  *

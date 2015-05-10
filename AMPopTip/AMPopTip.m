@@ -25,6 +25,8 @@
 #define kDefaultEdgeInsets UIEdgeInsetsZero
 #define kDefaultOffset 0
 #define kDefaultBounceOffset 8
+#define kDefaultFloatOffset 8
+#define kDefaultPulseOffset 1.1
 
 @interface AMPopTip()
 
@@ -39,23 +41,21 @@
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGPoint arrowPosition;
 @property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) CGFloat shouldBounce;
 
 @end
 
 @implementation AMPopTip
 
-+ (instancetype)popTip
-{
++ (instancetype)popTip {
     return [[AMPopTip alloc] init];
 }
 
-- (instancetype)initWithFrame:(CGRect)ignoredFrame
-{
+- (instancetype)initWithFrame:(CGRect)ignoredFrame {
     return [self init];
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -76,22 +76,22 @@
         _edgeInsets = kDefaultEdgeInsets;
         _rounded = NO;
         _offset = kDefaultOffset;
-        _bounce = NO;
-        _bounceOffset = kDefaultBounceOffset;
-        _bounceAnimationIn = kDefaultBounceAnimationIn;
-		_bounceAnimationOut = kDefaultBounceAnimationOut;
+        _actionAnimation = AMPopTipActionAnimationNone;
+        _actionFloatOffset = kDefaultFloatOffset;
+        _actionBounceOffset = kDefaultBounceOffset;
+        _actionPulseOffset = kDefaultPulseOffset;
+        _actionAnimationIn = kDefaultBounceAnimationIn;
+		_actionAnimationOut = kDefaultBounceAnimationOut;
         _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
     }
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [self setup];
 }
 
-- (void)setup
-{
+- (void)setup {
     if (self.direction == AMPopTipDirectionLeft) {
         self.maxWidth = MIN(self.maxWidth, self.fromFrame.origin.x - self.padding * 2 - self.edgeInsets.left - self.edgeInsets.right - self.arrowSize.width);
     }
@@ -217,8 +217,7 @@
     [self setNeedsDisplay];
 }
 
-- (void)handleTap:(UITapGestureRecognizer *)gesture
-{
+- (void)handleTap:(UITapGestureRecognizer *)gesture {
     if (self.shouldDismissOnTap) {
         [self hide];
     }
@@ -227,15 +226,13 @@
     }
 }
 
-- (void)removeGestureHandler
-{
+- (void)removeGestureHandler {
     if (self.shouldDismissOnTapOutside) {
         [self hide];
     }
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     UIBezierPath *path = [[UIBezierPath alloc] init];
 
     if (self.isRounded) {
@@ -352,8 +349,7 @@
     }
 }
 
-- (void)show
-{
+- (void)show {
     [self setNeedsLayout];
 
     self.transform = CGAffineTransformMakeScale(0, 0);
@@ -368,15 +364,14 @@
             if (self.appearHandler) {
                 self.appearHandler();
             }
-			if (self.shouldBounce) {
-				[self bounce];
+			if (self.actionAnimation != AMPopTipActionAnimationNone) {
+				[self startActionAnimation];
 			}
         }
     }];
 }
 
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
-{
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {
     self.attributedText = nil;
     self.text = text;
     self.accessibilityLabel = text;
@@ -388,8 +383,7 @@
     [self show];
 }
 
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame
-{
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {
     self.text = nil;
     self.attributedText = text;
     self.accessibilityLabel = [text string];
@@ -401,14 +395,12 @@
     [self show];
 }
 
-- (void)setFromFrame:(CGRect)fromFrame
-{
+- (void)setFromFrame:(CGRect)fromFrame {
     _fromFrame = fromFrame;
     [self setup];
 }
 
-- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
-{
+- (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
     [self showText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
     if (interval > 0) {
@@ -420,8 +412,7 @@
     }
 }
 
-- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval
-{
+- (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
     [self showAttributedText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
     if(interval > 0){
@@ -433,16 +424,18 @@
     }
 }
 
-- (void)hide
-{
+- (void)hide {
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
+        self.shouldBounce = NO;
+        self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
+            [self.layer removeAllAnimations];
             self.transform = CGAffineTransformIdentity;
             self->_isVisible = NO;
             if (self.dismissHandler) {
@@ -452,61 +445,113 @@
     }
 }
 
-- (void)updateText:(NSString *)text
-{
+- (void)updateText:(NSString *)text {
     self.text = text;
     self.accessibilityLabel = text;
     [self setNeedsLayout];
 }
 
-- (void)bounce
-{
-	if (self.direction == AMPopTipDirectionNone) {
-		return;
-	}
-	
+- (void)startActionAnimation {
+    switch (self.actionAnimation) {
+        case AMPopTipActionAnimationBounce:
+            self.shouldBounce = YES;
+            [self bounceAnimation];
+            break;
+        case AMPopTipActionAnimationFloat:
+            [self floatAnimation];
+            break;
+        case AMPopTipActionAnimationPulse:
+            [self pulseAnimation];
+            break;
+        case AMPopTipActionAnimationNone:
+            return;
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)floatAnimation {
 	CGFloat xOffset = 0;
 	CGFloat yOffset = 0;
 	switch (self.direction) {
 		case AMPopTipDirectionUp:
-			yOffset = -self.bounceOffset;
+			yOffset = -self.actionFloatOffset;
 			break;
 		case AMPopTipDirectionDown:
-			yOffset = self.bounceOffset;
+			yOffset = self.actionFloatOffset;
 			break;
 		case AMPopTipDirectionLeft:
-			xOffset = -self.bounceOffset;
+			xOffset = -self.actionFloatOffset;
 			break;
 		case AMPopTipDirectionRight:
-			xOffset = self.bounceOffset;
+			xOffset = self.actionFloatOffset;
 			break;
 		case AMPopTipDirectionNone:
-			// Should never happened
+            yOffset = -self.actionFloatOffset;
 			break;
 	}
 	
-	[UIView animateWithDuration:(self.bounceAnimationIn / 2) delay:self.bounceDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
+	[UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
 		self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
 	} completion:nil];
 }
 
-- (void)stopBouncing
-{
-	[UIView animateWithDuration:(self.bounceAnimationOut / 2) delay:self.bounceDelayOut options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+- (void)bounceAnimation {
+    CGFloat xOffset = 0;
+    CGFloat yOffset = 0;
+    switch (self.direction) {
+        case AMPopTipDirectionUp:
+            yOffset = -self.actionBounceOffset;
+            break;
+        case AMPopTipDirectionDown:
+            yOffset = self.actionBounceOffset;
+            break;
+        case AMPopTipDirectionLeft:
+            xOffset = -self.actionBounceOffset;
+            break;
+        case AMPopTipDirectionRight:
+            xOffset = self.actionBounceOffset;
+            break;
+        case AMPopTipDirectionNone:
+            yOffset = -self.actionBounceOffset;
+            break;
+    }
+    
+    [UIView animateWithDuration:(self.actionAnimationIn / 10) delay:self.actionDelayIn options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+        self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:(self.actionAnimationIn - self.actionAnimationIn / 10) delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:1 options:0 animations:^{
+            self.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL done) {
+            if (self.shouldBounce) {
+                [self bounceAnimation];
+            }
+        }];
+    }];
+}
+
+- (void)pulseAnimation {
+    [UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
+        self.transform = CGAffineTransformMakeScale(self.actionPulseOffset, self.actionPulseOffset);
+    } completion:nil];
+}
+
+- (void)stopActionAnimation {
+    self.shouldBounce = NO;
+	[UIView animateWithDuration:(self.actionAnimationOut / 2) delay:self.actionDelayOut options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 		self.transform = CGAffineTransformIdentity;
 	} completion:^(BOOL finished) {
 		[self.layer removeAllAnimations];
 	}];
 }
 
-- (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside
-{
+- (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside {
     _shouldDismissOnTapOutside = shouldDismissOnTapOutside;
     _removeGesture.enabled = shouldDismissOnTapOutside;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
     _removeGesture = nil;
 }
