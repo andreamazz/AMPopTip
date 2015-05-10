@@ -28,7 +28,6 @@
     [super viewDidLoad];
     
     [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
-    [AMPopTip appearance].arrowSize = CGSizeMake(10.0f, 18.0f);
 
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
