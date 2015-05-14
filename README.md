@@ -114,20 +114,33 @@ The animation is fired as soon as the popover enters the scene and completes its
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
-[[AMPopTip appearance] setFont:<#UIFont#>];
-[[AMPopTip appearance] setTextColor:<#UIColor#>];
-[[AMPopTip appearance] setPopoverColor:<#UIColor#>];
-[[AMPopTip appearance] setRadius:<#CGFloat#>];
-[[AMPopTip appearance] setPadding:<#CGFloat#>];
-[[AMPopTip appearance] setArrowSize:<#CGSize#>];
-[[AMPopTip appearance] setAnimationIn:<#NSInterval#>];
-[[AMPopTip appearance] setAnimationOut:<#NSInterval#>];
-[[AMPopTip appearance] setBounce:<#BOOL#>];
-[[AMPopTip appearance] setBounceOffset:<#NSInterval#>];
-[[AMPopTip appearance] setBounceAnimationIn:<#NSInterval#>];
-[[AMPopTip appearance] setBounceAnimationOut:<#NSInterval#>];
-[[AMPopTip appearance] setBounceDelayIn:<#NSInterval#>];
-[[AMPopTip appearance] setBounceDelayOut:<#NSInterval#>];
+AMPopTip *appearance = [AMPopTip appearance];
+appearance.font = <#UIFont#>;
+appearance.textColor = <#UIColor#>;
+appearance.textAlignment = NSTextAlignmentLeft;
+appearance.popoverColor = <#UIColor#>;
+appearance.borderColor = <#UIColor#>;
+appearance.borderWidth = <#CGFloat#>;
+appearance.radius = <#CGFloat#>; // Popover's border radius
+appearance.rounded = <#BOOL#>; // If set to YES the radius will equal frame.height / 2
+appearance.offset = <#CGFloat#>; // Offset between the popover and the origin
+appearance.padding = <#CGFloat#>;
+appearance.edgeInsets = <#UIEdgeInsets#>;
+appearance.arrowSize = <#CGSize#>;
+appearance.animationIn = <#NSInterval#>;
+appearance.animationOut = <#NSInterval#>;
+appearance.delayIn = <#NSInterval#>;
+appearance.delayOut = <#NSInterval#>;
+appearance.entranceAnimation = <#AMPopTipEntranceAnimation#>;
+appearance.actionAnimation = <#AMPopTipActionAnimation#>;
+appearance.actionFloatOffset = <#CGFloat#>;
+appearance.actionBounceOffset = <#CGFloat#>;
+appearance.actionPulseOffset = <#CGFloat#>;
+appearance.actionAnimationIn = <#NSInterval#>;
+appearance.actionAnimationOut = <#NSInterval#>;
+appearance.actionDelayIn = <#NSInterval#>;
+appearance.actionDelayOut = <#NSInterval#>;
+appearance.edgeMargin = <#CGFloat#>;
 ```
 
 #MIT License
