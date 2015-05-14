@@ -17,7 +17,7 @@ SpecBegin(PopTipDemoTests)
 
 __block AMPopTip *subject;
 
-#define kRECORD     YES
+#define kRECORD     NO
 
 describe(@"AMPopTip", ^{
 
@@ -29,82 +29,77 @@ describe(@"AMPopTip", ^{
         subject = [AMPopTip popTip];
     });
 
-    describe(@"customized via UIAppearance", ^{
-        after(^{
-            [AMPopTip appearance].font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-            [AMPopTip appearance].textColor = [UIColor whiteColor];
-            [AMPopTip appearance].textAlignment = NSTextAlignmentCenter;
-            [AMPopTip appearance].popoverColor = [UIColor redColor];
-            [AMPopTip appearance].borderColor = [UIColor colorWithWhite:0.182 alpha:1.000];
-            [AMPopTip appearance].borderWidth = 0;
-            [AMPopTip appearance].radius = 4;
-            [AMPopTip appearance].rounded = NO;
-            [AMPopTip appearance].offset = 0;
-            [AMPopTip appearance].padding = 6;
-            [AMPopTip appearance].edgeInsets = UIEdgeInsetsZero;
-            [AMPopTip appearance].arrowSize = CGSizeMake(8, 8);
-            [AMPopTip appearance].animationIn = 0.4;
-            [AMPopTip appearance].animationOut = 0.2;
-            [AMPopTip appearance].delayIn = 0;
-            [AMPopTip appearance].delayOut = 0;
-            [AMPopTip appearance].entranceAnimation = AMPopTipEntranceAnimationScale;
-            [AMPopTip appearance].actionFloatOffset = 8;
-            [AMPopTip appearance].actionBounceOffset = 8;
-            [AMPopTip appearance].actionPulseOffset = 1.1;
-            [AMPopTip appearance].actionAnimationIn = 0;
-            [AMPopTip appearance].actionAnimationOut = 0;
-            [AMPopTip appearance].actionDelayIn = 0;
-            [AMPopTip appearance].actionDelayOut = 0;
-            [AMPopTip appearance].edgeMargin = 0;
-        });
-
-        it(@"looks right", ^{
-            UIViewController *controller = [[UIViewController alloc] init];
-
-            [AMPopTip appearance].font = [UIFont fontWithName:@"Avenir-Light" size:20];
-            [AMPopTip appearance].textColor = [UIColor redColor];
-            [AMPopTip appearance].textAlignment = NSTextAlignmentCenter;
-            [AMPopTip appearance].popoverColor = [UIColor yellowColor];
-            [AMPopTip appearance].borderColor = [UIColor colorWithWhite:0.5 alpha:1.000];
-            [AMPopTip appearance].borderWidth = 2;
-            [AMPopTip appearance].radius = 0;
-            [AMPopTip appearance].offset = 10;
-            [AMPopTip appearance].padding = 2;
-            [AMPopTip appearance].edgeInsets = UIEdgeInsetsMake(4, 2, 4, 2);
-            [AMPopTip appearance].arrowSize = CGSizeMake(12, 12);
-            [AMPopTip appearance].animationIn = 0;
-            [AMPopTip appearance].animationOut = 0;
-            [AMPopTip appearance].entranceAnimation = AMPopTipEntranceAnimationNone;
-            [AMPopTip appearance].edgeMargin = 2;
-
+    describe(@"AMPopTipEntranceAnimationCustom", ^{
+        it(@"calls the provided block", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            __block int number = 0;
             subject = [AMPopTip popTip];
+
+            subject.entranceAnimation = AMPopTipEntranceAnimationCustom;
+
+            subject.entranceAnimationHandler = ^(void (^completion)(void)){
+                number = 42;
+                completion();
+            };
 
             [subject showText:@"It's all smooth sailing\nFrom here on out"
                     direction:AMPopTipDirectionDown
                      maxWidth:140
-                       inView:controller.view
+                       inView:view
                     fromFrame:CGRectMake(0, 0, 100, 100)];
 
-            if (kRECORD) expect(controller.view).to.recordSnapshotNamed(@"Appearance");
-            expect(controller.view).to.haveValidSnapshotNamed(@"Appearance");
+            expect(number).to.equal(42);
+        });
+    });
+
+    describe(@"customized via appearance", ^{
+
+        it(@"looks right", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject = [AMPopTip popTip];
+
+            subject.font = [UIFont fontWithName:@"Avenir-Light" size:20];
+            subject.textColor = [UIColor redColor];
+            subject.textAlignment = NSTextAlignmentCenter;
+            subject.popoverColor = [UIColor yellowColor];
+            subject.borderColor = [UIColor colorWithWhite:0.5 alpha:1.000];
+            subject.borderWidth = 2;
+            subject.radius = 0;
+            subject.offset = 10;
+            subject.padding = 2;
+            subject.edgeInsets = UIEdgeInsetsMake(4, 2, 4, 2);
+            subject.arrowSize = CGSizeMake(12, 12);
+            subject.animationIn = 0;
+            subject.animationOut = 0;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.edgeMargin = 2;
+
+
+            [subject showText:@"It's all smooth sailing\nFrom here on out"
+                    direction:AMPopTipDirectionDown
+                     maxWidth:140
+                       inView:view
+                    fromFrame:CGRectMake(0, 0, 100, 100)];
+
+            if (kRECORD) expect(view).to.recordSnapshotNamed(@"Appearance");
+            expect(view).to.haveValidSnapshotNamed(@"Appearance");
 
         });
 
         it(@"can be rounded", ^{
-            UIViewController *controller = [[UIViewController alloc] init];
-
-            [AMPopTip appearance].rounded = YES;
-
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject = [AMPopTip popTip];
+
+            subject.rounded = YES;
 
             [subject showText:@"It's all smooth sailing\nFrom here on out"
                     direction:AMPopTipDirectionDown
                      maxWidth:140
-                       inView:controller.view
+                       inView:view
                     fromFrame:CGRectMake(0, 0, 100, 100)];
 
-            if (kRECORD) expect(controller.view).to.recordSnapshotNamed(@"Rounded");
-            expect(controller.view).to.haveValidSnapshotNamed(@"Rounded");
+            if (kRECORD) expect(view).to.recordSnapshotNamed(@"Rounded");
+            expect(view).to.haveValidSnapshotNamed(@"Rounded");
         });
     });
 

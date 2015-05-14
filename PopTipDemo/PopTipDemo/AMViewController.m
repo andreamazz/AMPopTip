@@ -53,17 +53,17 @@
 
 
     /*  Custom entrance animation  */
-    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
-    __weak AMViewController *weakSelf = self;
-    self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
-        // Setup the animation
-        weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
-        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-            weakSelf.popTip.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL done){
-            completion();
-        }];
-    };
+//    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
+//    __weak AMViewController *weakSelf = self;
+//    self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
+//        // Setup the animation
+//        weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
+//        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+//            weakSelf.popTip.transform = CGAffineTransformIdentity;
+//        } completion:^(BOOL done){
+//            completion();
+//        }];
+//    };
 
     /*  Action animation  */
 //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;

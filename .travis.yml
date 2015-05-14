@@ -7,3 +7,4 @@ before_install:
   - pod update
   - cd ..
 script: rake test
+after_success: slather
