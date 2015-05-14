@@ -1,32 +1,20 @@
 PODS:
-  - Expecta (0.3.1)
-  - Expecta+Snapshots (1.3.0):
-    - Expecta
-    - FBSnapshotTestCase
-  - FBSnapshotTestCase (1.4)
-  - Specta (0.3.0.beta1)
+  - Expecta (0.4.2)
+  - Expecta+Snapshots (1.3.2):
+    - Expecta (~> 0.3)
+    - FBSnapshotTestCase (= 1.6)
+  - FBSnapshotTestCase (1.6)
+  - Specta (1.0.0)
 
 DEPENDENCIES:
-  - Expecta (~> 0.3.1)
-  - Expecta+Snapshots (from `https://github.com/andreamazz/ios-snapshot-test-case-expecta.git`)
-  - Specta (from `https://github.com/specta/specta.git`, tag `v0.3.0.beta1`)
-
-EXTERNAL SOURCES:
-  Expecta+Snapshots:
-    :git: https://github.com/andreamazz/ios-snapshot-test-case-expecta.git
-  Specta:
-    :git: https://github.com/specta/specta.git
-    :tag: v0.3.0.beta1
-
-CHECKOUT OPTIONS:
-  Expecta+Snapshots:
-    :commit: 0325d2dd5af16f0823b00afc62e3909d4003e825
-    :git: https://github.com/andreamazz/ios-snapshot-test-case-expecta.git
+  - Expecta
+  - Expecta+Snapshots
+  - Specta
 
 SPEC CHECKSUMS:
-  Expecta: a354d4633409dd9fe8c4f5ff5130426adbe31628
-  Expecta+Snapshots: 07c3838422fe9107002a8e395739fa60c0d60dff
-  FBSnapshotTestCase: 892508495a69e8703bab36c9da7674ff740d41db
-  Specta: d2158a483ad179e5f8d3a29f75ff4fc0ff6fab16
+  Expecta: 78b4e8b0c8291fa4524d7f74016b6065c2e391ec
+  Expecta+Snapshots: 40c5ec43b43da3bae957f14fed5dc9177d08ec8b
+  FBSnapshotTestCase: 9d5fe43b29ae3a0ed8fc829477971b281038f748
+  Specta: 96fe05fe5c7348b5223f85e862904f6e832abb14
 
 COCOAPODS: 0.37.1
