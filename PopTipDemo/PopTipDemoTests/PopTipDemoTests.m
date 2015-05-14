@@ -10,6 +10,7 @@
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
 #import <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
+#import <OCMock/OCMock.h>
 
 #import "AMPopTip.h"
 
@@ -27,6 +28,27 @@ describe(@"AMPopTip", ^{
 
     before(^{
         subject = [AMPopTip popTip];
+    });
+
+    sharedExamplesFor(@"init method", ^(NSDictionary *data) {
+        it(@"should register a new gesture recognizer", ^{
+            expect([subject valueForKey:@"removeGesture"]).to.beKindOf([UITapGestureRecognizer class]);
+        });
+    });
+
+    describe(@"popTip", ^{
+        subject = [AMPopTip popTip];
+        itShouldBehaveLike(@"init method", nil);
+    });
+
+    describe(@"init", ^{
+        subject = [[AMPopTip alloc] init];
+        itShouldBehaveLike(@"init method", nil);
+    });
+
+    describe(@"initWithFrame:", ^{
+        subject = [[AMPopTip alloc] initWithFrame:CGRectZero];
+        itShouldBehaveLike(@"init method", nil);
     });
 
     describe(@"AMPopTipEntranceAnimationCustom", ^{
@@ -103,7 +125,74 @@ describe(@"AMPopTip", ^{
         });
     });
 
-    context(@"showText:direction:maxWidth:inView:fromFrame:", ^{
+    describe(@"showText:direction:maxWidth:inView:fromFrame:", ^{
+        it(@"should set the properties", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero];
+            expect([subject valueForKey:@"attributedText"]).to.beNil();
+            expect([subject valueForKey:@"text"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
+            expect([subject valueForKey:@"containerView"]).to.equal(view);
+            expect([subject valueForKey:@"maxWidth"]).to.equal(200);
+        });
+    });
+
+    describe(@"showAttributedText:direction:maxWidth:inView:fromFrame:", ^{
+        it(@"should set the properties", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:@"Hi" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+            [subject showAttributedText:attributed direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero];
+            expect([subject valueForKey:@"text"]).to.beNil();
+            expect([subject valueForKey:@"attributedText"]).to.equal(attributed);
+            expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
+            expect([subject valueForKey:@"containerView"]).to.equal(view);
+            expect([subject valueForKey:@"maxWidth"]).to.equal(200);
+        });
+    });
+
+    describe(@"showText:direction:maxWidth:inView:fromFrame:duration:", ^{
+        it(@"should set the properties", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero duration:1];
+            expect([subject valueForKey:@"attributedText"]).to.beNil();
+            expect([subject valueForKey:@"text"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
+            expect([subject valueForKey:@"containerView"]).to.equal(view);
+            expect([subject valueForKey:@"maxWidth"]).to.equal(200);
+        });
+
+        it(@"should setup a timer", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero duration:1];
+            expect([subject valueForKey:@"dismissTimer"]).toNot.beNil();
+        });
+    });
+
+    describe(@"showAttributedText:direction:maxWidth:inView:fromFrame:duration:", ^{
+        it(@"should set the properties", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:@"Hi" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+            [subject showAttributedText:attributed direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero duration:1];
+            expect([subject valueForKey:@"text"]).to.beNil();
+            expect([subject valueForKey:@"attributedText"]).to.equal(attributed);
+            expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
+            expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
+            expect([subject valueForKey:@"containerView"]).to.equal(view);
+            expect([subject valueForKey:@"maxWidth"]).to.equal(200);
+        });
+
+        it(@"should setup a timer", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            NSAttributedString *attributed = [[NSAttributedString alloc] initWithString:@"Hi" attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]}];
+            [subject showAttributedText:attributed direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero duration:1];
+            expect([subject valueForKey:@"dismissTimer"]).toNot.beNil();
+        });
+    });
+
+    context(@"calling show on a poptip", ^{
         it(@"displays well in the top left", ^{
             UIViewController *controller = [[UIViewController alloc] init];
 
@@ -196,7 +285,43 @@ describe(@"AMPopTip", ^{
             expect(controller.view).to.haveValidSnapshotNamed(@"BottomRight-Left");
         });
     });
-    
+
+    describe(@"hide", ^{
+        it(@"invaldiates the dismiss timer", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.animationIn = 0;
+            subject.delayIn = 0;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+            [subject hide];
+            expect([subject valueForKey:@"dismissTimer"]).to.beNil();
+        });
+
+        it(@"calls the dismiss handler", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.animationIn = 0;
+            subject.delayIn = 0;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+
+            __block BOOL dismissCalled = NO;
+            subject.dismissHandler = ^{
+                dismissCalled = YES;
+            };
+            [subject hide];
+            expect(dismissCalled).after(1).to.beTruthy();
+        });
+
+        it(@"removes the popover from the superview", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.animationIn = 0;
+            subject.delayIn = 0;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+
+            [subject hide];
+            expect(subject.superview).after(1).to.beNil();
+        });
+    });
 });
 
 SpecEnd

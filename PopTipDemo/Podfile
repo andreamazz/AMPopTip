@@ -11,6 +11,7 @@ target "PopTipDemoTests" do
     pod 'Specta'
     pod 'Expecta'
     pod 'Expecta+Snapshots'
+    pod 'OCMock'
 end
 
 inhibit_all_warnings!
