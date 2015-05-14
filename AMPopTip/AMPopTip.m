@@ -355,17 +355,29 @@
     [self setNeedsLayout];
     
     switch (self.entranceAnimation) {
-        case AMPopTipEntranceAnimationScale:
+        case AMPopTipEntranceAnimationScale: {
             [self entranceScale];
             break;
-        case AMPopTipEntranceAnimationTransition:
+        }
+        case AMPopTipEntranceAnimationTransition: {
             [self entranceTransition];
             break;
-        case AMPopTipEntranceAnimationNone:
+        }
+        case AMPopTipEntranceAnimationCustom: {
+            [self.containerView addSubview:self];
+            __weak AMPopTip *weakSelf = self;
+            if (self.entranceAnimationHandler) {
+                self.entranceAnimationHandler(^{
+                    [weakSelf entranceCompletion];
+                });
+            }
+        }
+        case AMPopTipEntranceAnimationNone: {
             [self.containerView addSubview:self];
             _isVisible = YES;
             [self entranceCompletion];
             break;
+        }
         default:
             break;
     }

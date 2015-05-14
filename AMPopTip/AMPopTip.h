@@ -19,7 +19,8 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
 typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
     AMPopTipEntranceAnimationScale,
     AMPopTipEntranceAnimationTransition,
-    AMPopTipEntranceAnimationNone
+    AMPopTipEntranceAnimationNone,
+    AMPopTipEntranceAnimationCustom
 };
 
 typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
@@ -179,7 +180,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  *
  * Holds the offset between the popover and origin
  */
-@property (nonatomic, assign) float offset UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat offset UI_APPEARANCE_SELECTOR;
 
 /** Text Padding
  *
@@ -197,7 +198,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  *
  * Holds the CGSize with the width and height of the arrow
  */
-@property (nonatomic, assign) CGSize  arrowSize UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGSize arrowSize UI_APPEARANCE_SELECTOR;
 
 /** Revealing Animation time
  *
@@ -325,5 +326,14 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * A block that will be fired when the popover is dismissed.
  */
 @property (nonatomic, copy) void (^dismissHandler)();
+
+/** Entrnce animation
+ *
+ * A block block that handles the entrance animation of the poptip. Should be provided
+ * when using a AMPopTipActionAnimationCustom entrance animation type.
+ * Please note that the poptip will be automatically added as a subview before firing the block
+ * Remember to call the completion block provided
+ */
+@property (nonatomic, copy) void (^entranceAnimationHandler)(void (^completion)(void));
 
 @end

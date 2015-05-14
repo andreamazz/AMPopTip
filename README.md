@@ -6,13 +6,10 @@
 [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized. 
-This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.
-
+This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.  
 
 #Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
-
-
 
 #Setup
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
@@ -66,17 +63,52 @@ self.popTip.dismissHandler = ^{
 };
 ```
 
-##Making the popover bounce
-![AMPopTip bounce](assets/bounce_effect.gif)
+#Custom entrance animation
+You can choose which animation should be performed when the poptip is displayed:
+```objc
+self.popTip.entranceAnimation = AMPopTipEntranceAnimationScale;
+```
+Available animations:
+```objc
+AMPopTipEntranceAnimationScale,
+AMPopTipEntranceAnimationTransition,
+AMPopTipEntranceAnimationNone,
+AMPopTipEntranceAnimationCustom
+```
 
-You can make the popover bounce by calling:
+##AMPopTipEntranceAnimationCustom
+You can provide your own animation block when using `AMPopTipEntranceAnimationCustom`:
 ```objc
-[self.popTip bounce];
+self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
+__weak AMViewController *weakSelf = self;
+self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
+    // Setup the animation
+    weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+        weakSelf.popTip.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL done){
+        completion();
+    }];
+}; 
 ```
-after the popover has appeared or make him bounce once appeared by calling (whenever you want)
+This sample makes the poptip rotate on entrance. Make sure to call the completion block when the animation is done. Also note that the animation is fired as soon as the poptip is added as subview.
+
+#Action animations
+Action animations are subtle animations that can be performed to get the user's attention. 
+Set your preferred animation:
 ```objc
-self.popTip.bounce = YES;
+self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
 ```
+Available animations:
+```objc
+AMPopTipActionAnimationBounce,
+AMPopTipActionAnimationFloat,
+AMPopTipActionAnimationPulse,
+AMPopTipActionAnimationNone
+```
+The animation is fired as soon as the popover enters the scene and completes its entrance animation.
+
+![AMPopTip bounce](assets/bounce_effect.gif)
 
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:

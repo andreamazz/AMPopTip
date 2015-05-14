@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    [[AMPopTip appearance] setFont:[UIFont fontWithName:@"Avenir-Medium" size:12]];
+    [AMPopTip appearance].font = [UIFont fontWithName:@"Avenir-Medium" size:12];
 
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
@@ -50,9 +50,28 @@
     if ([self.popTip isVisible]) {
         return;
     }
-    
-//    self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
+
+
+    /*  Custom entrance animation  */
+    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
+    __weak AMViewController *weakSelf = self;
+    self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
+        // Setup the animation
+        weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+            weakSelf.popTip.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL done){
+            completion();
+        }];
+    };
+
+    /*  Action animation  */
 //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;
+
+
+    /*  Custom action animation  */
+//    self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
+
     
     if (sender == self.buttonTopLeft) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.95 green:0.65 blue:0.21 alpha:1];

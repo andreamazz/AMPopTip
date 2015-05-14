@@ -18,10 +18,15 @@ EXTERNAL SOURCES:
     :git: https://github.com/specta/specta.git
     :tag: v0.3.0.beta1
 
-SPEC CHECKSUMS:
-  Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  Expecta+Snapshots: e7c591a3c0a6a8ce2676e66d36e3698f026aa96d
-  FBSnapshotTestCase: f9f225b5ba11c8d8c09075590490df16314e4d62
-  Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
+CHECKOUT OPTIONS:
+  Expecta+Snapshots:
+    :commit: 0325d2dd5af16f0823b00afc62e3909d4003e825
+    :git: https://github.com/andreamazz/ios-snapshot-test-case-expecta.git
 
-COCOAPODS: 0.34.4
+SPEC CHECKSUMS:
+  Expecta: a354d4633409dd9fe8c4f5ff5130426adbe31628
+  Expecta+Snapshots: 07c3838422fe9107002a8e395739fa60c0d60dff
+  FBSnapshotTestCase: 892508495a69e8703bab36c9da7674ff740d41db
+  Specta: d2158a483ad179e5f8d3a29f75ff4fc0ff6fab16
+
+COCOAPODS: 0.37.1
