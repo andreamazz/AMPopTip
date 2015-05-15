@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
 [![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Coverage Status](https://coveralls.io/repos/andreamazz/AMPopTip/badge.svg)](https://coveralls.io/r/andreamazz/AMPopTip)
+[![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized. 
 This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.  

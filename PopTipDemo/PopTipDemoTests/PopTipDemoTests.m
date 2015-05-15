@@ -14,6 +14,14 @@
 
 #import "AMPopTip.h"
 
+@interface AMPopTip (Mock)
+
+- (void)bounceAnimation;
+- (void)floatAnimation;
+- (void)pulseAnimation;
+
+@end
+
 SpecBegin(PopTipDemoTests)
 
 __block AMPopTip *subject;
@@ -320,6 +328,63 @@ describe(@"AMPopTip", ^{
 
             [subject hide];
             expect(subject.superview).after(1).to.beNil();
+        });
+    });
+
+    describe(@"updateText:", ^{
+        it(@"updates the text", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectMake(100, 100, 1, 1)];
+            [subject updateText:@"Hello! Have a nice day!"];
+            if (kRECORD) expect(view).to.recordSnapshotNamed(@"Updated-Text");
+            expect(view).to.haveValidSnapshotNamed(@"Updated-Text");
+        });
+    });
+
+    describe(@"startActionAnimation", ^{
+        it(@"calls bounceAnimation when AMPopTipActionAnimationBounce is set", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectMake(100, 100, 1, 1)];
+            subject.actionAnimation = AMPopTipActionAnimationBounce;
+
+            id mock = OCMPartialMock(subject);
+            OCMExpect([mock bounceAnimation]);
+            [mock startActionAnimation];
+            OCMVerifyAll(mock);
+        });
+
+        it(@"calls floatAnimation when AMPopTipActionAnimationFloat is set", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectMake(100, 100, 1, 1)];
+            subject.actionAnimation = AMPopTipActionAnimationFloat;
+
+            id mock = OCMPartialMock(subject);
+            OCMExpect([mock floatAnimation]);
+            [mock startActionAnimation];
+            OCMVerifyAll(mock);
+        });
+
+        it(@"calls pulseAnimation when AMPopTipActionAnimationPulse is set", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectMake(100, 100, 1, 1)];
+            subject.actionAnimation = AMPopTipActionAnimationPulse;
+
+            id mock = OCMPartialMock(subject);
+            OCMExpect([mock pulseAnimation]);
+            [mock startActionAnimation];
+            OCMVerifyAll(mock);
+        });
+    });
+
+    describe(@"stopActionAnimation", ^{
+        it(@"removes all the animations", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectMake(100, 100, 1, 1)];
+            subject.actionAnimation = AMPopTipActionAnimationBounce;
+            [subject startActionAnimation];
+
+            [subject stopActionAnimation];
+            expect(subject.layer.animationKeys.count).after(1).to.equal(0);
         });
     });
 });
