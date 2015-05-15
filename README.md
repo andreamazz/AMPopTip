@@ -10,6 +10,8 @@ Animated popover that pops out of a frame. You can specify the direction of the 
 This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.  
 
 #Screenshot
+
+[![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
 #Setup
