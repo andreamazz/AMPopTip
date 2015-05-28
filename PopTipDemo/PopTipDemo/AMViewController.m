@@ -52,6 +52,11 @@
     }
 
 
+    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;
+    self.popTip.actionAnimation = AMPopTipActionAnimationFloat;
+    
+    self.popTip.shouldDismissOnTap = YES;
+    
     /*  Custom entrance animation  */
 //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
 //    __weak AMViewController *weakSelf = self;

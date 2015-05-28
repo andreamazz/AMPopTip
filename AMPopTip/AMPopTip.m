@@ -562,7 +562,7 @@
 			break;
 	}
 	
-	[UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
+	[UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
 		self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
 	} completion:nil];
 }
@@ -588,7 +588,7 @@
             break;
     }
     
-    [UIView animateWithDuration:(self.actionAnimationIn / 10) delay:self.actionDelayIn options:(UIViewAnimationOptionCurveEaseIn) animations:^{
+    [UIView animateWithDuration:(self.actionAnimationIn / 10) delay:self.actionDelayIn options:(UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction) animations:^{
         self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:(self.actionAnimationIn - self.actionAnimationIn / 10) delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:1 options:0 animations:^{
@@ -602,7 +602,7 @@
 }
 
 - (void)pulseAnimation {
-    [UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse) animations:^{
+    [UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
         self.transform = CGAffineTransformMakeScale(self.actionPulseOffset, self.actionPulseOffset);
     } completion:nil];
 }
