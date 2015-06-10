@@ -327,7 +327,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, copy) void (^dismissHandler)();
 
-/** Entrnce animation
+/** Entrance animation
  *
  * A block block that handles the entrance animation of the poptip. Should be provided
  * when using a AMPopTipActionAnimationCustom entrance animation type.
@@ -335,5 +335,11 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * Remember to call the completion block provided
  */
 @property (nonatomic, copy) void (^entranceAnimationHandler)(void (^completion)(void));
+
+/** Arrow position
+ *
+ * The CGPoint originating the arrow. Read only.
+ */
+@property (nonatomic, readonly) CGPoint arrowPosition;
 
 @end

@@ -23,8 +23,7 @@
 
 @implementation AMViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [AMPopTip appearance].font = [UIFont fontWithName:@"Avenir-Medium" size:12];
@@ -43,18 +42,13 @@
     };
 }
 
-- (IBAction)actionButton:(UIButton *)sender
-{
+- (IBAction)actionButton:(UIButton *)sender {
     [self.popTip hide];
     
     if ([self.popTip isVisible]) {
         return;
     }
 
-
-    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;
-    self.popTip.actionAnimation = AMPopTipActionAnimationFloat;
-    
     self.popTip.shouldDismissOnTap = YES;
     
     /*  Custom entrance animation  */

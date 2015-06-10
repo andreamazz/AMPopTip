@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		536B8E3690DD43E89CFB18F7 /* libPods-PopTipDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E7FDD55A0D748C79E71BDE9 /* libPods-PopTipDemoTests.a */; };
+		653A37981B288EFB00040005 /* AMPopTip+Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 653A37971B288EFB00040005 /* AMPopTip+Draw.m */; };
 		65B37B8C1A16099F00C46D11 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B37B8B1A16099F00C46D11 /* Launch Screen.xib */; };
 		65CC5729196FF827001B189F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC5728196FF827001B189F /* Foundation.framework */; };
 		65CC572B196FF827001B189F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC572A196FF827001B189F /* CoreGraphics.framework */; };
@@ -40,6 +41,8 @@
 		1E7FDD55A0D748C79E71BDE9 /* libPods-PopTipDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTipDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59550C8E7F4B0B2D105644A6 /* Pods-PopTipDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C04DF571D8C15017CCBC289 /* Pods-PopTipDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		653A37961B288EFB00040005 /* AMPopTip+Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AMPopTip+Draw.h"; sourceTree = "<group>"; };
+		653A37971B288EFB00040005 /* AMPopTip+Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AMPopTip+Draw.m"; sourceTree = "<group>"; };
 		65B37B8B1A16099F00C46D11 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "../Launch Screen.xib"; sourceTree = "<group>"; };
 		65CC5725196FF827001B189F /* PopTipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopTipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CC5728196FF827001B189F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -174,6 +177,8 @@
 			children = (
 				65CC575E196FF8B5001B189F /* AMPopTip.h */,
 				65CC575F196FF8B5001B189F /* AMPopTip.m */,
+				653A37961B288EFB00040005 /* AMPopTip+Draw.h */,
+				653A37971B288EFB00040005 /* AMPopTip+Draw.m */,
 			);
 			name = AMPopTip;
 			path = ../../AMPopTip;
@@ -341,6 +346,7 @@
 				65CC573F196FF827001B189F /* AMViewController.m in Sources */,
 				65CC5735196FF827001B189F /* main.m in Sources */,
 				65CC5760196FF8B5001B189F /* AMPopTip.m in Sources */,
+				653A37981B288EFB00040005 /* AMPopTip+Draw.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
