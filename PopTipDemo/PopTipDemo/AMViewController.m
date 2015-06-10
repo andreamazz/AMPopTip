@@ -65,7 +65,7 @@
 //    };
 
     /*  Entrance animation  */
-//    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;
+//    self.popTip.entranceAnimation = AMPopTipEntranceAnimationTransition;
 
 
     /*  Custom action animation  */

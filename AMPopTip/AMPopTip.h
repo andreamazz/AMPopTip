@@ -342,4 +342,16 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, readonly) CGPoint arrowPosition;
 
+/** Container View
+ *
+ * A read only reference to the view containing the poptip
+ */
+@property (nonatomic, weak, readonly) UIView *containerView;
+
+/** Direction
+ *
+ * The direction from which the poptip is shown. Read only.
+ */
+@property (nonatomic, assign, readonly) AMPopTipDirection direction;
+
 @end

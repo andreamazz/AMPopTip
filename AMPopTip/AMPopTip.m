@@ -7,26 +7,10 @@
 //
 
 #import "AMPopTip.h"
+#import "AMPopTipDefaults.h"
 #import "AMPopTip+Draw.h"
-
-#define kDefaultFont [UIFont systemFontOfSize:[UIFont systemFontSize]]
-#define kDefaultTextColor [UIColor whiteColor]
-#define kDefaultBackgroundColor [UIColor redColor]
-#define kDefaultBorderColor [UIColor colorWithWhite:0.182 alpha:1.000]
-#define kDefaultBorderWidth 0
-#define kDefaultRadius 4
-#define kDefaultPadding 6
-#define kDefaultArrowSize CGSizeMake(8, 8)
-#define kDefaultAnimationIn 0.4
-#define kDefaultAnimationOut 0.2
-#define kDefaultBounceAnimationIn 1.2
-#define kDefaultBounceAnimationOut 1.0
-#define kDefaultEdgeInsets UIEdgeInsetsZero
-#define kDefaultEdgeMargin 0
-#define kDefaultOffset 0
-#define kDefaultBounceOffset 8
-#define kDefaultFloatOffset 8
-#define kDefaultPulseOffset 1.1
+#import "AMPopTip+Entrance.h"
+#import "AMPopTip+Animation.h"
 
 @interface AMPopTip()
 
@@ -36,10 +20,11 @@
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
 @property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
 @property (nonatomic, strong) NSTimer *dismissTimer;
-@property (nonatomic, weak  ) UIView *containerView;
-@property (nonatomic, assign) AMPopTipDirection direction;
-@property (nonatomic, assign) CGRect textBounds;
+@property (nonatomic, weak, readwrite) UIView *containerView;
+@property (nonatomic, assign, readwrite) AMPopTipDirection direction;
 @property (nonatomic, assign, readwrite) CGPoint arrowPosition;
+@property (nonatomic, assign, readwrite) BOOL isVisible;
+@property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, assign) CGFloat shouldBounce;
 
@@ -266,92 +251,17 @@
 
 - (void)show {
     [self setNeedsLayout];
-    
-    switch (self.entranceAnimation) {
-        case AMPopTipEntranceAnimationScale: {
-            [self entranceScale];
-            break;
+    __weak AMPopTip *weakSelf = self;
+    [self performEntranceAnimation:^{
+        weakSelf.isVisible = YES;
+        [self.containerView addGestureRecognizer:self.removeGesture];
+        if (self.appearHandler) {
+            self.appearHandler();
         }
-        case AMPopTipEntranceAnimationTransition: {
-            [self entranceTransition];
-            break;
-        }
-        case AMPopTipEntranceAnimationCustom: {
-            [self.containerView addSubview:self];
-            __weak AMPopTip *weakSelf = self;
-            if (self.entranceAnimationHandler) {
-                self.entranceAnimationHandler(^{
-                    [weakSelf entranceCompletion];
-                });
-            }
-        }
-        case AMPopTipEntranceAnimationNone: {
-            [self.containerView addSubview:self];
-            _isVisible = YES;
-            [self entranceCompletion];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-- (void)entranceTransition {
-    self.transform = CGAffineTransformMakeScale(0.6, 0.6);
-    switch (self.direction) {
-        case AMPopTipDirectionUp:
-            self.transform = CGAffineTransformTranslate(self.transform, 0, -_fromFrame.origin.y);
-            break;
-        case AMPopTipDirectionDown:
-            self.transform = CGAffineTransformTranslate(self.transform, 0, (self.containerView.frame.size.height - _fromFrame.origin.y));
-            break;
-        case AMPopTipDirectionLeft:
-            self.transform = CGAffineTransformTranslate(self.transform, -_fromFrame.origin.x, 0);
-            break;
-        case AMPopTipDirectionRight:
-            self.transform = CGAffineTransformTranslate(self.transform, (self.containerView.frame.size.width - _fromFrame.origin.x), 0);
-            break;
-        case AMPopTipDirectionNone:
-            self.transform = CGAffineTransformTranslate(self.transform, 0, (self.containerView.frame.size.height - _fromFrame.origin.y));
-            break;
-            
-        default:
-            break;
-    }
-    [self.containerView addSubview:self];
-    _isVisible = YES;
-    
-    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-        self.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL completed){
-        if (completed) {
-            [self entranceCompletion];
+        if (self.actionAnimation != AMPopTipActionAnimationNone) {
+            [self startActionAnimation];
         }
     }];
-}
-
-- (void)entranceScale {
-    self.transform = CGAffineTransformMakeScale(0, 0);
-    [self.containerView addSubview:self];
-    _isVisible = YES;
-
-    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-        self.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL completed){
-        if (completed) {
-            [self entranceCompletion];
-        }
-    }];
-}
-
-- (void)entranceCompletion {
-    [self.containerView addGestureRecognizer:self.removeGesture];
-    if (self.appearHandler) {
-        self.appearHandler();
-    }
-    if (self.actionAnimation != AMPopTipActionAnimationNone) {
-        [self startActionAnimation];
-    }
 }
 
 - (void)showText:(NSString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame {
@@ -435,98 +345,11 @@
 }
 
 - (void)startActionAnimation {
-    switch (self.actionAnimation) {
-        case AMPopTipActionAnimationBounce:
-            self.shouldBounce = YES;
-            [self bounceAnimation];
-            break;
-        case AMPopTipActionAnimationFloat:
-            [self floatAnimation];
-            break;
-        case AMPopTipActionAnimationPulse:
-            [self pulseAnimation];
-            break;
-        case AMPopTipActionAnimationNone:
-            return;
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)floatAnimation {
-	CGFloat xOffset = 0;
-	CGFloat yOffset = 0;
-	switch (self.direction) {
-		case AMPopTipDirectionUp:
-			yOffset = -self.actionFloatOffset;
-			break;
-		case AMPopTipDirectionDown:
-			yOffset = self.actionFloatOffset;
-			break;
-		case AMPopTipDirectionLeft:
-			xOffset = -self.actionFloatOffset;
-			break;
-		case AMPopTipDirectionRight:
-			xOffset = self.actionFloatOffset;
-			break;
-		case AMPopTipDirectionNone:
-            yOffset = -self.actionFloatOffset;
-			break;
-	}
-	
-	[UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
-		self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
-	} completion:nil];
-}
-
-- (void)bounceAnimation {
-    CGFloat xOffset = 0;
-    CGFloat yOffset = 0;
-    switch (self.direction) {
-        case AMPopTipDirectionUp:
-            yOffset = -self.actionBounceOffset;
-            break;
-        case AMPopTipDirectionDown:
-            yOffset = self.actionBounceOffset;
-            break;
-        case AMPopTipDirectionLeft:
-            xOffset = -self.actionBounceOffset;
-            break;
-        case AMPopTipDirectionRight:
-            xOffset = self.actionBounceOffset;
-            break;
-        case AMPopTipDirectionNone:
-            yOffset = -self.actionBounceOffset;
-            break;
-    }
-    
-    [UIView animateWithDuration:(self.actionAnimationIn / 10) delay:self.actionDelayIn options:(UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction) animations:^{
-        self.transform = CGAffineTransformMakeTranslation(xOffset, yOffset);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:(self.actionAnimationIn - self.actionAnimationIn / 10) delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:1 options:0 animations:^{
-            self.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL done) {
-            if (self.shouldBounce && done) {
-                [self bounceAnimation];
-            }
-        }];
-    }];
-}
-
-- (void)pulseAnimation {
-    [UIView animateWithDuration:(self.actionAnimationIn / 2) delay:self.actionDelayIn options:(UIViewAnimationOptionRepeat | UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse | UIViewAnimationOptionAllowUserInteraction) animations:^{
-        self.transform = CGAffineTransformMakeScale(self.actionPulseOffset, self.actionPulseOffset);
-    } completion:nil];
+    [self _startActionAnimation];
 }
 
 - (void)stopActionAnimation {
-    self.shouldBounce = NO;
-	[UIView animateWithDuration:(self.actionAnimationOut / 2) delay:self.actionDelayOut options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-		self.transform = CGAffineTransformIdentity;
-	} completion:^(BOOL finished) {
-		[self.layer removeAllAnimations];
-	}];
+    [self _stopActionAnimation];
 }
 
 - (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside {
