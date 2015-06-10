@@ -594,7 +594,7 @@
         [UIView animateWithDuration:(self.actionAnimationIn - self.actionAnimationIn / 10) delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:1 options:0 animations:^{
             self.transform = CGAffineTransformIdentity;
         } completion:^(BOOL done) {
-            if (self.shouldBounce) {
+            if (self.shouldBounce && done) {
                 [self bounceAnimation];
             }
         }];

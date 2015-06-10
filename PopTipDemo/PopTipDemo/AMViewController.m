@@ -65,7 +65,7 @@
 //        }];
 //    };
 
-    /*  Action animation  */
+    /*  Entrance animation  */
 //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationNone;
 
 
