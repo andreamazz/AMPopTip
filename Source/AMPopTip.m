@@ -26,7 +26,6 @@
 @property (nonatomic, assign, readwrite) BOOL isVisible;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
-@property (nonatomic, assign) CGFloat shouldBounce;
 
 @end
 
@@ -322,7 +321,7 @@
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
-        self.shouldBounce = NO;
+        [self setShouldBounce:NO];
         self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);

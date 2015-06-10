@@ -12,5 +12,6 @@
 
 - (void)_startActionAnimation;
 - (void)_stopActionAnimation;
+- (void)setShouldBounce:(BOOL)bounce;
 
 @end
