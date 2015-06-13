@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C8161B28CEB4002C9553 /* AMPopTip.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DCC3601B28CF750007B691 /* AMPopTip.h */; };
+		6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C8161B28CEB4002C9553 /* AMPopTip.h */; };
+		65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DCC3601B28CF750007B691 /* AMPopTip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65DCC36A1B28CF750007B691 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCC3611B28CF750007B691 /* AMPopTip.m */; };
 		65DCC36B1B28CF750007B691 /* AMPopTip+Animation.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DCC3621B28CF750007B691 /* AMPopTip+Animation.h */; };
 		65DCC36C1B28CF750007B691 /* AMPopTip+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCC3631B28CF750007B691 /* AMPopTip+Animation.m */; };
@@ -64,15 +64,7 @@
 		6512C8131B28CEB4002C9553 /* AMPopTip */ = {
 			isa = PBXGroup;
 			children = (
-				65DCC3601B28CF750007B691 /* AMPopTip.h */,
-				65DCC3611B28CF750007B691 /* AMPopTip.m */,
-				65DCC3621B28CF750007B691 /* AMPopTip+Animation.h */,
-				65DCC3631B28CF750007B691 /* AMPopTip+Animation.m */,
-				65DCC3641B28CF750007B691 /* AMPopTip+Draw.h */,
-				65DCC3651B28CF750007B691 /* AMPopTip+Draw.m */,
-				65DCC3661B28CF750007B691 /* AMPopTip+Entrance.h */,
-				65DCC3671B28CF750007B691 /* AMPopTip+Entrance.m */,
-				65DCC3681B28CF750007B691 /* AMPopTipDefaults.h */,
+				656AE2451B2C7BF40014E733 /* AMPopTip */,
 				6512C8161B28CEB4002C9553 /* AMPopTip.h */,
 				6512C8141B28CEB4002C9553 /* Supporting Files */,
 			);
@@ -87,6 +79,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		656AE2451B2C7BF40014E733 /* AMPopTip */ = {
+			isa = PBXGroup;
+			children = (
+				65DCC3601B28CF750007B691 /* AMPopTip.h */,
+				65DCC3611B28CF750007B691 /* AMPopTip.m */,
+				65DCC3621B28CF750007B691 /* AMPopTip+Animation.h */,
+				65DCC3631B28CF750007B691 /* AMPopTip+Animation.m */,
+				65DCC3641B28CF750007B691 /* AMPopTip+Draw.h */,
+				65DCC3651B28CF750007B691 /* AMPopTip+Draw.m */,
+				65DCC3661B28CF750007B691 /* AMPopTip+Entrance.h */,
+				65DCC3671B28CF750007B691 /* AMPopTip+Entrance.m */,
+				65DCC3681B28CF750007B691 /* AMPopTipDefaults.h */,
+			);
+			name = AMPopTip;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -95,11 +103,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				65DCC36F1B28CF750007B691 /* AMPopTip+Entrance.h in Headers */,
+				65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */,
+				6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */,
 				65DCC36D1B28CF750007B691 /* AMPopTip+Draw.h in Headers */,
 				65DCC3711B28CF750007B691 /* AMPopTipDefaults.h in Headers */,
-				65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */,
 				65DCC36B1B28CF750007B691 /* AMPopTip+Animation.h in Headers */,
-				6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
