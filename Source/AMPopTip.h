@@ -8,6 +8,15 @@
 
 @import UIKit;
 
+/**-----------------------------------------------------------------------------
+ * @name AMPopTip Options
+ * -----------------------------------------------------------------------------
+ */
+
+/** AMPopTipDirection
+ *
+ * Enum that specifies the direction of the poptip.
+ */
 typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionUp,
     AMPopTipDirectionDown,
@@ -16,6 +25,11 @@ typedef NS_ENUM(NSInteger, AMPopTipDirection) {
     AMPopTipDirectionNone
 };
 
+/** AMPopTipEntranceAnimation
+ *
+ * Enum that specifies the type of entrance animation. Entrance animations are performed
+ * while showing the poptip.
+ */
 typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
     AMPopTipEntranceAnimationScale,
     AMPopTipEntranceAnimationTransition,
@@ -23,6 +37,11 @@ typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
     AMPopTipEntranceAnimationCustom
 };
 
+/** AMPopTipActionAnimation
+ *
+ * Enum that specifies the type of action animation. Action animations are performed
+ * after the poptip is visible and the entrance animation completed.
+ */
 typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
     AMPopTipActionAnimationBounce,
     AMPopTipActionAnimationFloat,

@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     [AMPopTip appearance].font = [UIFont fontWithName:@"Avenir-Medium" size:12];
-
+    AMPopTipDirection direction;
     self.popTip = [AMPopTip popTip];
     self.popTip.shouldDismissOnTap = YES;
     self.popTip.edgeMargin = 5;
