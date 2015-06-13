@@ -14,20 +14,36 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 #Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
-#Setup
+#Setup with Cocoapods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
 * Run ```pod install```
 * Run ```open App.xcworkspace```
+
+#Setup with Carthage
+* Add ```github "andreamazz/AMPopTip"```
+* Run ```carthage update```
+* Add ```AMPopTip.framework``` in your project
 
 #Usage
 The API is fairly straight forward, you can show and hide the popover at any time.
 
 ##Showing the popover
 You must specify the text that you want to display alongside the popover direction, its max width, the view that will contain it and the frame of the view that the popover's arrow will point to.
+
+####Objective-C
+
 ```objc
 self.popTip = [AMPopTip popTip];
 [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame];
 ```
+
+####Swift
+
+```swift
+let popTip = AMPopTip()
+popTip.showText("Hello", direction: .Up, maxWidth: 200, inView: self.view, fromFrame: someView.frame)
+```
+
 You can also display the popover in the center, with no arrow, in this case the `fromFrame` parameter will be the whole view:
 ```objc
 [self.popTip showText:@"I'm a popover" direction:AMPopTipDirectionNone maxWidth:200 inView:self.view fromFrame:self.view.frame];
