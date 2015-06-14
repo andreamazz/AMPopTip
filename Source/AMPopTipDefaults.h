@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Fancy Pixel. All rights reserved.
 //
 
+/** @constant AMPopTip default values */
 #define kDefaultFont [UIFont systemFontOfSize:[UIFont systemFontSize]]
 #define kDefaultTextColor [UIColor whiteColor]
 #define kDefaultBackgroundColor [UIColor redColor]

@@ -13,39 +13,52 @@
  * -----------------------------------------------------------------------------
  */
 
-/** AMPopTipDirection
+/** @enum AMPopTipDirection
  *
  * Enum that specifies the direction of the poptip.
  */
 typedef NS_ENUM(NSInteger, AMPopTipDirection) {
+    /** Shows the poptip up */
     AMPopTipDirectionUp,
+    /** Shows the poptip down */
     AMPopTipDirectionDown,
+    /** Shows the poptip to the left */
     AMPopTipDirectionLeft,
+    /** Shows the poptip to the right */
     AMPopTipDirectionRight,
+    /** Shows the poptip up, with no arrow */
     AMPopTipDirectionNone
 };
 
-/** AMPopTipEntranceAnimation
+/** @enum AMPopTipEntranceAnimation
  *
  * Enum that specifies the type of entrance animation. Entrance animations are performed
  * while showing the poptip.
  */
 typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
+    /** The poptip scales from 0% to 100% */
     AMPopTipEntranceAnimationScale,
+    /** The poptip moves in position from the edge of the screen */
     AMPopTipEntranceAnimationTransition,
+    /** No animation */
     AMPopTipEntranceAnimationNone,
+    /** The Animation is provided by the user */
     AMPopTipEntranceAnimationCustom
 };
 
-/** AMPopTipActionAnimation
+/** @enum AMPopTipActionAnimation
  *
  * Enum that specifies the type of action animation. Action animations are performed
  * after the poptip is visible and the entrance animation completed.
  */
 typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
+    /** The poptip bounces following its direction */
     AMPopTipActionAnimationBounce,
+    /** The poptip floats in place */
     AMPopTipActionAnimationFloat,
+    /** The poptip pulsates by changing its size */
     AMPopTipActionAnimationPulse,
+    /** No animation */
     AMPopTipActionAnimationNone
 };
 
