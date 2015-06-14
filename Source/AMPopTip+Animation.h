@@ -10,8 +10,16 @@
 
 @interface AMPopTip (Animation)
 
-- (void)_startActionAnimation;
-- (void)_stopActionAnimation;
-- (void)setShouldBounce:(BOOL)bounce;
+/** Start the popover action animation
+ *
+ * Starts the popover action animation. Does nothing if the popover wasn't animating in the first place.
+ */
+- (void)performActionAnimation;
+
+/** Stops the popover action animation
+ *
+ * Stops the popover action animation. Does nothing if the popover wasn't animating in the first place.
+ */
+- (void)dismissActionAnimation;
 
 @end

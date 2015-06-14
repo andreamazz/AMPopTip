@@ -14,7 +14,7 @@
 - (void)setShouldBounce:(BOOL)shouldBounce { objc_setAssociatedObject(self, @selector(shouldBounce), [NSNumber numberWithBool:shouldBounce], OBJC_ASSOCIATION_RETAIN);}
 - (BOOL)shouldBounce { return [objc_getAssociatedObject(self, @selector(shouldBounce)) boolValue]; }
 
-- (void)_startActionAnimation {
+- (void)performActionAnimation {
     switch (self.actionAnimation) {
         case AMPopTipActionAnimationBounce:
             self.shouldBounce = YES;
@@ -100,7 +100,7 @@
     } completion:nil];
 }
 
-- (void)_stopActionAnimation {
+- (void)dismissActionAnimation {
     self.shouldBounce = NO;
     [UIView animateWithDuration:(self.actionAnimationOut / 2) delay:self.actionDelayOut options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.transform = CGAffineTransformIdentity;

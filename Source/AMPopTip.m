@@ -317,11 +317,11 @@
 }
 
 - (void)hide {
+    [self stopActionAnimation];
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
     if (self.superview) {
-        [self setShouldBounce:NO];
         self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
@@ -344,11 +344,11 @@
 }
 
 - (void)startActionAnimation {
-    [self _startActionAnimation];
+    [self performActionAnimation];
 }
 
 - (void)stopActionAnimation {
-    [self _stopActionAnimation];
+    [self dismissActionAnimation];
 }
 
 - (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside {
