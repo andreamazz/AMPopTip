@@ -317,7 +317,6 @@
 }
 
 - (void)hide {
-    [self stopActionAnimation];
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.removeGesture];
@@ -326,6 +325,7 @@
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
         } completion:^(BOOL finished) {
+            [self stopActionAnimation];
             [self removeFromSuperview];
             [self.layer removeAllAnimations];
             self.transform = CGAffineTransformIdentity;
