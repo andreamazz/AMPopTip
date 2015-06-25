@@ -35,41 +35,57 @@
     return [[AMPopTip alloc] init];
 }
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)ignoredFrame {
-    return [self init];
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
 }
 
 - (instancetype)init {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        _textAlignment = NSTextAlignmentCenter;
-        _font = kDefaultFont;
-        _textColor = kDefaultTextColor;
-        _popoverColor = kDefaultBackgroundColor;
-        _borderColor = kDefaultBorderColor;
-        _borderWidth = kDefaultBorderWidth;
-        _radius = kDefaultRadius;
-        _padding = kDefaultPadding;
-        _arrowSize = kDefaultArrowSize;
-        _animationIn = kDefaultAnimationIn;
-        _animationOut = kDefaultAnimationOut;
-        _isVisible = NO;
-        _shouldDismissOnTapOutside = YES;
-        _edgeMargin = kDefaultEdgeMargin;
-        _edgeInsets = kDefaultEdgeInsets;
-        _rounded = NO;
-        _offset = kDefaultOffset;
-        _entranceAnimation = AMPopTipEntranceAnimationScale;
-        _actionAnimation = AMPopTipActionAnimationNone;
-        _actionFloatOffset = kDefaultFloatOffset;
-        _actionBounceOffset = kDefaultBounceOffset;
-        _actionPulseOffset = kDefaultPulseOffset;
-        _actionAnimationIn = kDefaultBounceAnimationIn;
-		_actionAnimationOut = kDefaultBounceAnimationOut;
-        _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
+        [self commonInit];
     }
     return self;
+}
+
+- (void)commonInit {
+    _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    _textAlignment = NSTextAlignmentCenter;
+    _font = kDefaultFont;
+    _textColor = kDefaultTextColor;
+    _popoverColor = kDefaultBackgroundColor;
+    _borderColor = kDefaultBorderColor;
+    _borderWidth = kDefaultBorderWidth;
+    _radius = kDefaultRadius;
+    _padding = kDefaultPadding;
+    _arrowSize = kDefaultArrowSize;
+    _animationIn = kDefaultAnimationIn;
+    _animationOut = kDefaultAnimationOut;
+    _isVisible = NO;
+    _shouldDismissOnTapOutside = YES;
+    _edgeMargin = kDefaultEdgeMargin;
+    _edgeInsets = kDefaultEdgeInsets;
+    _rounded = NO;
+    _offset = kDefaultOffset;
+    _entranceAnimation = AMPopTipEntranceAnimationScale;
+    _actionAnimation = AMPopTipActionAnimationNone;
+    _actionFloatOffset = kDefaultFloatOffset;
+    _actionBounceOffset = kDefaultBounceOffset;
+    _actionPulseOffset = kDefaultPulseOffset;
+    _actionAnimationIn = kDefaultBounceAnimationIn;
+    _actionAnimationOut = kDefaultBounceAnimationOut;
+    _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
 }
 
 - (void)layoutSubviews {
