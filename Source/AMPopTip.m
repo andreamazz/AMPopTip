@@ -277,7 +277,6 @@
     __weak AMPopTip *weakSelf = self;
     [self performEntranceAnimation:^{
         weakSelf.isVisible = YES;
-        NSLog(@"is visibile");
         [self.containerView addGestureRecognizer:self.tapRemoveGesture];
         [self.containerView addGestureRecognizer:self.swipeRemoveGesture];
         if (self.appearHandler) {
