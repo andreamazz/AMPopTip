@@ -33,8 +33,11 @@
             completion();
             break;
         }
-        default:
+        default: {
+            [self.containerView addSubview:self];
+            completion();
             break;
+        }
     }
 }
 

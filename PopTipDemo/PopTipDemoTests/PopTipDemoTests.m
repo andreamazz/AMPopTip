@@ -39,8 +39,9 @@ describe(@"AMPopTip", ^{
     });
 
     sharedExamplesFor(@"init method", ^(NSDictionary *data) {
-        it(@"should register a new gesture recognizer", ^{
-            expect([subject valueForKey:@"removeGesture"]).to.beKindOf([UITapGestureRecognizer class]);
+        it(@"should register the gesture recognizers", ^{
+            expect([subject valueForKey:@"tapRemoveGesture"]).to.beKindOf([UITapGestureRecognizer class]);
+            expect([subject valueForKey:@"swipeRemoveGesture"]).to.beKindOf([UISwipeGestureRecognizer class]);
         });
     });
 
@@ -291,6 +292,84 @@ describe(@"AMPopTip", ^{
 
             if (kRECORD) expect(controller.view).to.recordSnapshotNamed(@"BottomRight-Left");
             expect(controller.view).to.haveValidSnapshotNamed(@"BottomRight-Left");
+        });
+    });
+
+    describe(@"tap inside gesture", ^{
+        it(@"should hide the poptip when shouldDismissOnTap is on", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnTap = YES;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(handleTap:) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beFalsy();
+        });
+
+        it(@"should not hide the poptip when shouldDismissOnTap is off", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnTap = NO;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(handleTap:) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beTruthy();
+        });
+    });
+
+    describe(@"tap outside gesture", ^{
+        it(@"should hide the poptip when shouldDismissOnTapOutside is on", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnTapOutside = YES;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(tapRemoveGestureHandler) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beFalsy();
+        });
+
+        it(@"should not hide the poptip when shouldDismissOnTapOutside is off", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnTapOutside = NO;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(tapRemoveGestureHandler) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beTruthy();
+        });
+    });
+
+    describe(@"swipe outside gesture", ^{
+        it(@"should hide the poptip when shouldDismissOnSwipeOutside is on", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnSwipeOutside = YES;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(swipeRemoveGestureHandler) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beFalsy();
+        });
+
+        it(@"should not hide the poptip when shouldDismissOnSwipeOutside is off", ^{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+            subject.shouldDismissOnSwipeOutside = NO;
+            subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            [subject performSelector:@selector(swipeRemoveGestureHandler) withObject:nil];
+#pragma clang diagnostic pop
+            expect(subject.isVisible).after(1).to.beTruthy();
         });
     });
 
