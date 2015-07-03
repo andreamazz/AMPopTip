@@ -18,7 +18,8 @@
 @property (nonatomic, strong) NSAttributedString *attributedText;
 @property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
-@property (nonatomic, strong) UITapGestureRecognizer *removeGesture;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRemoveGesture;
+@property (nonatomic, strong) UISwipeGestureRecognizer *swipeRemoveGesture;
 @property (nonatomic, strong) NSTimer *dismissTimer;
 @property (nonatomic, weak, readwrite) UIView *containerView;
 @property (nonatomic, assign, readwrite) AMPopTipDirection direction;
@@ -85,7 +86,8 @@
     _actionPulseOffset = kDefaultPulseOffset;
     _actionAnimationIn = kDefaultBounceAnimationIn;
     _actionAnimationOut = kDefaultBounceAnimationOut;
-    _removeGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeGestureHandler)];
+    _tapRemoveGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRemoveGestureHandler)];
+    _swipeRemoveGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRemoveGestureHandler)];
 }
 
 - (void)layoutSubviews {
@@ -227,8 +229,14 @@
     }
 }
 
-- (void)removeGestureHandler {
+- (void)tapRemoveGestureHandler {
     if (self.shouldDismissOnTapOutside) {
+        [self hide];
+    }
+}
+
+- (void)swipeRemoveGestureHandler {
+    if (self.shouldDismissOnSwipeOutside) {
         [self hide];
     }
 }
@@ -269,7 +277,8 @@
     __weak AMPopTip *weakSelf = self;
     [self performEntranceAnimation:^{
         weakSelf.isVisible = YES;
-        [self.containerView addGestureRecognizer:self.removeGesture];
+        [self.containerView addGestureRecognizer:self.tapRemoveGesture];
+        [self.containerView addGestureRecognizer:self.swipeRemoveGesture];
         if (self.appearHandler) {
             self.appearHandler();
         }
@@ -335,7 +344,8 @@
 - (void)hide {
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
-    [self.containerView removeGestureRecognizer:self.removeGesture];
+    [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
+    [self.containerView removeGestureRecognizer:self.swipeRemoveGesture];
     if (self.superview) {
         self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -369,12 +379,25 @@
 
 - (void)setShouldDismissOnTapOutside:(BOOL)shouldDismissOnTapOutside {
     _shouldDismissOnTapOutside = shouldDismissOnTapOutside;
-    _removeGesture.enabled = shouldDismissOnTapOutside;
+    _tapRemoveGesture.enabled = shouldDismissOnTapOutside;
+}
+
+- (void)setShouldDismissOnSwipeOutside:(BOOL)shouldDismissOnSwipeOutside {
+    _shouldDismissOnSwipeOutside = shouldDismissOnSwipeOutside;
+    _swipeRemoveGesture.enabled = shouldDismissOnSwipeOutside;
+}
+
+- (void)setSwipeRemoveGestureDirection:(UISwipeGestureRecognizerDirection)swipeRemoveGestureDirection {
+    _swipeRemoveGestureDirection = swipeRemoveGestureDirection;
+    _swipeRemoveGesture.direction = swipeRemoveGestureDirection;
 }
 
 - (void)dealloc {
-    [_removeGesture removeTarget:self action:@selector(removeGestureHandler)];
-    _removeGesture = nil;
+    [_tapRemoveGesture removeTarget:self action:@selector(tapRemoveGestureHandler)];
+    _tapRemoveGesture = nil;
+
+    [_swipeRemoveGesture removeTarget:self action:@selector(swipeRemoveGestureHandler)];
+    _swipeRemoveGesture = nil;
 }
 
 @end
