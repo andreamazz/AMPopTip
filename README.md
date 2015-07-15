@@ -145,19 +145,19 @@ appearance.offset = <#CGFloat#>; // Offset between the popover and the origin
 appearance.padding = <#CGFloat#>;
 appearance.edgeInsets = <#UIEdgeInsets#>;
 appearance.arrowSize = <#CGSize#>;
-appearance.animationIn = <#NSInterval#>;
-appearance.animationOut = <#NSInterval#>;
-appearance.delayIn = <#NSInterval#>;
-appearance.delayOut = <#NSInterval#>;
+appearance.animationIn = <#NSTimeInterval#>;
+appearance.animationOut = <#NSTimeInterval#>;
+appearance.delayIn = <#NSTimeInterval#>;
+appearance.delayOut = <#NSTimeInterval#>;
 appearance.entranceAnimation = <#AMPopTipEntranceAnimation#>;
 appearance.actionAnimation = <#AMPopTipActionAnimation#>;
 appearance.actionFloatOffset = <#CGFloat#>;
 appearance.actionBounceOffset = <#CGFloat#>;
 appearance.actionPulseOffset = <#CGFloat#>;
-appearance.actionAnimationIn = <#NSInterval#>;
-appearance.actionAnimationOut = <#NSInterval#>;
-appearance.actionDelayIn = <#NSInterval#>;
-appearance.actionDelayOut = <#NSInterval#>;
+appearance.actionAnimationIn = <#NSTimeInterval#>;
+appearance.actionAnimationOut = <#NSTimeInterval#>;
+appearance.actionDelayIn = <#NSTimeInterval#>;
+appearance.actionDelayOut = <#NSTimeInterval#>;
 appearance.edgeMargin = <#CGFloat#>;
 ```
 
