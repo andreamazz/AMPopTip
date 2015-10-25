@@ -325,9 +325,15 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
 /** Visibility
  *
  * Holds the readonly BOOL with the popover visiblity. The popover is considered visible as soon as
- * it's added as a subview, and invisible when the subview is removed from its parent.
+ * the animation is complete, and invisible when the subview is removed from its parent.
  */
 @property (nonatomic, assign, readonly) BOOL isVisible;
+
+/** Animating
+ *
+ * Holds the readonly BOOL with the popover animation state.
+ */
+@property (nonatomic, assign, readonly) BOOL isAnimating;
 
 /** Dismiss on tap
  *

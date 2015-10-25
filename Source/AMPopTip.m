@@ -25,6 +25,7 @@
 @property (nonatomic, assign, readwrite) AMPopTipDirection direction;
 @property (nonatomic, assign, readwrite) CGPoint arrowPosition;
 @property (nonatomic, assign, readwrite) BOOL isVisible;
+@property (nonatomic, assign, readwrite) BOOL isAnimating;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
 
@@ -242,7 +243,6 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-
     if (self.isRounded) {
         BOOL showHorizontally = self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight;
         self.radius = (self.frame.size.height - (showHorizontally ? 0 : self.arrowSize.height)) / 2 ;
@@ -273,10 +273,12 @@
 }
 
 - (void)show {
+    if (self.isVisible || self.isAnimating) {
+        return;
+    }
+    self.isAnimating = YES;
     [self setNeedsLayout];
-    __weak AMPopTip *weakSelf = self;
     [self performEntranceAnimation:^{
-        weakSelf.isVisible = YES;
         [self.containerView addGestureRecognizer:self.tapRemoveGesture];
         [self.containerView addGestureRecognizer:self.swipeRemoveGesture];
         if (self.appearHandler) {
@@ -285,6 +287,8 @@
         if (self.actionAnimation != AMPopTipActionAnimationNone) {
             [self startActionAnimation];
         }
+        self.isVisible = YES;
+        self.isAnimating = NO;
     }];
 }
 
@@ -342,6 +346,10 @@
 }
 
 - (void)hide {
+    if (!self.isVisible || self.isAnimating) {
+        return;
+    }
+    self.isAnimating = YES;
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
@@ -356,6 +364,7 @@
             [self.layer removeAllAnimations];
             self.transform = CGAffineTransformIdentity;
             self->_isVisible = NO;
+            self->_isAnimating = NO;
             if (self.dismissHandler) {
                 self.dismissHandler();
             }

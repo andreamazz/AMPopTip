@@ -65,7 +65,7 @@
     }
     [self.containerView addSubview:self];
 
-    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {
@@ -78,7 +78,7 @@
     self.transform = CGAffineTransformMakeScale(0, 0);
     [self.containerView addSubview:self];
 
-    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
         if (completed) {

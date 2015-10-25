@@ -33,7 +33,28 @@
     self.popTip.edgeMargin = 5;
     self.popTip.offset = 2;
     self.popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    
+    self.popTip.shouldDismissOnTap = YES;
+
+    /*  Custom entrance animation  */
+    //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
+    //    __weak AMViewController *weakSelf = self;
+    //    self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
+    //        // Setup the animation
+    //        weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
+    //        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
+    //            weakSelf.popTip.transform = CGAffineTransformIdentity;
+    //        } completion:^(BOOL done){
+    //            completion();
+    //        }];
+    //    };
+
+    /*  Entrance animation  */
+    //    self.popTip.entranceAnimation = AMPopTipEntranceAnimationTransition;
+
+
+    /*  Custom action animation  */
+    //    self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
+
     self.popTip.tapHandler = ^{
         NSLog(@"Tap!");
     };
@@ -43,35 +64,11 @@
 }
 
 - (IBAction)actionButton:(UIButton *)sender {
-    [self.popTip hide];
-    
     if ([self.popTip isVisible]) {
+        [self.popTip hide];
         return;
     }
 
-    self.popTip.shouldDismissOnTap = YES;
-    
-    /*  Custom entrance animation  */
-//    self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
-//    __weak AMViewController *weakSelf = self;
-//    self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
-//        // Setup the animation
-//        weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
-//        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-//            weakSelf.popTip.transform = CGAffineTransformIdentity;
-//        } completion:^(BOOL done){
-//            completion();
-//        }];
-//    };
-
-    /*  Entrance animation  */
-//    self.popTip.entranceAnimation = AMPopTipEntranceAnimationTransition;
-
-
-    /*  Custom action animation  */
-//    self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
-
-    
     if (sender == self.buttonTopLeft) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.95 green:0.65 blue:0.21 alpha:1];
         [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:200 inView:self.view fromFrame:sender.frame];
