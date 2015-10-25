@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" height="240" src="assets/logo.png"/>
+  <img width="420" height="240" src="assets/logo.png"/>
 </p>
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
@@ -160,6 +160,14 @@ appearance.actionDelayIn = <#NSTimeInterval#>;
 appearance.actionDelayOut = <#NSTimeInterval#>;
 appearance.edgeMargin = <#CGFloat#>;
 ```
+
+#Author
+[Andrea Mazzini](https://twitter.com/theandreamazz). I'm available for freelance work, feel free to contact me. 
+
+Want to support the development of [these free libraries](https://cocoapods.org/owners/734)? Buy me a coffee ☕️ via [Paypal](https://www.paypal.me/andreamazzini).  
+
+#Contributors
+Thanks to [everyone](https://github.com/andreamazz/AMPopTip/graphs/contributors) kind enough to submit a pull request. 
 
 #MIT License
 
