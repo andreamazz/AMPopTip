@@ -1,0 +1,13 @@
+framework module AMPopTip {
+  umbrella header "AMPopTip.h"
+
+  export *
+  module * { export * }
+
+  header "AMPopTip.h"
+  
+  private header "AMPopTip+Animation.h"
+  private header "AMPopTip+Draw.h"
+  private header "AMPopTip+Entrance.h"
+  private header "AMPopTipDefaults.h"
+}
