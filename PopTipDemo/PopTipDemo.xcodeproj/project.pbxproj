@@ -99,6 +99,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65583D1F1BE9642F0075C474 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				65B37B8B1A16099F00C46D11 /* Launch Screen.xib */,
+				65CC5740196FF827001B189F /* Images.xcassets */,
+				65CC573A196FF827001B189F /* Main.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		65CC571C196FF827001B189F = {
 			isa = PBXGroup;
 			children = (
@@ -137,14 +147,12 @@
 		65CC572E196FF827001B189F /* PopTipDemo */ = {
 			isa = PBXGroup;
 			children = (
+				65583D1F1BE9642F0075C474 /* Resources */,
 				65CC575D196FF884001B189F /* AMPopTip */,
 				65CC5737196FF827001B189F /* AMAppDelegate.h */,
 				65CC5738196FF827001B189F /* AMAppDelegate.m */,
-				65CC573A196FF827001B189F /* Main.storyboard */,
 				65CC573D196FF827001B189F /* AMViewController.h */,
 				65CC573E196FF827001B189F /* AMViewController.m */,
-				65CC5740196FF827001B189F /* Images.xcassets */,
-				65B37B8B1A16099F00C46D11 /* Launch Screen.xib */,
 				65CC572F196FF827001B189F /* Supporting Files */,
 			);
 			path = PopTipDemo;
