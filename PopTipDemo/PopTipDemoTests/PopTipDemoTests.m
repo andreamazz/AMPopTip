@@ -7,10 +7,10 @@
 //
 
 #define EXP_SHORTHAND
-#import <Specta/Specta.h>
-#import <Expecta/Expecta.h>
-#import <Expecta+Snapshots/EXPMatchers+FBSnapshotTest.h>
-#import <OCMock/OCMock.h>
+@import Specta;
+@import Expecta;
+@import Expecta_Snapshots;
+@import OCMock;
 
 #import "AMPopTip.h"
 

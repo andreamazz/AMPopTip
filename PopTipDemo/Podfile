@@ -1,17 +1,16 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, "6.0"
-
 source 'https://github.com/CocoaPods/Specs.git'
+
+use_frameworks!
 
 target "PopTipDemo" do
 
 end
 
 target "PopTipDemoTests" do
-    pod 'Specta'
-    pod 'Expecta'
-    pod 'Expecta+Snapshots'
-    pod 'OCMock'
+    pod 'Specta', '1.0.5'
+    pod 'Expecta', '1.0.5'
+    pod 'Expecta+Snapshots', '2.0.0'
+    pod 'OCMock', '3.2'
 end
 
 inhibit_all_warnings!

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		536B8E3690DD43E89CFB18F7 /* libPods-PopTipDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E7FDD55A0D748C79E71BDE9 /* libPods-PopTipDemoTests.a */; };
+		0129B5D9824CC042A46B0BDE /* Pods_PopTipDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */; };
 		6512C8031B28CD1C002C9553 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FB1B28CD1C002C9553 /* AMPopTip.m */; };
 		6512C8041B28CD1C002C9553 /* AMPopTip+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FD1B28CD1C002C9553 /* AMPopTip+Animation.m */; };
 		6512C8051B28CD1C002C9553 /* AMPopTip+Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FF1B28CD1C002C9553 /* AMPopTip+Draw.m */; };
@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1E7FDD55A0D748C79E71BDE9 /* libPods-PopTipDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PopTipDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTipDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59550C8E7F4B0B2D105644A6 /* Pods-PopTipDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C04DF571D8C15017CCBC289 /* Pods-PopTipDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		6512C7FA1B28CD1C002C9553 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMPopTip.h; path = ../Source/AMPopTip.h; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 				65CC5748196FF827001B189F /* XCTest.framework in Frameworks */,
 				65CC574A196FF827001B189F /* UIKit.framework in Frameworks */,
 				65CC5749196FF827001B189F /* Foundation.framework in Frameworks */,
-				536B8E3690DD43E89CFB18F7 /* libPods-PopTipDemoTests.a in Frameworks */,
+				0129B5D9824CC042A46B0BDE /* Pods_PopTipDemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +139,7 @@
 				65CC572A196FF827001B189F /* CoreGraphics.framework */,
 				65CC572C196FF827001B189F /* UIKit.framework */,
 				65CC5747196FF827001B189F /* XCTest.framework */,
-				1E7FDD55A0D748C79E71BDE9 /* libPods-PopTipDemoTests.a */,
+				08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,6 +243,7 @@
 				65CC5743196FF827001B189F /* Frameworks */,
 				65CC5744196FF827001B189F /* Resources */,
 				4DD15A1A43534356ADF3B101 /* Copy Pods Resources */,
+				0EB9B09207E4C16FBDD39555 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -311,6 +312,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0EB9B09207E4C16FBDD39555 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4DD15A1A43534356ADF3B101 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -526,6 +542,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
 				INFOPLIST_FILE = "PopTipDemo/PopTipDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -539,6 +556,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
 				INFOPLIST_FILE = "PopTipDemo/PopTipDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -562,6 +580,7 @@
 					"FB_REFERENCE_IMAGE_DIR=\"\\\"$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages\\\"\"",
 				);
 				INFOPLIST_FILE = "PopTipDemoTests/PopTipDemoTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -581,6 +600,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PopTipDemo/PopTipDemo-Prefix.pch";
 				INFOPLIST_FILE = "PopTipDemoTests/PopTipDemoTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
