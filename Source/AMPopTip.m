@@ -28,6 +28,7 @@
 @property (nonatomic, assign, readwrite) BOOL isAnimating;
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, strong) UIView *customView;
 
 @end
 
@@ -112,6 +113,8 @@
         self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
                                                             options:NSStringDrawingUsesLineFragmentOrigin
                                                             context:nil];
+    } else if (self.customView != nil) {
+        self.textBounds = self.customView.frame;
     }
 
     _textBounds.origin = (CGPoint){self.padding + self.edgeInsets.left, self.padding + self.edgeInsets.top};
@@ -216,6 +219,10 @@
     self.backgroundColor = [UIColor clearColor];
     self.frame = frame;
 
+    if (self.customView) {
+        self.customView.frame = self.textBounds;
+    }
+    
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self addGestureRecognizer:self.gestureRecognizer];
     [self setNeedsDisplay];
@@ -300,6 +307,7 @@
     self.containerView = view;
     self.maxWidth = maxWidth;
     _fromFrame = frame;
+    self.customView = nil;
 
     [self show];
 }
@@ -312,6 +320,21 @@
     self.containerView = view;
     self.maxWidth = maxWidth;
     _fromFrame = frame;
+    self.customView = nil;
+
+    [self show];
+}
+
+- (void)showCustomView:(UIView *)customView direction:(AMPopTipDirection)direction inView:(UIView *)view fromFrame:(CGRect)frame {
+    self.text = nil;
+    self.attributedText = nil;
+    self.direction = direction;
+    self.containerView = view;
+    self.maxWidth = customView.frame.size.width;
+    _fromFrame = frame;
+    self.customView = customView;
+
+    [self addSubview:self.customView];
 
     [self show];
 }
@@ -336,7 +359,19 @@
 - (void)showAttributedText:(NSAttributedString *)text direction:(AMPopTipDirection)direction maxWidth:(CGFloat)maxWidth inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
     [self showAttributedText:text direction:direction maxWidth:maxWidth inView:view fromFrame:frame];
     [self.dismissTimer invalidate];
-    if(interval > 0){
+    if (interval > 0){
+        self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                             target:self
+                                                           selector:@selector(hide)
+                                                           userInfo:nil
+                                                            repeats:NO];
+    }
+}
+
+- (void)showCustomView:(UIView *)customView direction:(AMPopTipDirection)direction inView:(UIView *)view fromFrame:(CGRect)frame duration:(NSTimeInterval)interval {
+    [self showCustomView:customView direction:direction inView:view fromFrame:frame];
+    [self.dismissTimer invalidate];
+    if (interval > 0){
         self.dismissTimer = [NSTimer scheduledTimerWithTimeInterval:interval
                                                              target:self
                                                            selector:@selector(hide)

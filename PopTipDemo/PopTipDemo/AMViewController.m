@@ -70,8 +70,19 @@
     }
 
     if (sender == self.buttonTopLeft) {
+        UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 120)];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"comment"]];
+        imageView.frame = CGRectMake((80 - imageView.frame.size.width) / 2, 0, imageView.frame.size.width, imageView.frame.size.height);
+        [customView addSubview:imageView];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, imageView.frame.size.height, 80, 120 - imageView.frame.size.height)];
+        label.numberOfLines = 0;
+        label.text = @"Showing a custom view!";
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont systemFontOfSize:12];
+        [customView addSubview:label];
         self.popTip.popoverColor = [UIColor colorWithRed:0.95 green:0.65 blue:0.21 alpha:1];
-        [self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionDown maxWidth:200 inView:self.view fromFrame:sender.frame];
+        [self.popTip showCustomView:customView direction:AMPopTipDirectionDown inView:self.view fromFrame:sender.frame];
     }
     if (sender == self.buttonTopRight) {
         self.popTip.popoverColor = [UIColor colorWithRed:0.97 green:0.9 blue:0.23 alpha:1];
