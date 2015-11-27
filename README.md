@@ -55,6 +55,25 @@ You can also display the popover in the center, with no arrow, in this case the 
 [self.popTip showText:@"I'm a popover" direction:AMPopTipDirectionNone maxWidth:200 inView:self.view fromFrame:self.view.frame];
 ```
 
+##Showing a custom view
+You can provide a custom view that will be wrapped in the poptip and presented.
+
+####Objective-C
+
+```objc
+UIView *cutomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+// Configure your view
+[self.popTip showCustomView:customView direction:AMPopTipDirectionDown inView:self.view fromFrame:self.view.frame];
+```
+
+####Swift
+
+```swift
+let customView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+// Configure your view
+popTip.showCustomView(view, direction: .Down, inView: self.view, fromFrame: self.view.frame)
+```
+
 ##Dismissing the popover
 You can hide the popover by calling:
 ```objc
