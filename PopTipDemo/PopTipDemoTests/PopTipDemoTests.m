@@ -12,7 +12,7 @@
 @import Expecta_Snapshots;
 @import OCMock;
 
-#import "AMPopTip.h"
+@import AMPopTip;
 
 @interface AMPopTip (Mock)
 

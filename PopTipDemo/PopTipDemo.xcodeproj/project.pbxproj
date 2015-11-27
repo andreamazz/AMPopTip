@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0129B5D9824CC042A46B0BDE /* Pods_PopTipDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */; };
-		6512C8031B28CD1C002C9553 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FB1B28CD1C002C9553 /* AMPopTip.m */; };
-		6512C8041B28CD1C002C9553 /* AMPopTip+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FD1B28CD1C002C9553 /* AMPopTip+Animation.m */; };
-		6512C8051B28CD1C002C9553 /* AMPopTip+Draw.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C7FF1B28CD1C002C9553 /* AMPopTip+Draw.m */; };
-		6512C8061B28CD1C002C9553 /* AMPopTip+Entrance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6512C8011B28CD1C002C9553 /* AMPopTip+Entrance.m */; };
+		46E63FE32DBFED997F88E554 /* Pods_PopTipDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78F60A1D9B7FACF5C9FD4598 /* Pods_PopTipDemo.framework */; };
 		65B37B8C1A16099F00C46D11 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B37B8B1A16099F00C46D11 /* Launch Screen.xib */; };
 		65CC5729196FF827001B189F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC5728196FF827001B189F /* Foundation.framework */; };
 		65CC572B196FF827001B189F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65CC572A196FF827001B189F /* CoreGraphics.framework */; };
@@ -41,17 +38,9 @@
 
 /* Begin PBXFileReference section */
 		08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTipDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F45ED373A6EAAE12D12FCE1 /* Pods-PopTipDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemo/Pods-PopTipDemo.release.xcconfig"; sourceTree = "<group>"; };
 		59550C8E7F4B0B2D105644A6 /* Pods-PopTipDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C04DF571D8C15017CCBC289 /* Pods-PopTipDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		6512C7FA1B28CD1C002C9553 /* AMPopTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMPopTip.h; path = ../Source/AMPopTip.h; sourceTree = "<group>"; };
-		6512C7FB1B28CD1C002C9553 /* AMPopTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AMPopTip.m; path = ../Source/AMPopTip.m; sourceTree = "<group>"; };
-		6512C7FC1B28CD1C002C9553 /* AMPopTip+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AMPopTip+Animation.h"; path = "../Source/AMPopTip+Animation.h"; sourceTree = "<group>"; };
-		6512C7FD1B28CD1C002C9553 /* AMPopTip+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AMPopTip+Animation.m"; path = "../Source/AMPopTip+Animation.m"; sourceTree = "<group>"; };
-		6512C7FE1B28CD1C002C9553 /* AMPopTip+Draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AMPopTip+Draw.h"; path = "../Source/AMPopTip+Draw.h"; sourceTree = "<group>"; };
-		6512C7FF1B28CD1C002C9553 /* AMPopTip+Draw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AMPopTip+Draw.m"; path = "../Source/AMPopTip+Draw.m"; sourceTree = "<group>"; };
-		6512C8001B28CD1C002C9553 /* AMPopTip+Entrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AMPopTip+Entrance.h"; path = "../Source/AMPopTip+Entrance.h"; sourceTree = "<group>"; };
-		6512C8011B28CD1C002C9553 /* AMPopTip+Entrance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AMPopTip+Entrance.m"; path = "../Source/AMPopTip+Entrance.m"; sourceTree = "<group>"; };
-		6512C8021B28CD1C002C9553 /* AMPopTipDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AMPopTipDefaults.h; path = ../Source/AMPopTipDefaults.h; sourceTree = "<group>"; };
 		65B37B8B1A16099F00C46D11 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Launch Screen.xib"; path = "../Launch Screen.xib"; sourceTree = "<group>"; };
 		65CC5725196FF827001B189F /* PopTipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopTipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CC5728196FF827001B189F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,6 +61,8 @@
 		65CC574F196FF827001B189F /* PopTipDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PopTipDemoTests-Info.plist"; sourceTree = "<group>"; };
 		65CC5751196FF827001B189F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65CC5753196FF827001B189F /* PopTipDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PopTipDemoTests.m; sourceTree = "<group>"; };
+		78F60A1D9B7FACF5C9FD4598 /* Pods_PopTipDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTipDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA9F41609141A6C88174D507 /* Pods-PopTipDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTipDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTipDemo/Pods-PopTipDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +73,7 @@
 				65CC572B196FF827001B189F /* CoreGraphics.framework in Frameworks */,
 				65CC572D196FF827001B189F /* UIKit.framework in Frameworks */,
 				65CC5729196FF827001B189F /* Foundation.framework in Frameworks */,
+				46E63FE32DBFED997F88E554 /* Pods_PopTipDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +132,7 @@
 				65CC572C196FF827001B189F /* UIKit.framework */,
 				65CC5747196FF827001B189F /* XCTest.framework */,
 				08CB48CFED34A3FFE5765180 /* Pods_PopTipDemoTests.framework */,
+				78F60A1D9B7FACF5C9FD4598 /* Pods_PopTipDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				65583D1F1BE9642F0075C474 /* Resources */,
-				65CC575D196FF884001B189F /* AMPopTip */,
 				65CC5737196FF827001B189F /* AMAppDelegate.h */,
 				65CC5738196FF827001B189F /* AMAppDelegate.m */,
 				65CC573D196FF827001B189F /* AMViewController.h */,
@@ -187,28 +179,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		65CC575D196FF884001B189F /* AMPopTip */ = {
-			isa = PBXGroup;
-			children = (
-				6512C7FA1B28CD1C002C9553 /* AMPopTip.h */,
-				6512C7FB1B28CD1C002C9553 /* AMPopTip.m */,
-				6512C7FC1B28CD1C002C9553 /* AMPopTip+Animation.h */,
-				6512C7FD1B28CD1C002C9553 /* AMPopTip+Animation.m */,
-				6512C7FE1B28CD1C002C9553 /* AMPopTip+Draw.h */,
-				6512C7FF1B28CD1C002C9553 /* AMPopTip+Draw.m */,
-				6512C8001B28CD1C002C9553 /* AMPopTip+Entrance.h */,
-				6512C8011B28CD1C002C9553 /* AMPopTip+Entrance.m */,
-				6512C8021B28CD1C002C9553 /* AMPopTipDefaults.h */,
-			);
-			name = AMPopTip;
-			path = ../../AMPopTip;
-			sourceTree = "<group>";
-		};
 		F521037DA6E9F53D6AD46CC1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				59550C8E7F4B0B2D105644A6 /* Pods-PopTipDemoTests.debug.xcconfig */,
 				5C04DF571D8C15017CCBC289 /* Pods-PopTipDemoTests.release.xcconfig */,
+				CA9F41609141A6C88174D507 /* Pods-PopTipDemo.debug.xcconfig */,
+				3F45ED373A6EAAE12D12FCE1 /* Pods-PopTipDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -220,10 +197,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65CC5757196FF827001B189F /* Build configuration list for PBXNativeTarget "PopTipDemo" */;
 			buildPhases = (
+				C58EDF7A07DC03ED6301240F /* Check Pods Manifest.lock */,
 				65CC5721196FF827001B189F /* Sources */,
 				65CC5722196FF827001B189F /* Frameworks */,
 				65CC5723196FF827001B189F /* Resources */,
 				70C61442D9724946A074A875 /* Warn for TODO and FIXME comments */,
+				C6836486F72DEF6EBF171AEB /* Embed Pods Frameworks */,
+				49836BDFD15658EE84452DD6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -327,6 +307,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTipDemoTests/Pods-PopTipDemoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		49836BDFD15658EE84452DD6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTipDemo/Pods-PopTipDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4DD15A1A43534356ADF3B101 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -356,6 +351,36 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nFILE_EXTENSIONS=\"h|m|mm|c|cpp\"\nfind -E \"${SRCROOT}\" -ipath \"${SRCROOT}/pods\" -prune -o \\( -regex \".*\\.($FILE_EXTENSIONS)$\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
 		};
+		C58EDF7A07DC03ED6301240F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C6836486F72DEF6EBF171AEB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTipDemo/Pods-PopTipDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FB9B1B1D22C14998970C7DCC /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,13 +403,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6512C8061B28CD1C002C9553 /* AMPopTip+Entrance.m in Sources */,
 				65CC5739196FF827001B189F /* AMAppDelegate.m in Sources */,
 				65CC573F196FF827001B189F /* AMViewController.m in Sources */,
 				65CC5735196FF827001B189F /* main.m in Sources */,
-				6512C8051B28CD1C002C9553 /* AMPopTip+Draw.m in Sources */,
-				6512C8041B28CD1C002C9553 /* AMPopTip+Animation.m in Sources */,
-				6512C8031B28CD1C002C9553 /* AMPopTip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +557,7 @@
 		};
 		65CC5758196FF827001B189F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA9F41609141A6C88174D507 /* Pods-PopTipDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -550,6 +572,7 @@
 		};
 		65CC5759196FF827001B189F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F45ED373A6EAAE12D12FCE1 /* Pods-PopTipDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

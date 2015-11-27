@@ -7,7 +7,7 @@
 //
 
 #import "AMViewController.h"
-#import "AMPopTip.h"
+@import AMPopTip;
 
 @interface AMViewController ()
 
