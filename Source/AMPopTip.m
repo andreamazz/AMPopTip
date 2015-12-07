@@ -394,6 +394,7 @@
         [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
             self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
         } completion:^(BOOL finished) {
+            [self.customView removeFromSuperview];
             [self stopActionAnimation];
             [self removeFromSuperview];
             [self.layer removeAllAnimations];
