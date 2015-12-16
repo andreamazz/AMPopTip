@@ -56,6 +56,9 @@ You can also display the popover in the center, with no arrow, in this case the 
 [self.popTip showText:@"I'm a popover" direction:AMPopTipDirectionNone maxWidth:200 inView:self.view fromFrame:self.view.frame];
 ```
 
+##Coordinate system
+Please note that the frame you are intended to provide needs to refer to the absolute coordinate system of the view you are presenting the popover in. This means that if you are presenting the popover in a view, pointing to a nested subview, you'll need to convert its frame using UIKit's `convertRect(_:toView:)`. Read the reference [here](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/#//apple_ref/occ/instm/UIView/convertRect:toView:).
+
 ##Showing a custom view
 You can provide a custom view that will be wrapped in the poptip and presented.
 
