@@ -335,6 +335,7 @@
     self.customView = customView;
 
     [self addSubview:self.customView];
+    [self.customView layoutIfNeeded];
 
     [self show];
 }
