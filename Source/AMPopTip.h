@@ -40,6 +40,8 @@ typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
     AMPopTipEntranceAnimationScale,
     /** The poptip moves in position from the edge of the screen */
     AMPopTipEntranceAnimationTransition,
+    /** The poptip fade in */
+    AMPopTipEntranceAnimationFadeIn,
     /** No animation */
     AMPopTipEntranceAnimationNone,
     /** The Animation is provided by the user */
