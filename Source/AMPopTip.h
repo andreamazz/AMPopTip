@@ -48,6 +48,22 @@ typedef NS_ENUM(NSInteger, AMPopTipEntranceAnimation) {
     AMPopTipEntranceAnimationCustom
 };
 
+/** @enum AMPopTipExitAnimation
+ *
+ * Enum that specifies the type of entrance animation. Entrance animations are performed
+ * while showing the poptip.
+ */
+typedef NS_ENUM(NSInteger, AMPopTipExitAnimation) {
+    /** The poptip scales from 0% to 100% */
+    AMPopTipExitAnimationScale,
+    /** The poptip fade in */
+    AMPopTipExitAnimationFadeOut,
+    /** No animation */
+    AMPopTipExitAnimationNone,
+    /** The Animation is provided by the user */
+    AMPopTipExitAnimationCustom
+};
+
 /** @enum AMPopTipActionAnimation
  *
  * Enum that specifies the type of action animation. Action animations are performed
@@ -288,6 +304,12 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, assign) AMPopTipEntranceAnimation entranceAnimation UI_APPEARANCE_SELECTOR;
 
+/** Exit animation type
+ *
+ * Holds the enum with the type of exit animation (triggered once the popover is dismissed)
+ */
+@property (nonatomic, assign) AMPopTipExitAnimation exitAnimation UI_APPEARANCE_SELECTOR;
+
 /** Action animation type
  *
  * Holds the enum with the type of action animation (triggered once the popover is shown)
@@ -412,6 +434,14 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * Remember to call the completion block provided
  */
 @property (nonatomic, copy) void (^entranceAnimationHandler)(void (^completion)(void));
+
+/** Exit animation
+ *
+ * A block block that handles the exit animation of the poptip. Should be provided
+ * when using a AMPopTipActionAnimationCustom exit animation type.
+ * Remember to call the completion block provided
+ */
+@property (nonatomic, copy) void (^exitAnimationHandler)(void (^completion)(void));
 
 /** Arrow position
  *

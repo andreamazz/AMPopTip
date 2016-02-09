@@ -10,6 +10,7 @@
 #import "AMPopTipDefaults.h"
 #import "AMPopTip+Draw.h"
 #import "AMPopTip+Entrance.h"
+#import "AMPopTip+Exit.h"
 #import "AMPopTip+Animation.h"
 
 @interface AMPopTip()
@@ -82,6 +83,7 @@
     _rounded = NO;
     _offset = kDefaultOffset;
     _entranceAnimation = AMPopTipEntranceAnimationScale;
+    _exitAnimation = AMPopTipExitAnimationScale;
     _actionAnimation = AMPopTipActionAnimationNone;
     _actionFloatOffset = kDefaultFloatOffset;
     _actionBounceOffset = kDefaultBounceOffset;
@@ -391,10 +393,8 @@
     [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
     [self.containerView removeGestureRecognizer:self.swipeRemoveGesture];
     if (self.superview) {
-        self.transform = CGAffineTransformIdentity;
-        [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
-            self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
-        } completion:^(BOOL finished) {
+        
+        [self performExitAnimation:^{
             [self.customView removeFromSuperview];
             [self stopActionAnimation];
             [self removeFromSuperview];
@@ -406,6 +406,14 @@
                 self.dismissHandler();
             }
         }];
+        /*
+        self.transform = CGAffineTransformIdentity;
+        [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+            self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
+        } completion:^(BOOL finished) {
+            
+        }];
+         */
     }
 }
 
