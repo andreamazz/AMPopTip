@@ -10,8 +10,7 @@
 
 @implementation AMPopTip (Exit)
 
-- (void)performExitAnimation:(void (^)())completion
-{
+- (void)performExitAnimation:(void (^)())completion {
     switch (self.exitAnimation) {
         case AMPopTipExitAnimationScale: {
             [self exitScale:completion];
@@ -25,18 +24,25 @@
             [self.containerView addSubview:self];
             if (self.exitAnimationHandler) {
                 self.exitAnimationHandler(^{
-                    completion();
+                    if (completion) {
+                        completion();
+                    }
                 });
             }
+            break;
         }
         case AMPopTipExitAnimationNone: {
             [self.containerView addSubview:self];
-            completion();
+            if (completion) {
+                completion();
+            }
             break;
         }
         default: {
             [self.containerView addSubview:self];
-            completion();
+            if (completion) {
+                completion();
+            }
             break;
         }
     }
@@ -48,7 +54,7 @@
     [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformMakeScale(0.000001, 0.000001);
     } completion:^(BOOL completed){
-        if (completed) {
+        if (completed && completion) {
             completion();
         }
     }];
@@ -59,7 +65,7 @@
     [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.alpha = 0.0;
     } completion:^(BOOL completed){
-        if (completed) {
+        if (completed && completion) {
             completion();
         }
     }];

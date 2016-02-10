@@ -428,7 +428,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
 
 /** Entrance animation
  *
- * A block block that handles the entrance animation of the poptip. Should be provided
+ * A block that handles the entrance animation of the poptip. Should be provided
  * when using a AMPopTipActionAnimationCustom entrance animation type.
  * Please note that the poptip will be automatically added as a subview before firing the block
  * Remember to call the completion block provided
