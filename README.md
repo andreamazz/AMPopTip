@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
 [![Coverage Status](https://coveralls.io/repos/andreamazz/AMPopTip/badge.svg)](https://coveralls.io/r/andreamazz/AMPopTip)
-[![Cocoapods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
+[![CocoaPods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/AMPopTip.svg)](http://cocoadocs.org/docsets/AMPopTip)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -21,7 +21,7 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 #Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
-#Setup with Cocoapods
+#Setup with CocoaPods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
 * Run ```pod install```
 * Run ```open App.xcworkspace```
