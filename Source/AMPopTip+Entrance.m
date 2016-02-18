@@ -20,6 +20,10 @@
             [self entranceTransition:completion];
             break;
         }
+        case AMPopTipEntranceAnimationFadeIn: {
+            [self entranceFadeIn:completion];
+            break;
+        }
         case AMPopTipEntranceAnimationCustom: {
             [self.containerView addSubview:self];
             if (self.entranceAnimationHandler) {
@@ -68,7 +72,7 @@
     [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
-        if (completed) {
+        if (completed && completion) {
             completion();
         }
     }];
@@ -81,7 +85,20 @@
     [UIView animateWithDuration:self.animationIn delay:self.delayIn usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.transform = CGAffineTransformIdentity;
     } completion:^(BOOL completed){
-        if (completed) {
+        if (completed && completion) {
+            completion();
+        }
+    }];
+}
+
+- (void)entranceFadeIn:(void (^)())completion {
+    [self.containerView addSubview:self];
+    
+    self.alpha = 0.0;
+    [UIView animateWithDuration:self.animationIn delay:self.delayIn options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
+        self.alpha = 1.0;
+    } completion:^(BOOL completed){
+        if (completed && completion) {
             completion();
         }
     }];

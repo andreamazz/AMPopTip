@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26F157781C6A4F4200BE9E59 /* AMPopTip+Exit.h in Headers */ = {isa = PBXBuildFile; fileRef = 26F157761C6A4F4200BE9E59 /* AMPopTip+Exit.h */; };
+		26F157791C6A4F4200BE9E59 /* AMPopTip+Exit.m in Sources */ = {isa = PBXBuildFile; fileRef = 26F157771C6A4F4200BE9E59 /* AMPopTip+Exit.m */; };
 		6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6512C8161B28CEB4002C9553 /* AMPopTip.h */; };
 		65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DCC3601B28CF750007B691 /* AMPopTip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		65DCC36A1B28CF750007B691 /* AMPopTip.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DCC3611B28CF750007B691 /* AMPopTip.m */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		26F157761C6A4F4200BE9E59 /* AMPopTip+Exit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AMPopTip+Exit.h"; path = "Source/AMPopTip+Exit.h"; sourceTree = SOURCE_ROOT; };
+		26F157771C6A4F4200BE9E59 /* AMPopTip+Exit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AMPopTip+Exit.m"; path = "Source/AMPopTip+Exit.m"; sourceTree = SOURCE_ROOT; };
 		6512C8111B28CEB4002C9553 /* AMPopTip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AMPopTip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6512C8151B28CEB4002C9553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6512C8161B28CEB4002C9553 /* AMPopTip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMPopTip.h; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				65DCC3651B28CF750007B691 /* AMPopTip+Draw.m */,
 				65DCC3661B28CF750007B691 /* AMPopTip+Entrance.h */,
 				65DCC3671B28CF750007B691 /* AMPopTip+Entrance.m */,
+				26F157761C6A4F4200BE9E59 /* AMPopTip+Exit.h */,
+				26F157771C6A4F4200BE9E59 /* AMPopTip+Exit.m */,
 				65DCC3681B28CF750007B691 /* AMPopTipDefaults.h */,
 			);
 			name = AMPopTip;
@@ -102,6 +108,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26F157781C6A4F4200BE9E59 /* AMPopTip+Exit.h in Headers */,
 				65DCC36F1B28CF750007B691 /* AMPopTip+Entrance.h in Headers */,
 				65DCC3691B28CF750007B691 /* AMPopTip.h in Headers */,
 				6512C8171B28CEB4002C9553 /* AMPopTip.h in Headers */,
@@ -180,6 +187,7 @@
 			files = (
 				65DCC36E1B28CF750007B691 /* AMPopTip+Draw.m in Sources */,
 				65DCC36C1B28CF750007B691 /* AMPopTip+Animation.m in Sources */,
+				26F157791C6A4F4200BE9E59 /* AMPopTip+Exit.m in Sources */,
 				65DCC36A1B28CF750007B691 /* AMPopTip.m in Sources */,
 				65DCC3701B28CF750007B691 /* AMPopTip+Entrance.m in Sources */,
 			);
