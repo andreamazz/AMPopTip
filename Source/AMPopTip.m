@@ -397,6 +397,7 @@
         
         [self performExitAnimation:^{
             [self.customView removeFromSuperview];
+            self.customView = nil;
             [self stopActionAnimation];
             [self removeFromSuperview];
             [self.layer removeAllAnimations];
