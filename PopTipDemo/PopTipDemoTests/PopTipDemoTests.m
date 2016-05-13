@@ -300,6 +300,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnTap = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -326,6 +327,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnTapOutside = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -352,6 +354,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnSwipeOutside = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -388,6 +391,7 @@ describe(@"AMPopTip", ^{
             subject.animationIn = 0;
             subject.delayIn = 0;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 
             __block BOOL dismissCalled = NO;
@@ -403,6 +407,7 @@ describe(@"AMPopTip", ^{
             subject.animationIn = 0;
             subject.delayIn = 0;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 
             [subject hide];

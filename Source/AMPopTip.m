@@ -398,7 +398,6 @@
     [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
     [self.containerView removeGestureRecognizer:self.swipeRemoveGesture];
     if (self.superview) {
-        
         [self performExitAnimation:^{
             [self.customView removeFromSuperview];
             self.customView = nil;
