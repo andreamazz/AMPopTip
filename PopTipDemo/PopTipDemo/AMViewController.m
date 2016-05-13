@@ -64,10 +64,10 @@
 }
 
 - (IBAction)actionButton:(UIButton *)sender {
-    if ([self.popTip isVisible]) {
-        [self.popTip hide];
-        return;
-    }
+//    if ([self.popTip isVisible]) {
+//        [self.popTip hide];
+//        return;
+//    }
 
     if (sender == self.buttonTopLeft) {
         UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 120)];

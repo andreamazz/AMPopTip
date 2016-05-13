@@ -283,9 +283,10 @@
 }
 
 - (void)show {
-    if (self.isVisible || self.isAnimating) {
-        return;
-    }
+//    [self setNeedsDisplay];
+//    if (self.isVisible || self.isAnimating) {
+//        return;
+//    }
     self.isAnimating = YES;
     [self setNeedsLayout];
     [self performEntranceAnimation:^{
@@ -310,6 +311,7 @@
     self.containerView = view;
     self.maxWidth = maxWidth;
     _fromFrame = frame;
+    [self.customView removeFromSuperview];
     self.customView = nil;
 
     [self show];
@@ -323,6 +325,7 @@
     self.containerView = view;
     self.maxWidth = maxWidth;
     _fromFrame = frame;
+    [self.customView removeFromSuperview];
     self.customView = nil;
 
     [self show];
@@ -335,8 +338,8 @@
     self.containerView = view;
     self.maxWidth = customView.frame.size.width;
     _fromFrame = frame;
+    [self.customView removeFromSuperview];
     self.customView = customView;
-
     [self addSubview:self.customView];
     [self.customView layoutIfNeeded];
 
