@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="420" height="240" src="assets/logo.png"/>
+  <img width="420" src="assets/logo.png"/>
 </p>
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
