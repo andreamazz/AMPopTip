@@ -397,20 +397,26 @@
     self.dismissTimer = nil;
     [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
     [self.containerView removeGestureRecognizer:self.swipeRemoveGesture];
-    if (self.superview) {
-        [self performExitAnimation:^{
-            [self.customView removeFromSuperview];
-            self.customView = nil;
-            [self stopActionAnimation];
-            [self removeFromSuperview];
-            [self.layer removeAllAnimations];
-            self.transform = CGAffineTransformIdentity;
-            self->_isVisible = NO;
-            self->_isAnimating = NO;
-            if (self.dismissHandler) {
-                self.dismissHandler();
-            }
-        }];
+
+    void (^completion)() = ^{
+        [self.customView removeFromSuperview];
+        self.customView = nil;
+        [self stopActionAnimation];
+        [self removeFromSuperview];
+        [self.layer removeAllAnimations];
+        self.transform = CGAffineTransformIdentity;
+        self->_isVisible = NO;
+        self->_isAnimating = NO;
+        if (self.dismissHandler) {
+            self.dismissHandler();
+        }
+    };
+
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+        completion();
+    } else if (self.superview) {
+        [self performExitAnimation:completion];
     }
 }
 
