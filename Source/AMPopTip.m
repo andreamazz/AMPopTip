@@ -412,8 +412,12 @@
         }
     };
 
+    BOOL isActive = YES;
+#ifndef AM_POPTIP_EXTENSION
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-    if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+    isActive = (state == UIApplicationStateActive);
+#endif
+    if (!isActive) {
         completion();
     } else if (self.superview) {
         [self performExitAnimation:completion];
