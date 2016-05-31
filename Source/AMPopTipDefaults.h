@@ -22,6 +22,7 @@
 #define kDefaultEdgeInsets UIEdgeInsetsZero
 #define kDefaultEdgeMargin 0
 #define kDefaultOffset 0
+#define kDefaultBubbleOffset 0
 #define kDefaultBounceOffset 8
 #define kDefaultFloatOffset 8
 #define kDefaultPulseOffset 1.1

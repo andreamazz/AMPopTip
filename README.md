@@ -191,6 +191,7 @@ appearance.actionAnimationOut = <#NSTimeInterval#>;
 appearance.actionDelayIn = <#NSTimeInterval#>;
 appearance.actionDelayOut = <#NSTimeInterval#>;
 appearance.edgeMargin = <#CGFloat#>;
+appearance.bubbleOffset = <#CGFloat#>; // Offset between the bubble and the arrow
 ```
 
 #Author
