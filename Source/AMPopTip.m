@@ -139,6 +139,16 @@
         }
 
         frame.origin.y += offset;
+        
+        CGFloat leftSpace = frame.origin.x - self.containerView.frame.origin.x;
+        CGFloat rightSpace = self.containerView.frame.size.width - leftSpace - frame.size.width;
+        
+        if (self.bubbleOffset < 0 && leftSpace < abs(self.bubbleOffset)) {
+            self.bubbleOffset = -leftSpace + self.edgeMargin;
+        }else if (self.bubbleOffset > 0 && rightSpace < self.bubbleOffset) {
+            self.bubbleOffset = rightSpace - self.edgeMargin;
+        }
+        
         frame.origin.x += self.bubbleOffset;
 
     } else if (self.direction == AMPopTipDirectionLeft || self.direction == AMPopTipDirectionRight) {
@@ -159,6 +169,15 @@
         if (y < 0) { y = self.edgeMargin; }
         if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
+        
+        CGFloat topSpace = frame.origin.y - self.containerView.frame.origin.y;
+        CGFloat bottomSpace = self.containerView.frame.size.height - topSpace - frame.size.height;
+        
+        if (self.bubbleOffset < 0 && topSpace < abs(self.bubbleOffset)) {
+            self.bubbleOffset = -topSpace + self.edgeMargin;
+        }else if (self.bubbleOffset > 0 && bottomSpace < self.bubbleOffset) {
+            self.bubbleOffset = bottomSpace - self.edgeMargin;
+        }
         
         frame.origin.y += self.bubbleOffset;
         
