@@ -137,19 +137,6 @@ describe(@"AMPopTip", ^{
         it(@"should set the properties", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero];
-            expect([subject valueForKey:@"attributedText"]).to.beNil();
-            expect([subject valueForKey:@"text"]).to.equal(@"Hi");
-            expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
-            expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
-            expect([subject valueForKey:@"containerView"]).to.equal(view);
-            expect([subject valueForKey:@"maxWidth"]).to.equal(200);
-        });
-    });
-    
-    describe(@"showText:direction:maxWidth:inView:fromFrame:", ^{
-        it(@"should set the properties", ^{
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-            [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero];
             subject.bubbleOffset = 10;
             expect([subject valueForKey:@"attributedText"]).to.beNil();
             expect([subject valueForKey:@"text"]).to.equal(@"Hi");
@@ -160,7 +147,7 @@ describe(@"AMPopTip", ^{
             expect([subject valueForKey:@"bubbleOffset"]).to.equal(10);
         });
     });
-
+    
     describe(@"showAttributedText:direction:maxWidth:inView:fromFrame:", ^{
         it(@"should set the properties", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
