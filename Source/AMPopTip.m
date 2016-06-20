@@ -140,6 +140,25 @@
 
         frame.origin.y += offset;
         
+        //Check if the bubble doesn't leaves the boundaries of the arrow
+        CGFloat yPoint = (self.direction == AMPopTipDirectionUp) ? frame.size.height : self.fromFrame.origin.y + self.fromFrame.size.height - frame.origin.y + offset;
+        
+        CGPoint arrowPosition = (CGPoint){ self.fromFrame.origin.x + self.fromFrame.size.width / 2 - frame.origin.x, yPoint };
+        
+        if (self.bubbleOffset > 0 && arrowPosition.x < self.bubbleOffset)
+        {
+            self.bubbleOffset = arrowPosition.x - self.arrowSize.width;
+        }
+        else if (self.bubbleOffset < 0 && frame.size.width < abs(self.bubbleOffset))
+        {
+            self.bubbleOffset = -(arrowPosition.x - self.arrowSize.width);
+        }
+        else if (self.bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < abs(self.bubbleOffset))
+        {
+            self.bubbleOffset = -(self.arrowSize.width + self.edgeMargin);
+        }
+        
+        //Check if the bubble doesn't leaves the boundaries of the view
         CGFloat leftSpace = frame.origin.x - self.containerView.frame.origin.x;
         CGFloat rightSpace = self.containerView.frame.size.width - leftSpace - frame.size.width;
         
@@ -170,6 +189,21 @@
         if (y + frame.size.height > self.containerView.bounds.size.height) { y = self.containerView.bounds.size.height - frame.size.height - self.edgeMargin; }
         frame.origin = (CGPoint){ x, y };
         
+        //Check if the bubble doesn't leaves the boundaries of the arrow
+        CGFloat xPoint = (self.direction == AMPopTipDirectionLeft) ? self.fromFrame.origin.x - frame.origin.x + offset : self.fromFrame.origin.x + self.fromFrame.size.width - frame.origin.x + offset;
+        
+        CGPoint arrowPosition = (CGPoint){ xPoint, self.fromFrame.origin.y + self.fromFrame.size.height / 2 - frame.origin.y };
+        
+        if (self.bubbleOffset > 0 && arrowPosition.y < self.bubbleOffset)
+        {
+            self.bubbleOffset = arrowPosition.y - self.arrowSize.width;
+        }
+        else if (self.bubbleOffset < 0 && frame.size.height < abs(self.bubbleOffset))
+        {
+            self.bubbleOffset = -(arrowPosition.y - self.arrowSize.height);
+        }
+        
+        //Check if the bubble doesn't leaves the boundaries of the view
         CGFloat topSpace = frame.origin.y - self.containerView.frame.origin.y;
         CGFloat bottomSpace = self.containerView.frame.size.height - topSpace - frame.size.height;
         
