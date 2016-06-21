@@ -91,13 +91,10 @@
         
         static int AMPopTipDirectionTopRight = AMPopTipDirectionLeft;
         
-        if (AMPopTipDirectionTopRight == AMPopTipDirectionLeft)
-        {
+        if (AMPopTipDirectionTopRight == AMPopTipDirectionLeft) {
             self.popTip.bubbleOffset = -25;
             AMPopTipDirectionTopRight = AMPopTipDirectionDown;
-        }
-        else
-        {
+        } else {
             self.popTip.bubbleOffset = 25;
             AMPopTipDirectionTopRight = AMPopTipDirectionLeft;
         }
@@ -108,13 +105,10 @@
         
         static int AMPopTipDirectionBottomLeft = AMPopTipDirectionRight;
         
-        if (AMPopTipDirectionBottomLeft == AMPopTipDirectionRight)
-        {
+        if (AMPopTipDirectionBottomLeft == AMPopTipDirectionRight) {
             self.popTip.bubbleOffset = 25;
             AMPopTipDirectionBottomLeft = AMPopTipDirectionUp;
-        }
-        else
-        {
+        } else {
             self.popTip.bubbleOffset = -25;
             AMPopTipDirectionBottomLeft = AMPopTipDirectionRight;
         }
