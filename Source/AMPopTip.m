@@ -157,7 +157,7 @@
         
         if (self.bubbleOffset < 0 && leftSpace < abs(self.bubbleOffset)) {
             self.bubbleOffset = -leftSpace + self.edgeMargin;
-        }else if (self.bubbleOffset > 0 && rightSpace < self.bubbleOffset) {
+        } else if (self.bubbleOffset > 0 && rightSpace < self.bubbleOffset) {
             self.bubbleOffset = rightSpace - self.edgeMargin;
         }
         
@@ -433,7 +433,7 @@
 }
 
 - (void)hide {
-    if (!self.isVisible || self.isAnimating) {
+    if (self.isAnimating) {
         return;
     }
     self.isAnimating = YES;
