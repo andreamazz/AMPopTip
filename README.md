@@ -1,9 +1,9 @@
 <p align="center">
-  <img width="420" height="240" src="assets/logo.png"/>
+  <img width="420" src="assets/logo.png"/>
 </p>
 
 [![Build Status](https://travis-ci.org/andreamazz/AMPopTip.svg)](https://travis-ci.org/andreamazz/AMPopTip)
-[![Coverage Status](https://coveralls.io/repos/andreamazz/AMPopTip/badge.svg)](https://coveralls.io/r/andreamazz/AMPopTip)
+[![codecov](https://codecov.io/gh/andreamazz/AMPopTip/branch/master/graph/badge.svg)](https://codecov.io/gh/andreamazz/AMPopTip)
 [![CocoaPods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/AMPopTip.svg)](http://cocoadocs.org/docsets/AMPopTip)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -158,6 +158,9 @@ The animation is fired as soon as the popover enters the scene and completes its
 
 ![AMPopTip bounce](assets/bounce_effect.gif)
 
+#Usage with app extension
+When using this library in an app extension, make sure to add the user defined macro `AM_POPTIP_EXTENSION` to your extension's target.
+
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
@@ -188,6 +191,7 @@ appearance.actionAnimationOut = <#NSTimeInterval#>;
 appearance.actionDelayIn = <#NSTimeInterval#>;
 appearance.actionDelayOut = <#NSTimeInterval#>;
 appearance.edgeMargin = <#CGFloat#>;
+appearance.bubbleOffset = <#CGFloat#>; // Offset between the bubble and the arrow
 ```
 
 #Author

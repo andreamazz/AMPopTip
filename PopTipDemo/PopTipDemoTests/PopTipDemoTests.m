@@ -104,8 +104,7 @@ describe(@"AMPopTip", ^{
             subject.animationOut = 0;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
             subject.edgeMargin = 2;
-
-
+            
             [subject showText:@"It's all smooth sailing\nFrom here on out"
                     direction:AMPopTipDirectionDown
                      maxWidth:140
@@ -138,15 +137,17 @@ describe(@"AMPopTip", ^{
         it(@"should set the properties", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:200 inView:view fromFrame:CGRectZero];
+            subject.bubbleOffset = 10;
             expect([subject valueForKey:@"attributedText"]).to.beNil();
             expect([subject valueForKey:@"text"]).to.equal(@"Hi");
             expect([subject valueForKey:@"accessibilityLabel"]).to.equal(@"Hi");
             expect([subject valueForKey:@"direction"]).to.equal(AMPopTipDirectionUp);
             expect([subject valueForKey:@"containerView"]).to.equal(view);
             expect([subject valueForKey:@"maxWidth"]).to.equal(200);
+            expect([subject valueForKey:@"bubbleOffset"]).to.equal(10);
         });
     });
-
+    
     describe(@"showAttributedText:direction:maxWidth:inView:fromFrame:", ^{
         it(@"should set the properties", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
@@ -300,6 +301,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnTap = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -326,6 +328,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnTapOutside = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -352,6 +355,7 @@ describe(@"AMPopTip", ^{
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
             subject.shouldDismissOnSwipeOutside = YES;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -388,6 +392,7 @@ describe(@"AMPopTip", ^{
             subject.animationIn = 0;
             subject.delayIn = 0;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 
             __block BOOL dismissCalled = NO;
@@ -403,6 +408,7 @@ describe(@"AMPopTip", ^{
             subject.animationIn = 0;
             subject.delayIn = 0;
             subject.entranceAnimation = AMPopTipEntranceAnimationNone;
+            subject.exitAnimation = AMPopTipExitAnimationNone;
             [subject showText:@"Hi" direction:AMPopTipDirectionUp maxWidth:140 inView:view fromFrame:CGRectZero];
 
             [subject hide];

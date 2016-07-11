@@ -364,6 +364,12 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 @property (nonatomic, assign) CGFloat edgeMargin UI_APPEARANCE_SELECTOR;
 
+/** Offset for the Bubble
+ *
+ * Holds the offset between the bubble and origin
+ */
+@property (nonatomic, assign) CGFloat bubbleOffset UI_APPEARANCE_SELECTOR;
+
 /** The frame the poptip is pointing to
  *
  * Holds the CGrect with the rect the tip is pointing to

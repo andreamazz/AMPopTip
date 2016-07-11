@@ -29,7 +29,3 @@ build/
 *.swp
 *.orig
 
-#CocoaPods
-Pods
-*.xcworkspace
-
