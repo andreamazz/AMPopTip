@@ -275,6 +275,7 @@
     }
     
     self.gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.gestureRecognizer setCancelsTouchesInView:NO];
     [self addGestureRecognizer:self.gestureRecognizer];
     [self setNeedsDisplay];
 }
