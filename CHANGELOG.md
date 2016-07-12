@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
-- `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111)  
+- `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)  
 - `1.0.0` Releases - [1.0.0](#100) | [1.0.1](#101) | [1.0.2](#102) | [1.0.3](#103)  
 - `0.10.x` Releases - [0.10.0](#0100) | [0.10.1](#0101) | [0.10.2](#0102)  
 - `0.9.x` Releases - [0.9](#09) | [0.9.1](#091) | [0.9.2](#092) | [0.9.3](#093) | [0.9.4](#094) | [0.9.5](#095) | [0.9.6](#096) | [0.9.7](#097) | [0.9.8](#098) | [0.9.9](#099) | [0.9.10](#0910) | [0.9.11](#0911) | [0.9.12](#0912) | [0.9.13](#0913) | [0.9.14](#0914)  
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [1.1.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.1.2)
+
+- Merged #82
 
 ## [1.1.1](https://github.com/andreamazz/AMPopTip/releases/tag/1.1.1)
 
