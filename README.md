@@ -165,7 +165,6 @@ When using this library in an app extension, make sure to add the user defined m
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
 AMPopTip *appearance = [AMPopTip appearance];
-appearance.font = <#UIFont#>;
 appearance.textColor = <#UIColor#>;
 appearance.textAlignment = NSTextAlignmentLeft;
 appearance.popoverColor = <#UIColor#>;
