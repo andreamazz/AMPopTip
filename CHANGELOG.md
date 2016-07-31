@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `1.2.0` Releases - [1.2.0](#120)   
 - `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)  
 - `1.0.0` Releases - [1.0.0](#100) | [1.0.1](#101) | [1.0.2](#102) | [1.0.3](#103)  
 - `0.10.x` Releases - [0.10.0](#0100) | [0.10.1](#0101) | [0.10.2](#0102)  
@@ -9,6 +10,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [1.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.2.0)
+
+- Fix issue with UIFont set as appearance proxy.
 
 ## [1.1.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.1.2)
 
