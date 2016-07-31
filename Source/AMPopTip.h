@@ -207,7 +207,7 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  *
  * Holds the UIFont used in the popover
  */
-@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *font;
 
 /** Text Color
  *
