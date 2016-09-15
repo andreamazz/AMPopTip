@@ -16,6 +16,6 @@
  *
  * @param completion Completion handler
  */
-- (void)performExitAnimation:(void (^)())completion;
+- (void)performExitAnimation:(nullable void (^)())completion;
 
 @end

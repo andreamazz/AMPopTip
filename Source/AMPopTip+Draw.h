@@ -18,6 +18,6 @@
  * @param direction The direction of the poptip appearance
  * @return UIBezierPath The poptip's path
  */
-- (UIBezierPath *)pathWithRect:(CGRect)rect direction:(AMPopTipDirection)direction;
+- (nonnull UIBezierPath *)pathWithRect:(CGRect)rect direction:(AMPopTipDirection)direction;
 
 @end
