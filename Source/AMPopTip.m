@@ -434,7 +434,11 @@
 }
 
 - (void)hide {
-    if (self.isAnimating) {
+    [self hideForced:NO];
+}
+
+- (void)hideForced:(BOOL)forced {
+    if (!forced && self.isAnimating) {
         return;
     }
     self.isAnimating = YES;

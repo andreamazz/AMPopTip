@@ -179,6 +179,12 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  */
 - (void)hide;
 
+/** Hide the popover with the option to force the removal. This will ignore current animations.
+ *
+ * @param forced Force the removal.
+ */
+- (void)hideForced:(BOOL)forced;
+
 /** Update the text
  *
  * Set the new text shown in the poptip
