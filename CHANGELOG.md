@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `1.4.0` Releases - [1.4.0](#140)   
 - `1.3.0` Releases - [1.3.0](#130)   
 - `1.2.0` Releases - [1.2.0](#120)   
 - `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)  
@@ -11,6 +12,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [1.4.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.0)
+
+- Added `hideForced:`  
 
 ## [1.3.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.3.0)
 
