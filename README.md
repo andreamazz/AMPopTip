@@ -158,9 +158,6 @@ The animation is fired as soon as the popover enters the scene and completes its
 
 ![AMPopTip bounce](assets/bounce_effect.gif)
 
-#Usage with app extension
-When using this library in an app extension, make sure to add the user defined macro `AM_POPTIP_EXTENSION` to your extension's target.
-
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
