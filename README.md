@@ -158,6 +158,9 @@ The animation is fired as soon as the popover enters the scene and completes its
 
 ![AMPopTip bounce](assets/bounce_effect.gif)
 
+#Customizing the arrow position
+The arrow is centered by default, and moves to avoid the edge of the screen. You can manually change the offset from the center using the `bubbleOffset` property.
+
 #Customization
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
 ```objc
