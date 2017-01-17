@@ -205,9 +205,9 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
 - (void)stopActionAnimation;
 
 /**-----------------------------------------------------------------------------
-* @name AMPopTip Properties
-* -----------------------------------------------------------------------------
-*/
+ * @name AMPopTip Properties
+ * -----------------------------------------------------------------------------
+ */
 
 NS_ASSUME_NONNULL_BEGIN
 /** Font
@@ -263,11 +263,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) CGFloat offset UI_APPEARANCE_SELECTOR;
 
-/** Text Padding
+/** Text Padding Horizontal
  *
- * Holds the CGFloat with the padding used for the inner text
+ * Holds the CGFloat with the padding used for the inner text horizontaly
  */
-@property (nonatomic, assign) CGFloat padding UI_APPEARANCE_SELECTOR;
+@property (nonatomic, assign) CGFloat paddingHorizontal UI_APPEARANCE_SELECTOR;
+
+/** Text Padding Vertical
+ *
+ * Holds the CGFloat with the padding used for the inner text verticaly
+ */
+@property (nonatomic, assign) CGFloat paddingVertical UI_APPEARANCE_SELECTOR;
 
 /** Text EdgeInsets
  *
@@ -409,16 +415,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL shouldDismissOnTapOutside;
 
 /** Dismiss on swipe outside
-*
-* A boolean value that determines whether to dismiss when swiping outside the popover.
-*/
+ *
+ * A boolean value that determines whether to dismiss when swiping outside the popover.
+ */
 @property (nonatomic, assign) BOOL shouldDismissOnSwipeOutside;
 
 /** Direction to dismiss on swipe outside
-*
-* A direction that determines what swipe direction to dismiss when swiping outside the popover.
-* The default direction is UISwipeGestureRecognizerDirectionRight if this is not set.
-*/
+ *
+ * A direction that determines what swipe direction to dismiss when swiping outside the popover.
+ * The default direction is UISwipeGestureRecognizerDirectionRight if this is not set.
+ */
 @property (nonatomic, assign) UISwipeGestureRecognizerDirection swipeRemoveGestureDirection;
 NS_ASSUME_NONNULL_END
 
