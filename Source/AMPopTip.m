@@ -441,6 +441,8 @@
     if (!forced && self.isAnimating) {
         return;
     }
+    [self.layer removeAllAnimations];
+    
     self.isAnimating = YES;
     [self.dismissTimer invalidate];
     self.dismissTimer = nil;
