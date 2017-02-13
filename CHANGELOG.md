@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
-- `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141)   
+- `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)   
 - `1.3.0` Releases - [1.3.0](#130)   
 - `1.2.0` Releases - [1.2.0](#120)   
 - `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)  
@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [1.4.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.2)
+
+- Fix #100
 
 ## [1.4.1](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.1)
 
@@ -59,18 +63,18 @@ Stable release
 
 ## [0.10.2](https://github.com/andreamazz/AMPopTip/releases/tag/0.10.2)
 
-#### Added 
+#### Added
 - Ability to define exit animations. Thanks to [@valeriomazzeo](https://github.com/valeriomazzeo)  
 
 ## [0.10.1](https://github.com/andreamazz/AMPopTip/releases/tag/0.10.1)
 
-#### Fixed 
+#### Fixed
 - #56
 
 ## [0.10.0](https://github.com/andreamazz/AMPopTip/releases/tag/0.10.0)
 
-#### Added 
-- Ability to show a custom view 
+#### Added
+- Ability to show a custom view
 
 ## [0.9.14](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.14)
 
@@ -85,17 +89,17 @@ Stable release
 ## [0.9.12](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.12)
 
 #### Fixed
-- Merged #44 
+- Merged #44
 
 ## [0.9.11](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.11)
 
 #### Removed
-- Unused log 
+- Unused log
 
 ## [0.9.10](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.10)
 
 #### Fixed
-- Test suite 
+- Test suite
 
 ## [0.9.9](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.9)
 
@@ -146,4 +150,3 @@ Stable release
 - Support for custom animations. Thanks to [Kevin Hirsch](https://github.com/kevin-hirsch)
 
 ## [0.8](https://github.com/andreamazz/AMPopTip/releases/tag/0.8)
-
