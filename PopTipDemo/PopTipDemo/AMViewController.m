@@ -52,7 +52,7 @@
 
 
     /*  Custom action animation  */
-    //    self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
+   self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
 
     self.popTip.tapHandler = ^{
         NSLog(@"Tap!");
@@ -60,6 +60,13 @@
     self.popTip.dismissHandler = ^{
         NSLog(@"Dismiss!");
     };
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeAnimation) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)resumeAnimation {
+    [self.popTip stopActionAnimation];
+    [self.popTip startActionAnimation];
 }
 
 - (IBAction)actionButton:(UIButton *)sender {
@@ -130,6 +137,7 @@
         [self.popTip showText:@"Animated popover, great for subtle UI tips and onboarding" direction:direction maxWidth:200 inView:self.view fromFrame:sender.frame duration:0];
         direction = (direction + 1) % 4;
     }
+    [self.popTip startActionAnimation];
 }
 
 @end
