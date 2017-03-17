@@ -377,6 +377,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) CGFloat bubbleOffset UI_APPEARANCE_SELECTOR;
 
+/** Background Mask Color
+ *
+ * Color of the mask that is going to dim the background when the pop up is visible
+ */
+@property (nonatomic, assign) UIColor *maskColor UI_APPEARANCE_SELECTOR;
+
+/** Show Background Mask
+ *
+ * Flag to enable or disable background mask
+ */
+
+@property (nonatomic, assign) BOOL shouldShowMask UI_APPEARANCE_SELECTOR;
+
+
 /** The frame the poptip is pointing to
  *
  * Holds the CGrect with the rect the tip is pointing to
@@ -474,5 +488,15 @@ NS_ASSUME_NONNULL_END
  * The direction from which the poptip is shown. Read only.
  */
 @property (nonatomic, assign, readonly) AMPopTipDirection direction;
+
+
+/** Background Mask
+ *
+ * The view that dims the background (including the button that triggered PopTip.
+ * The mask by appears with fade in effect only. (not customizabl at the moment)
+ */
+
+@property(nullable, nonatomic, strong, readonly) UIView *backgroundMask
+;
 
 @end
