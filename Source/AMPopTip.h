@@ -381,7 +381,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Color of the mask that is going to dim the background when the pop up is visible
  */
-@property (nonatomic, assign) UIColor *maskColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *maskColor UI_APPEARANCE_SELECTOR;
 
 /** Show Background Mask
  *
