@@ -387,7 +387,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * Flag to enable or disable background mask
  */
-
 @property (nonatomic, assign) BOOL shouldShowMask UI_APPEARANCE_SELECTOR;
 
 
@@ -489,14 +488,11 @@ NS_ASSUME_NONNULL_END
  */
 @property (nonatomic, assign, readonly) AMPopTipDirection direction;
 
-
 /** Background Mask
  *
  * The view that dims the background (including the button that triggered PopTip.
- * The mask by appears with fade in effect only. (not customizabl at the moment)
+ * The mask by appears with fade in effect only.
  */
-
-@property(nullable, nonatomic, strong, readonly) UIView *backgroundMask
-;
+@property(nullable, nonatomic, strong, readonly) UIView *backgroundMask;
 
 @end

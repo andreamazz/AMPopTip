@@ -26,4 +26,4 @@
 #define kDefaultBounceOffset 8
 #define kDefaultFloatOffset 8
 #define kDefaultPulseOffset 1.1
-#define kDefaultMaskColor [UIColor colorWithRed:0/255 green:0/255 blue:0/255 alpha:0.6];
+#define kDefaultMaskColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];

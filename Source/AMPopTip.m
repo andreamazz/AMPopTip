@@ -30,7 +30,7 @@
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, strong) UIView *customView;
-@property(nonatomic, strong, readwrite) UIView *backgroundMask;
+@property (nonatomic, strong, readwrite) UIView *backgroundMask;
 
 @end
 
@@ -65,10 +65,11 @@
 }
 
 -(nullable UIView *)backgroundMask{
-    if (!self.shouldShowMask){
+    if (!self.shouldShowMask) {
         [_backgroundMask removeFromSuperview];
-        return nil;}
-    if (_backgroundMask == nil){
+        return nil;
+    }
+    if (_backgroundMask == nil) {
         _backgroundMask = [[UIView alloc]initWithFrame:self.containerView.bounds];
         _backgroundMask.alpha = 0.6;
         _backgroundMask.backgroundColor = self.maskColor;
@@ -104,7 +105,7 @@
     _actionAnimationIn = kDefaultBounceAnimationIn;
     _actionAnimationOut = kDefaultBounceAnimationOut;
     _bubbleOffset = kDefaultBubbleOffset;
-    _shouldShowMask = TRUE;
+    _shouldShowMask = NO;
     _maskColor = kDefaultMaskColor;
 
     _tapRemoveGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRemoveGestureHandler)];
