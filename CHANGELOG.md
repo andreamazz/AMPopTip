@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `1.5.0` Releases - [1.5.0](#150)   
 - `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)   
 - `1.3.0` Releases - [1.3.0](#130)   
 - `1.2.0` Releases - [1.2.0](#120)   
@@ -12,6 +13,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [1.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.5.0)
+
+- Added dimmable background (#107)  
 
 ## [1.4.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.2)
 
