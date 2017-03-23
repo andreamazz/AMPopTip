@@ -30,6 +30,7 @@
 @property (nonatomic, assign) CGRect textBounds;
 @property (nonatomic, assign) CGFloat maxWidth;
 @property (nonatomic, strong) UIView *customView;
+@property(nonatomic, strong, readwrite) UIView *backgroundMask;
 
 @end
 
@@ -63,6 +64,18 @@
     return self;
 }
 
+-(nullable UIView *)backgroundMask{
+    if (!self.shouldShowMask){
+        [_backgroundMask removeFromSuperview];
+        return nil;}
+    if (_backgroundMask == nil){
+        _backgroundMask = [[UIView alloc]initWithFrame:self.containerView.bounds];
+        _backgroundMask.alpha = 0.6;
+        _backgroundMask.backgroundColor = self.maskColor;
+    }
+    return _backgroundMask;
+}
+
 - (void)commonInit {
     _paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     _textAlignment = NSTextAlignmentCenter;
@@ -91,6 +104,9 @@
     _actionAnimationIn = kDefaultBounceAnimationIn;
     _actionAnimationOut = kDefaultBounceAnimationOut;
     _bubbleOffset = kDefaultBubbleOffset;
+    _shouldShowMask = TRUE;
+    _maskColor = kDefaultMaskColor;
+
     _tapRemoveGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRemoveGestureHandler)];
     _swipeRemoveGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRemoveGestureHandler)];
 }
@@ -453,6 +469,7 @@
         [self.customView removeFromSuperview];
         self.customView = nil;
         [self stopActionAnimation];
+        [self.backgroundMask removeFromSuperview];
         [self removeFromSuperview];
         [self.layer removeAllAnimations];
         self.transform = CGAffineTransformIdentity;
