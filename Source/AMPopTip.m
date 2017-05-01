@@ -90,7 +90,6 @@
     _arrowSize = kDefaultArrowSize;
     _animationIn = kDefaultAnimationIn;
     _animationOut = kDefaultAnimationOut;
-    _isVisible = NO;
     _shouldDismissOnTapOutside = YES;
     _edgeMargin = kDefaultEdgeMargin;
     _edgeInsets = kDefaultEdgeInsets;
@@ -110,6 +109,10 @@
 
     _tapRemoveGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapRemoveGestureHandler)];
     _swipeRemoveGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRemoveGestureHandler)];
+}
+
+- (BOOL)isVisible {
+    return self.superview != nil;
 }
 
 - (void)layoutSubviews {
@@ -361,7 +364,6 @@
         if (self.actionAnimation != AMPopTipActionAnimationNone) {
             [self startActionAnimation];
         }
-        self.isVisible = YES;
         self.isAnimating = NO;
     }];
 }
@@ -474,7 +476,6 @@
         [self removeFromSuperview];
         [self.layer removeAllAnimations];
         self.transform = CGAffineTransformIdentity;
-        self->_isVisible = NO;
         self->_isAnimating = NO;
         if (self.dismissHandler) {
             self.dismissHandler();
