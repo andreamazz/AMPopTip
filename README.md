@@ -167,6 +167,7 @@ Use the appearance proxy to customize the popover before creating the instance, 
 AMPopTip *appearance = [AMPopTip appearance];
 appearance.textColor = <#UIColor#>;
 appearance.textAlignment = NSTextAlignmentLeft;
+appearance.font = <#UIFont#>;
 appearance.popoverColor = <#UIColor#>;
 appearance.borderColor = <#UIColor#>;
 appearance.borderWidth = <#CGFloat#>;
