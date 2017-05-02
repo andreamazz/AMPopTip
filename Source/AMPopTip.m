@@ -128,14 +128,17 @@
     }
 
     if (self.text != nil) {
-        self.textBounds = [self.text boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
-                                                  options:NSStringDrawingUsesLineFragmentOrigin
-                                               attributes:@{NSFontAttributeName: self.font}
-                                                  context:nil];
+        UITextView *textView = [[UITextView alloc] init];
+        textView.font = self.font;
+        textView.text = self.text;
+        CGSize size = [textView sizeThatFits:CGSizeMake(self.maxWidth, DBL_MAX)];
+        self.textBounds = CGRectMake(0, 0, size.width, size.height);
     } else if (self.attributedText != nil) {
-        self.textBounds = [self.attributedText boundingRectWithSize:(CGSize){self.maxWidth, DBL_MAX }
-                                                            options:NSStringDrawingUsesLineFragmentOrigin
-                                                            context:nil];
+        UITextView *textView = [[UITextView alloc] init];
+        textView.font = self.font;
+        textView.attributedText = self.attributedText;
+        CGSize size = [textView sizeThatFits:CGSizeMake(self.maxWidth, DBL_MAX)];
+        self.textBounds = CGRectMake(0, 0, size.width, size.height);
     } else if (self.customView != nil) {
         self.textBounds = self.customView.frame;
     }
