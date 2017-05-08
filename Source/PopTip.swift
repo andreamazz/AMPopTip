@@ -175,11 +175,11 @@ open class PopTip: UIView {
   /// when using a `PopTipActionAnimationCustom` entrance animation type.
   /// Please note that the poptip will be automatically added as a subview before firing the block
   /// Remember to call the completion block provided
-  open var entranceAnimationHandler: (((Void) -> Void) -> Void)?
+  open var entranceAnimationHandler: ((@escaping (Void) -> Void) -> Void)?
   /// A block block that handles the exit animation of the poptip. Should be provided
   /// when using a `AMPopTipActionAnimationCustom` exit animation type.
   /// Remember to call the completion block provided
-  open var exitAnimationHandler: (((Void) -> Void) -> Void)?
+  open var exitAnimationHandler: ((@escaping (Void) -> Void) -> Void)?
   /// The CGPoint originating the arrow. Read only.
   open private(set) var arrowPosition = CGPoint.zero
    /// A read only reference to the view containing the poptip

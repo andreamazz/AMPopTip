@@ -58,6 +58,17 @@ class ViewController: UIViewController {
       customView.addSubview(label)
       popTip.bubbleColor = UIColor(red: 0.95, green: 0.65, blue: 0.21, alpha: 1)
       popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
+
+      popTip.entranceAnimationHandler = { [weak self] completion in
+        guard let `self` = self else { return }
+        self.popTip.transform = CGAffineTransform(rotationAngle: 0.3)
+        UIView.animate(withDuration: 0.5, animations: { 
+          self.popTip.transform = .identity
+        }, completion: { (_) in
+          completion()
+        })
+      }
+
     case .topRight:
       popTip.bubbleColor = UIColor(red: 0.97, green: 0.9, blue: 0.23, alpha: 1)
       if topRightDirection == .left {

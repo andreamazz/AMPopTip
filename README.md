@@ -7,6 +7,7 @@
 [![CocoaPods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/AMPopTip.svg)](http://cocoadocs.org/docsets/AMPopTip)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+![Swift 3.0](https://img.shields.io/badge/swift-3.0-orange.svg)
 [![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized.
@@ -37,160 +38,158 @@ The API is fairly straight forward, you can show and hide the popover at any tim
 ## Showing the popover
 You must specify the text that you want to display alongside the popover direction, its max width, the view that will contain it and the frame of the view that the popover's arrow will point to.
 
-#### Objective-C
-
-```objc
-self.popTip = [AMPopTip popTip];
-[self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame];
-```
-
 #### Swift
 
 ```swift
-let popTip = AMPopTip()
-popTip.showText("Hello", direction: .Up, maxWidth: 200, inView: self.view, fromFrame: someView.frame)
+let popTip = PopTip()
+popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: someView.frame)
 ```
 
-You can also display the popover in the center, with no arrow, in this case the `fromFrame` parameter will be the whole view:
-```objc
-[self.popTip showText:@"I'm a popover" direction:AMPopTipDirectionNone maxWidth:200 inView:self.view fromFrame:self.view.frame];
+You can also display the popover in the center, with no arrow, in this case the `from` can be the whole view:
+```swift
+popTip.show(text: "Hey! Listen!", direction: .none, maxWidth: 200, in: view, from: view.frame)
 ```
 
 ## Coordinate system
 Please note that the frame you are intended to provide needs to refer to the absolute coordinate system of the view you are presenting the popover in. This means that if you are presenting the popover in a view, pointing to a nested subview, you'll need to convert its frame using UIKit's `convertRect(_:toView:)`. Read the reference [here](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/#//apple_ref/occ/instm/UIView/convertRect:toView:).
 
 ## Showing a custom view
-You can provide a custom view that will be wrapped in the poptip and presented.
-
-#### Objective-C
-
-```objc
-UIView *cutomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-// Configure your view
-[self.popTip showCustomView:customView direction:AMPopTipDirectionDown inView:self.view fromFrame:self.view.frame];
-```
+You can provide a custom view that will be wrapped in the PopTip and presented.
 
 #### Swift
 
 ```swift
 let customView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 // Configure your view
-popTip.showCustomView(view, direction: .Down, inView: self.view, fromFrame: self.view.frame)
+popTip.show(customView: customView, direction: .down, in: view, from: someView.frame)
 ```
 
 ## Dismissing the popover
+
 You can hide the popover by calling:
-```objc
-[self.popTip hide];
+```swift
+popTip.hide()
 ```
+
 Or you can specify the duration of the popover:
-```objc
-[self.popTip showText:@"I'm a popover popping over" direction:AMPopTipDirectionUp maxWidth:200 inView:self.view fromFrame:someView.frame duration:3];
+```swift
+popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: someView.frame, duration: 3)
 ```
+
 You can also let the user dismiss the popover by tapping on it:
-```objc
-self.popTip.shouldDismissOnTap = YES;
+```swift
+popTip.shouldDismissOnTap = true
 ```
-You can add a block that will be fired when the user taps the popover...
-```objc
-self.popTip.tapHandler = ^{
-     NSLog(@"Popover selected!");
-};
+
+You can add a block that will be fired when the user taps the PopTip...
+```swift
+popTip.tapHandler = { popTip in
+  print("\(popTip) tapped")
+}
 ```
+
 ... when the popover is shown...
-```objc
-self.popTip.appearHandler = ^{
-    NSLog(@"Appeared!");
+```swift
+popTip.appearHandler = { popTip in
+  print("\(popTip) appeared")
 };
 ```
 
 ... or when the popover is dismissed:
-```objc
-self.popTip.dismissHandler = ^{
-    NSLog(@"Dismissed!");
-};
+```swift
+popTip.dismissHandler = { popTip in
+  print("\(popTip) dismissed")
+}
 ```
 
 # Custom entrance animation
-You can choose which animation should be performed when the poptip is displayed:
-```objc
-self.popTip.entranceAnimation = AMPopTipEntranceAnimationScale;
-```
-Available animations:
-```objc
-AMPopTipEntranceAnimationScale,
-AMPopTipEntranceAnimationTransition,
-AMPopTipEntranceAnimationNone,
-AMPopTipEntranceAnimationCustom
+
+You can choose which animation should be performed when the popTip is displayed:
+```swift
+popTip.entranceAnimation = .scale;
 ```
 
-## AMPopTipEntranceAnimationCustom
-You can provide your own animation block when using `AMPopTipEntranceAnimationCustom`:
-```objc
-self.popTip.entranceAnimation = AMPopTipEntranceAnimationCustom;
-__weak AMViewController *weakSelf = self;
-self.popTip.entranceAnimationHandler = ^(void (^completion)(void)){
-    // Setup the animation
-    weakSelf.popTip.transform = CGAffineTransformMakeRotation(M_PI);
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:1.5 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
-        weakSelf.popTip.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL done){
-        completion();
-    }];
-};
+Available animations:
+```swift
+PopTipEntranceAnimation.scale,
+PopTipEntranceAnimation.transition,
+PopTipEntranceAnimation.none,
+PopTipEntranceAnimation.custom
 ```
-This sample makes the poptip rotate on entrance. Make sure to call the completion block when the animation is done. Also note that the animation is fired as soon as the poptip is added as subview.
+
+## PopTipEntranceAnimation.custom
+
+You can provide your own animation block when using `PopTipEntranceAnimation.custom`:
+```swift
+popTip.entranceAnimationHandler = { [weak self] completion in
+  guard let `self` = self else { return }
+  self.popTip.transform = CGAffineTransform(rotationAngle: 0.3)
+  UIView.animate(withDuration: 0.5, animations: {
+    self.popTip.transform = .identity
+  }, completion: { (_) in
+    completion()
+  })
+}
+```
+This sample makes the PopTip rotate on entrance. Make sure to call the completion block when the animation is done. Also note that the animation is fired as soon as the PopTip is added as subview.
 
 # Action animations
 Action animations are subtle animations that can be performed to get the user's attention.
 Set your preferred animation:
-```objc
-self.popTip.actionAnimation = AMPopTipActionAnimationBounce;
+```swift
+popTip.actionAnimation = .bounce()
 ```
+
 Available animations:
-```objc
-AMPopTipActionAnimationBounce,
-AMPopTipActionAnimationFloat,
-AMPopTipActionAnimationPulse,
-AMPopTipActionAnimationNone
+```swift
+PopTipActionAnimation.bounce,
+PopTipActionAnimation.float,
+PopTipActionAnimation.pulse,
+PopTipActionAnimation.none
 ```
-The animation is fired as soon as the popover enters the scene and completes its entrance animation.
+The animation is fired as soon as the popover enters the scene and completes its entrance animation, if `startActionAnimationOnShow` is set to true.
+
+## Customize the animations
+
+You can pass a custom value as an associated value to customize the action animation:
+
+```swift
+popTip.actionAnimation = .bounce(16) // This will bounce for 16px instead of the default value
+```
 
 ![AMPopTip bounce](assets/bounce_effect.gif)
 
 # Customizing the arrow position
+
 The arrow is centered by default, and moves to avoid the edge of the screen. You can manually change the offset from the center using the `bubbleOffset` property.
 
 # Customization
+
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:
-```objc
-AMPopTip *appearance = [AMPopTip appearance];
-appearance.textColor = <#UIColor#>;
-appearance.textAlignment = NSTextAlignmentLeft;
-appearance.popoverColor = <#UIColor#>;
-appearance.borderColor = <#UIColor#>;
-appearance.borderWidth = <#CGFloat#>;
-appearance.radius = <#CGFloat#>; // Popover's border radius
-appearance.rounded = <#BOOL#>; // If set to YES the radius will equal frame.height / 2
-appearance.offset = <#CGFloat#>; // Offset between the popover and the origin
-appearance.padding = <#CGFloat#>;
-appearance.edgeInsets = <#UIEdgeInsets#>;
-appearance.arrowSize = <#CGSize#>;
-appearance.animationIn = <#NSTimeInterval#>;
-appearance.animationOut = <#NSTimeInterval#>;
-appearance.delayIn = <#NSTimeInterval#>;
-appearance.delayOut = <#NSTimeInterval#>;
-appearance.entranceAnimation = <#AMPopTipEntranceAnimation#>;
-appearance.actionAnimation = <#AMPopTipActionAnimation#>;
-appearance.actionFloatOffset = <#CGFloat#>;
-appearance.actionBounceOffset = <#CGFloat#>;
-appearance.actionPulseOffset = <#CGFloat#>;
-appearance.actionAnimationIn = <#NSTimeInterval#>;
-appearance.actionAnimationOut = <#NSTimeInterval#>;
-appearance.actionDelayIn = <#NSTimeInterval#>;
-appearance.actionDelayOut = <#NSTimeInterval#>;
-appearance.edgeMargin = <#CGFloat#>;
-appearance.bubbleOffset = <#CGFloat#>; // Offset between the bubble and the arrow
+```swift
+textColor = <#UIColor#>;
+textAlignment = <#NSTextAlignment#>
+bubbleColor = <#UIColor#>
+borderColor = <#UIColor#>
+borderWidth = <#CGFloat#>
+cornerRadius = <#CGFloat#> // Popover's border radius
+rounded = <#Bool#> // If set to YES the radius will equal frame.height / 2
+offset = <#CGFloat#> // Offset between the popover and the origin
+padding = <#CGFloat#>
+edgeInsets = <#UIEdgeInsets#>
+arrowSize = <#CGSize#>
+animationIn = <#TimeInterval#>
+animationOut = <#TimeInterval#>
+delayIn = <#TimeInterval#>
+delayOut = <#TimeInterval#>
+entranceAnimation = <#PopTipEntranceAnimation#>
+actionAnimation = <#PopTipActionAnimation#>
+actionAnimationIn = <#TimeInterval#>
+actionAnimationOut = <#TimeInterval#>
+actionDelayIn = <#TimeInterval#>
+actionDelayOut = <#TimeInterval#>
+edgeMargin = <#CGFloat#>
+bubbleOffset = <#CGFloat#> // Offset between the bubble and the arrow
 ```
 
 # Author
@@ -203,7 +202,7 @@ Thanks to [everyone](https://github.com/andreamazz/AMPopTip/graphs/contributors)
 
 # MIT License
 
-	Copyright (c) 2015 Andrea Mazzini. All rights reserved.
+	Copyright (c) 2017 Andrea Mazzini. All rights reserved.
 
 	Permission is hereby granted, free of charge, to any person obtaining a
 	copy of this software and associated documentation files (the "Software"),
