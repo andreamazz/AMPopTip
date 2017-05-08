@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double AMPopTipVersionNumber;
-FOUNDATION_EXPORT const unsigned char AMPopTipVersionString[];
+FOUNDATION_EXPORT double Pods_PopTip_DemoTestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_PopTip_DemoTestsVersionString[];
 

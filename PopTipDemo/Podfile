@@ -1,16 +1,15 @@
-source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
 
-use_frameworks!
+target 'PopTip Demo' do
+  use_frameworks!
+  pod 'AMPopTip', path: '../'
 
-target "PopTipDemo" do
-    pod 'AMPopTip', path: '../'
+  target 'PopTip DemoTests' do
+    inherit! :search_paths
+  end
+
+  target 'PopTip DemoUITests' do
+    inherit! :search_paths
+  end
+
 end
-
-target "PopTipDemoTests" do
-    pod 'Specta', '1.0.5'
-    pod 'Expecta', '1.0.5'
-    pod 'Expecta+Snapshots', '2.0.0'
-    pod 'OCMock', '3.2'
-end
-
-inhibit_all_warnings!

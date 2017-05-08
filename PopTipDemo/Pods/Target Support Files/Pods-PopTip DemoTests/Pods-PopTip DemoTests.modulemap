@@ -1,0 +1,6 @@
+framework module Pods_PopTip_DemoTests {
+  umbrella header "Pods-PopTip DemoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
