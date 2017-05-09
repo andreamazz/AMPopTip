@@ -13,21 +13,12 @@
 		6534723E1EB7B89C002DA5DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6534723C1EB7B89C002DA5DA /* Main.storyboard */; };
 		653472401EB7B89C002DA5DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6534723F1EB7B89C002DA5DA /* Assets.xcassets */; };
 		653472431EB7B89C002DA5DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653472411EB7B89C002DA5DA /* LaunchScreen.storyboard */; };
-		6534724E1EB7B89D002DA5DA /* PopTip_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6534724D1EB7B89D002DA5DA /* PopTip_DemoTests.swift */; };
-		653472591EB7B89D002DA5DA /* PopTip_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653472581EB7B89D002DA5DA /* PopTip_DemoUITests.swift */; };
-		6ED0B76BA9FDAB9DE352D247 /* Pods_PopTip_DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB67F6130915DD986BE56F57 /* Pods_PopTip_DemoUITests.framework */; };
+		6534724E1EB7B89D002DA5DA /* PopTipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6534724D1EB7B89D002DA5DA /* PopTipTests.swift */; };
 		94178E90A7FECC3842CC852D /* Pods_PopTip_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16769670F46D31DE64BD65FD /* Pods_PopTip_DemoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		6534724A1EB7B89D002DA5DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6534722D1EB7B89C002DA5DA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 653472341EB7B89C002DA5DA;
-			remoteInfo = "PopTip Demo";
-		};
-		653472551EB7B89D002DA5DA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6534722D1EB7B89C002DA5DA /* Project object */;
 			proxyType = 1;
@@ -49,11 +40,8 @@
 		653472421EB7B89C002DA5DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		653472441EB7B89C002DA5DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		653472491EB7B89D002DA5DA /* PopTip DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PopTip DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6534724D1EB7B89D002DA5DA /* PopTip_DemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTip_DemoTests.swift; sourceTree = "<group>"; };
+		6534724D1EB7B89D002DA5DA /* PopTipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTipTests.swift; sourceTree = "<group>"; };
 		6534724F1EB7B89D002DA5DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		653472541EB7B89D002DA5DA /* PopTip DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PopTip DemoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		653472581EB7B89D002DA5DA /* PopTip_DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTip_DemoUITests.swift; sourceTree = "<group>"; };
-		6534725A1EB7B89D002DA5DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C691B16BC4B538EB258C6A2 /* Pods-PopTip Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTip Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		AB67F6130915DD986BE56F57 /* Pods_PopTip_DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTip_DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09EF71AF54F03FBA1E91A2A /* Pods_PopTip_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTip_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,14 +66,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		653472511EB7B89D002DA5DA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6ED0B76BA9FDAB9DE352D247 /* Pods_PopTip_DemoUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -107,7 +87,6 @@
 			children = (
 				653472371EB7B89C002DA5DA /* PopTip Demo */,
 				6534724C1EB7B89D002DA5DA /* PopTip DemoTests */,
-				653472571EB7B89D002DA5DA /* PopTip DemoUITests */,
 				653472361EB7B89C002DA5DA /* Products */,
 				3BE734B8D4DFEB3064F7B64C /* Pods */,
 				71909F51E0A15B6DD4E4DAB1 /* Frameworks */,
@@ -121,7 +100,6 @@
 			children = (
 				653472351EB7B89C002DA5DA /* PopTip Demo.app */,
 				653472491EB7B89D002DA5DA /* PopTip DemoTests.xctest */,
-				653472541EB7B89D002DA5DA /* PopTip DemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,19 +117,10 @@
 		6534724C1EB7B89D002DA5DA /* PopTip DemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				6534724D1EB7B89D002DA5DA /* PopTip_DemoTests.swift */,
+				6534724D1EB7B89D002DA5DA /* PopTipTests.swift */,
 				6534724F1EB7B89D002DA5DA /* Info.plist */,
 			);
 			path = "PopTip DemoTests";
-			sourceTree = "<group>";
-		};
-		653472571EB7B89D002DA5DA /* PopTip DemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				653472581EB7B89D002DA5DA /* PopTip_DemoUITests.swift */,
-				6534725A1EB7B89D002DA5DA /* Info.plist */,
-			);
-			path = "PopTip DemoUITests";
 			sourceTree = "<group>";
 		};
 		65E698341EC0C39F002F1E3C /* Resources */ = {
@@ -219,27 +188,6 @@
 			productReference = 653472491EB7B89D002DA5DA /* PopTip DemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		653472531EB7B89D002DA5DA /* PopTip DemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 653472631EB7B89D002DA5DA /* Build configuration list for PBXNativeTarget "PopTip DemoUITests" */;
-			buildPhases = (
-				3E2EB266FD85B6FE52DCB7DE /* [CP] Check Pods Manifest.lock */,
-				653472501EB7B89D002DA5DA /* Sources */,
-				653472511EB7B89D002DA5DA /* Frameworks */,
-				653472521EB7B89D002DA5DA /* Resources */,
-				768C6DA2C9EB1E36BD0A077F /* [CP] Embed Pods Frameworks */,
-				BDA9FA63E13E758366DCC4C0 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				653472561EB7B89D002DA5DA /* PBXTargetDependency */,
-			);
-			name = "PopTip DemoUITests";
-			productName = "PopTip DemoUITests";
-			productReference = 653472541EB7B89D002DA5DA /* PopTip DemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -257,12 +205,8 @@
 					};
 					653472481EB7B89D002DA5DA = {
 						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 653472341EB7B89C002DA5DA;
-					};
-					653472531EB7B89D002DA5DA = {
-						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = H72GR44F4M;
+						ProvisioningStyle = Manual;
 						TestTargetID = 653472341EB7B89C002DA5DA;
 					};
 				};
@@ -282,7 +226,6 @@
 			targets = (
 				653472341EB7B89C002DA5DA /* PopTip Demo */,
 				653472481EB7B89D002DA5DA /* PopTip DemoTests */,
-				653472531EB7B89D002DA5DA /* PopTip DemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -305,32 +248,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		653472521EB7B89D002DA5DA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		0B6916DA16778F3A5BBC4C77 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		3E2EB266FD85B6FE52DCB7DE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,21 +296,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		768C6DA2C9EB1E36BD0A077F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoUITests/Pods-PopTip DemoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A3CCFC53EAD56664920D2FC8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -418,21 +324,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BDA9FA63E13E758366DCC4C0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoUITests/Pods-PopTip DemoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BFD4BAC9E305B428E627CB0C /* [CP] Copy Pods Resources */ = {
@@ -466,15 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6534724E1EB7B89D002DA5DA /* PopTip_DemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		653472501EB7B89D002DA5DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				653472591EB7B89D002DA5DA /* PopTip_DemoUITests.swift in Sources */,
+				6534724E1EB7B89D002DA5DA /* PopTipTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,11 +368,6 @@
 			isa = PBXTargetDependency;
 			target = 653472341EB7B89C002DA5DA /* PopTip Demo */;
 			targetProxy = 6534724A1EB7B89D002DA5DA /* PBXContainerItemProxy */;
-		};
-		653472561EB7B89D002DA5DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 653472341EB7B89C002DA5DA /* PopTip Demo */;
-			targetProxy = 653472551EB7B89D002DA5DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -644,12 +522,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBEED748B9FBCD43411364E3 /* Pods-PopTip DemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
 			};
@@ -659,42 +539,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A5ACD3B0EC46135486BC6FF /* Pods-PopTip DemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
-			};
-			name = Release;
-		};
-		653472641EB7B89D002DA5DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4053952E3F4ADC309BD0993C /* Pods-PopTip DemoUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = "PopTip DemoUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "PopTip Demo";
-			};
-			name = Debug;
-		};
-		653472651EB7B89D002DA5DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48319B205C6079C1B32A2ABE /* Pods-PopTip DemoUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				INFOPLIST_FILE = "PopTip DemoUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "PopTip Demo";
 			};
 			name = Release;
 		};
@@ -724,15 +578,6 @@
 			buildConfigurations = (
 				653472611EB7B89D002DA5DA /* Debug */,
 				653472621EB7B89D002DA5DA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		653472631EB7B89D002DA5DA /* Build configuration list for PBXNativeTarget "PopTip DemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				653472641EB7B89D002DA5DA /* Debug */,
-				653472651EB7B89D002DA5DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

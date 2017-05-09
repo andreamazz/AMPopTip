@@ -1,15 +1,16 @@
 platform :ios, '8.0'
 
+inhibit_all_warnings!
+
 target 'PopTip Demo' do
   use_frameworks!
   pod 'AMPopTip', path: '../'
 
   target 'PopTip DemoTests' do
     inherit! :search_paths
-  end
-
-  target 'PopTip DemoUITests' do
-    inherit! :search_paths
+    pod 'Quick', '1.1.0'
+    pod 'Nimble', '6.1.0'
+    pod 'Nimble-Snapshots', '4.4.0'
   end
 
 end
