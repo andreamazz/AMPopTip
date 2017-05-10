@@ -22,6 +22,9 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 # Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
+# Note about this version
+With version `2.0.0` the library was re-written in Swift, and the API was slightly updated. Checkout version `1.5.x` for the previous Objective-C implementation.
+
 # Setup with CocoaPods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
 * Run ```pod install```
