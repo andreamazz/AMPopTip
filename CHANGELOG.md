@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `2.0.0` Releases - [2.0.0](#200)   
 - `1.5.0` Releases - [1.5.0](#150) | [1.5.1](#151)  [1.5.2](#152)   
 - `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)   
 - `1.3.0` Releases - [1.3.0](#130)   
@@ -13,6 +14,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [2.0.0](https://github.com/andreamazz/AMPopTip/releases/tag/2.0.0)
+
+- AMPopTip was re-written in Swift. The API was also slightly changed. Make sure to check out the README.  
 
 ## [1.5.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.5.2)
 
