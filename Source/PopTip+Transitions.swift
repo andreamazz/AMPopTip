@@ -34,7 +34,6 @@ public extension PopTip {
     }
   }
 
-
   /// Triggers the chosen exit animation
   ///
   /// - Parameter completion: the completion handler

@@ -205,7 +205,7 @@ open class PopTip: UIView {
   /// Setup a poptip oriented vertically (direction .up or .down). Returns the bubble frame and the arrow position
   ///
   /// - Returns: a tuple with the bubble frame and the arrow position
-  fileprivate func setupVertically() -> (CGRect, CGPoint) {
+  internal func setupVertically() -> (CGRect, CGPoint) {
     guard let containerView = containerView else { return (CGRect.zero, CGPoint.zero) }
 
     var frame = CGRect.zero
@@ -255,7 +255,7 @@ open class PopTip: UIView {
   /// Setup a poptip oriented horizontally (direction .left or .right). Returns the bubble frame and the arrow position
   ///
   /// - Returns: a tuple with the bubble frame and the arrow position
-  fileprivate func setupHorizontally() -> (CGRect, CGPoint) {
+  internal func setupHorizontally() -> (CGRect, CGPoint) {
     guard let containerView = containerView else { return (CGRect.zero, CGPoint.zero) }
 
     var frame = CGRect.zero
