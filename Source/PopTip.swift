@@ -390,11 +390,9 @@ open class PopTip: UIView {
     }
     if tapRemoveGestureRecognizer == nil {
       tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapRemove(_:)))
-      self.addGestureRecognizer(tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
     }
     if swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipe(_:)))
-      self.addGestureRecognizer(swipeGestureRecognizer ?? UISwipeGestureRecognizer())
     }
   }
 
@@ -508,7 +506,7 @@ open class PopTip: UIView {
     layer.removeAllAnimations()
     setNeedsLayout()
     performEntranceAnimation {
-      self.containerView?.addGestureRecognizer(self.tapGestureRecognizer ?? UITapGestureRecognizer())
+      self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
       self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
       self.appearHandler?(self)
       if self.startActionAnimationOnShow {
@@ -536,7 +534,7 @@ open class PopTip: UIView {
     isAnimating = true
     dismissTimer?.invalidate()
     dismissTimer = nil
-    if let gestureRecognizer = tapGestureRecognizer {
+    if let gestureRecognizer = tapRemoveGestureRecognizer {
       containerView?.removeGestureRecognizer(gestureRecognizer)
     }
     if let gestureRecognizer = swipeGestureRecognizer {
@@ -593,12 +591,6 @@ open class PopTip: UIView {
     if shouldDismissOnSwipeOutside {
       hide()
     }
-  }
-
-  deinit {
-    tapGestureRecognizer?.removeTarget(self, action: #selector(PopTip.handleTap(_:)))
-    tapRemoveGestureRecognizer?.removeTarget(self, action: #selector(PopTip.handleTapRemove(_:)))
-    swipeGestureRecognizer?.removeTarget(self, action: #selector(PopTip.handleSwipe(_:)))
   }
 
   fileprivate func performActionAnimation() {

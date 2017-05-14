@@ -178,6 +178,7 @@ borderWidth = <#CGFloat#>
 cornerRadius = <#CGFloat#> // Popover's border radius
 rounded = <#Bool#> // If set to YES the radius will equal frame.height / 2
 offset = <#CGFloat#> // Offset between the popover and the origin
+font = <#UIFont#>
 padding = <#CGFloat#>
 edgeInsets = <#UIEdgeInsets#>
 arrowSize = <#CGSize#>
