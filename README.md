@@ -41,8 +41,6 @@ The API is fairly straight forward, you can show and hide the popover at any tim
 ## Showing the popover
 You must specify the text that you want to display alongside the popover direction, its max width, the view that will contain it and the frame of the view that the popover's arrow will point to.
 
-#### Swift
-
 ```swift
 let popTip = PopTip()
 popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: someView.frame)
@@ -58,8 +56,6 @@ Please note that the frame you are intended to provide needs to refer to the abs
 
 ## Showing a custom view
 You can provide a custom view that will be wrapped in the PopTip and presented.
-
-#### Swift
 
 ```swift
 let customView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -103,6 +99,14 @@ popTip.appearHandler = { popTip in
 popTip.dismissHandler = { popTip in
   print("\(popTip) dismissed")
 }
+```
+
+# Updating the bubble's content
+
+You can update the text, attributed text, or custom view to a PopTip already visible:
+
+```swift
+popTip.update(text: "New string")
 ```
 
 # Custom entrance animation
