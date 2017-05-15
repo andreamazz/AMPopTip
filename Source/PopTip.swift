@@ -396,7 +396,6 @@ open class PopTip: UIView {
     }
   }
 
-
   /// Custom draw override
   ///
   /// - Parameter rect: the rect occupied by the view
@@ -465,7 +464,7 @@ open class PopTip: UIView {
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(attributedText: NSAttributedString, direction: PopTipDirection, maxWidth: CGFloat, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
     text = nil
-    self.attributedText = attributedText;
+    self.attributedText = attributedText
     accessibilityLabel = attributedText.string
     self.direction = direction
     containerView = view
@@ -487,18 +486,52 @@ open class PopTip: UIView {
   ///   - frame: The originating frame. The poptip's arrow will point to the center of this frame.
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(customView: UIView, direction: PopTipDirection, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
-    text = nil;
-    attributedText = nil;
-    self.direction = direction;
-    containerView = view;
+    text = nil
+    attributedText = nil
+    self.direction = direction
+    containerView = view
     maxWidth = customView.frame.size.width
     self.customView?.removeFromSuperview()
-    self.customView = customView;
+    self.customView = customView
     addSubview(customView)
     customView.layoutIfNeeded()
     from = frame
 
     show(duration: duration)
+  }
+
+  /// Update the current text
+  ///
+  /// - Parameter text: the new text
+  open func update(text: String) {
+    self.text = text
+    updateBubble()
+  }
+
+  /// Update the current text
+  ///
+  /// - Parameter attributedText: the new attributs string
+  open func update(attributedText: NSAttributedString) {
+    self.attributedText = attributedText
+    updateBubble()
+  }
+
+  /// Update the current text
+  ///
+  /// - Parameter customView: the new custom view
+  open func update(customView: UIView) {
+    self.customView = customView
+    updateBubble()
+  }
+
+  fileprivate func updateBubble() {
+    stopActionAnimation {
+      UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
+        self.setup()
+      }) { (_) in
+        self.startActionAnimation()
+      }
+    }
   }
 
   fileprivate func show(duration: TimeInterval? = nil) {
@@ -570,8 +603,10 @@ open class PopTip: UIView {
   }
 
   /// Stops the poptip action animation. Does nothing if the poptip wasn't animating in the first place.
-  open func stopActionAnimation() {
-    dismissActionAnimation()
+  ///
+  /// - Parameter completion: Optional completion block clled once the animation is completed
+  open func stopActionAnimation(_ completion: ((Void) -> Void)? = nil) {
+    dismissActionAnimation(completion)
   }
 
   @objc fileprivate func handleTap(_ gesture: UITapGestureRecognizer) {
@@ -607,12 +642,13 @@ open class PopTip: UIView {
     }
   }
 
-  fileprivate func dismissActionAnimation() {
+  fileprivate func dismissActionAnimation(_ completion: ((Void) -> Void)? = nil) {
     shouldBounce = false
     UIView.animate(withDuration: actionAnimationOut / 2, delay: actionDelayOut, options: .beginFromCurrentState, animations: { 
       self.transform = .identity
     }) { (_) in
       self.layer.removeAllAnimations()
+      completion?()
     }
   }
 

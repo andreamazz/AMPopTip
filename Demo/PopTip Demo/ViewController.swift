@@ -18,6 +18,9 @@ class ViewController: UIViewController {
   let popTip = PopTip()
   var direction = PopTipDirection.up
   var topRightDirection = PopTipDirection.down
+  var timer: Timer? = nil
+
+  let /* Woody Allen's */ quotes = ["Life doesn't imitate art, it imitates bad television.", "The difference between sex and love is that sex relieves tension and love causes it.", "If you want to make God laugh, tell him about your plans.", "Eighty percent of success is showing up.", "If you're not failing every now and again, it's a sign you're not doing anything very innovative.", "Confidence is what you have before you understand the problem.", "Life is full of misery, loneliness, and suffering - and it's all over much too soon."]
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,6 +45,8 @@ class ViewController: UIViewController {
 
   @IBAction func action(sender: UIButton) {
     guard let button = ButtonType(rawValue: sender.tag) else { return }
+
+    timer?.invalidate()
 
     switch button {
     case .topLeft:
@@ -91,6 +96,11 @@ class ViewController: UIViewController {
       popTip.bubbleColor = UIColor(red: 0.31, green: 0.57, blue: 0.87, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: direction, maxWidth: 200, in: view, from: sender.frame)
       direction = direction.cycleDirection()
+      if timer == nil {
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
+          self.popTip.update(text: self.quotes.sample())
+        }
+      }
     }
   }
 
@@ -110,5 +120,12 @@ extension PopTipDirection {
     case .none:
       return .none
     }
+  }
+}
+
+extension Array {
+  func sample() -> Element {
+    let index = Int(arc4random_uniform(UInt32(count)))
+    return self[index]
   }
 }
