@@ -721,6 +721,10 @@ open class PopTip: UIView {
       self.transform = CGAffineTransform(scaleX: offset, y: offset)
     }, completion: nil)
   }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
 }
 
 fileprivate extension UIEdgeInsets {
