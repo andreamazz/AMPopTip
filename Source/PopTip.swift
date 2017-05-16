@@ -553,6 +553,7 @@ open class PopTip: UIView {
 
   fileprivate func show(duration: TimeInterval? = nil) {
     isAnimating = true
+    dismissTimer?.invalidate()
     layer.removeAllAnimations()
     setNeedsLayout()
     performEntranceAnimation {
@@ -564,7 +565,6 @@ open class PopTip: UIView {
       }
       self.isAnimating = false
       if let duration = duration {
-        self.dismissTimer?.invalidate()
         self.dismissTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(PopTip.hide), userInfo: nil, repeats: false)
       }
     }

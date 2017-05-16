@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     popTip.bubbleOffset = 0
     popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
 
-    popTip.actionAnimation = .none //.bounce(8)
+    popTip.actionAnimation = .bounce(8)
 
     popTip.tapHandler = { _ in
       print("tap")
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
       } else {
         topRightDirection = .left
       }
-      popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame, duration: 2)
+      popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
       let attributes: [String: Any] = [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.white]
