@@ -96,10 +96,8 @@ class ViewController: UIViewController {
       popTip.bubbleColor = UIColor(red: 0.31, green: 0.57, blue: 0.87, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: direction, maxWidth: 200, in: view, from: sender.frame)
       direction = direction.cycleDirection()
-      if timer == nil {
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
-          self.popTip.update(text: self.quotes.sample())
-        }
+      timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
+        self.popTip.update(text: self.quotes.sample())
       }
     }
   }

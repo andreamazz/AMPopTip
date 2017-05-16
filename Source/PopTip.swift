@@ -586,8 +586,10 @@ open class PopTip: UIView {
       self.dismissHandler?(self)
     }
 
-    var isActive = true
-    if #available(iOS 8, *) {
+    var isActive: Bool
+    if #available(iOSApplicationExtension 8, *) {
+      isActive = true
+    } else {
       isActive = UIApplication.shared.applicationState == .active
     }
     if !isActive {
