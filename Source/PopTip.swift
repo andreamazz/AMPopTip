@@ -599,11 +599,12 @@ open class PopTip: UIView {
     }
 
     var isActive: Bool
-    if #available(iOSApplicationExtension 8, *) {
-      isActive = true
-    } else {
+    #if NS_EXTENSION_UNAVAILABLE_IOS
       isActive = UIApplication.shared.applicationState == .active
-    }
+    #else
+      isActive = true
+    #endif
+    
     if !isActive {
       completion()
     } else {
