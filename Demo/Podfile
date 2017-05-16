@@ -5,6 +5,9 @@ inhibit_all_warnings!
 target 'PopTip Demo' do
   use_frameworks!
   pod 'AMPopTip', path: '../'
+  
+  target 'PopTip Extension' do
+  end
 
   target 'PopTip DemoTests' do
     inherit! :search_paths

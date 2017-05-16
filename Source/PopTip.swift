@@ -200,13 +200,13 @@ open class PopTip: UIView {
   fileprivate var textBounds = CGRect.zero
   fileprivate var maxWidth = CGFloat(0)
   fileprivate var customView: UIView?
+  fileprivate var isApplicationInBackground: Bool?
   fileprivate var label: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
     return label
   }()
   private var shouldBounce = false
-
 
   /// Setup a poptip oriented vertically (direction .up or .down). Returns the bubble frame and the arrow position
   ///
@@ -405,6 +405,11 @@ open class PopTip: UIView {
     if swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipe(_:)))
     }
+
+    if isApplicationInBackground == nil {
+      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+    }
   }
 
   /// Custom draw override
@@ -598,14 +603,7 @@ open class PopTip: UIView {
       self.dismissHandler?(self)
     }
 
-    var isActive: Bool
-    #if NS_EXTENSION_UNAVAILABLE_IOS
-      isActive = UIApplication.shared.applicationState == .active
-    #else
-      isActive = true
-    #endif
-    
-    if !isActive {
+    if isApplicationInBackground ?? false {
       completion()
     } else {
       performExitAnimation(completion: completion)
@@ -641,6 +639,14 @@ open class PopTip: UIView {
     if shouldDismissOnSwipeOutside {
       hide()
     }
+  }
+
+  @objc fileprivate func handleApplicationActive() {
+    isApplicationInBackground = false
+  }
+
+  @objc fileprivate func handleApplicationResignActive() {
+    isApplicationInBackground = true
   }
 
   fileprivate func performActionAnimation() {
