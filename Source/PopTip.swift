@@ -200,7 +200,13 @@ open class PopTip: UIView {
   fileprivate var textBounds = CGRect.zero
   fileprivate var maxWidth = CGFloat(0)
   fileprivate var customView: UIView?
+  fileprivate var label: UILabel = {
+    let label = UILabel()
+    label.numberOfLines = 0
+    return label
+  }()
   private var shouldBounce = false
+
 
   /// Setup a poptip oriented vertically (direction .up or .down). Returns the bubble frame and the arrow position
   ///
@@ -365,6 +371,11 @@ open class PopTip: UIView {
       layer.position = CGPoint(x: from.midX, y: from.midY)
     }
 
+    label.frame = textBounds
+    if label.superview == nil {
+      addSubview(label)
+    }
+
     frame = rect
 
     if let customView = customView {
@@ -423,10 +434,11 @@ open class PopTip: UIView {
     ]
 
     if let text = text {
-      NSString(string: text).draw(in: textBounds, withAttributes: titleAttributes)
-    }
-    if let text = attributedText {
-      text.draw(in: textBounds)
+      label.attributedText = NSAttributedString(string: text, attributes: titleAttributes)
+    } else if let text = attributedText {
+      label.attributedText = text
+    } else {
+      label.attributedText = nil
     }
   }
 
