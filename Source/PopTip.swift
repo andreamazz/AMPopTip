@@ -314,7 +314,7 @@ open class PopTip: UIView {
       bounds = view.frame
     }
     bounds.origin = CGPoint(x: padding + edges.left, y: padding + edges.top)
-    return bounds
+    return bounds.integral
   }
 
   fileprivate func setup() {
