@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
-- `2.1.0` Releases - [2.1.0](#210) | [2.1.1](#211) | [2.1.2](#212) | [2.1.3](#213)  
+- `2.1.0` Releases - [2.1.0](#210) | [2.1.1](#211) | [2.1.2](#212) | [2.1.3](#213) | [2.1.4](#214)  
 - `2.0.0` Releases - [2.0.0](#200) | [2.0.1](#201)  
 - `1.5.0` Releases - [1.5.0](#150) | [1.5.1](#151)  [1.5.2](#152)   
 - `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)   
@@ -16,9 +16,13 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.1.4](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.4)
+
+- Fixed issue with text rendering 
+
 ## [2.1.3](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.3)
 
-- Fixed an issue with the timer not being invalidated 
+- Fixed an issue with the timer not being invalidated
 
 ## [2.1.2](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.2)
 
