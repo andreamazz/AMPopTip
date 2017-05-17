@@ -541,36 +541,6 @@ open class PopTip: UIView {
     updateBubble()
   }
 
-  fileprivate func updateBubble() {
-    stopActionAnimation {
-      UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
-        self.setup()
-      }) { (_) in
-        self.startActionAnimation()
-      }
-    }
-  }
-
-  fileprivate func show(duration: TimeInterval? = nil) {
-    isAnimating = true
-    dismissTimer?.invalidate()
-    layer.removeAllAnimations()
-    setNeedsLayout()
-    performEntranceAnimation {
-      self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
-      self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
-      self.appearHandler?(self)
-      if self.startActionAnimationOnShow {
-        self.performActionAnimation()
-      }
-      self.isAnimating = false
-      if let duration = duration {
-        self.dismissTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(PopTip.hide), userInfo: nil, repeats: false)
-      }
-    }
-  }
-
-
   /// Hides the poptip and removes it from the view. The property `isVisible` will be set to `false` when the animation is complete and the poptip is removed from the parent view.
   ///
   /// - Parameter forced: Force the removal, ignoring running animations
@@ -580,10 +550,12 @@ open class PopTip: UIView {
     }
 
     layer.removeAllAnimations()
-
+    transform = .identity
+    shouldBounce = false
     isAnimating = true
     dismissTimer?.invalidate()
     dismissTimer = nil
+
     if let gestureRecognizer = tapRemoveGestureRecognizer {
       containerView?.removeGestureRecognizer(gestureRecognizer)
     }
@@ -620,6 +592,35 @@ open class PopTip: UIView {
   /// - Parameter completion: Optional completion block clled once the animation is completed
   open func stopActionAnimation(_ completion: ((Void) -> Void)? = nil) {
     dismissActionAnimation(completion)
+  }
+
+  fileprivate func updateBubble() {
+    stopActionAnimation {
+      UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
+        self.setup()
+      }) { (_) in
+        self.startActionAnimation()
+      }
+    }
+  }
+
+  fileprivate func show(duration: TimeInterval? = nil) {
+    isAnimating = true
+    dismissTimer?.invalidate()
+    layer.removeAllAnimations()
+    setNeedsLayout()
+    performEntranceAnimation {
+      self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
+      self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
+      self.appearHandler?(self)
+      if self.startActionAnimationOnShow {
+        self.performActionAnimation()
+      }
+      self.isAnimating = false
+      if let duration = duration {
+        self.dismissTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(PopTip.hide), userInfo: nil, repeats: false)
+      }
+    }
   }
 
   @objc fileprivate func handleTap(_ gesture: UITapGestureRecognizer) {
