@@ -101,12 +101,26 @@ popTip.dismissHandler = { popTip in
 }
 ```
 
-# Updating the bubble's content
+# Updating the PopTip
 
 You can update the text, attributed text, or custom view to a PopTip already visible:
 
 ```swift
 popTip.update(text: "New string")
+popTip.update(attributedText: someAttributedString)
+popTip.update(customView: someView)
+```
+
+The position can also be changed by updating the `from` property:
+
+```swift
+let here = CGRect(x: 100, 100, 10, 10)
+let there = CGRect(x: 400, 400, 10, 10)
+
+popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: here)
+DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+  popTip.from = there
+}
 ```
 
 # Custom entrance animation
