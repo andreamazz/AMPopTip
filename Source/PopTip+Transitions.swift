@@ -72,10 +72,8 @@ public extension PopTip {
     UIView.animate(withDuration: animationIn, delay: delayIn, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.5, options: [.curveEaseInOut, .beginFromCurrentState], animations: { 
       self.transform = .identity
       self.backgroundMask?.alpha = 1
-    }) { (completed) in
-      if completed {
-        completion()
-      }
+    }) { (_) in
+      completion()
     }
   }
 
@@ -89,10 +87,8 @@ public extension PopTip {
     UIView.animate(withDuration: animationIn, delay: delayIn, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.5, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
       self.transform = .identity
       self.backgroundMask?.alpha = 1
-    }) { (completed) in
-      if completed {
-        completion()
-      }
+    }) { (_) in
+      completion()
     }
   }
 
@@ -106,10 +102,8 @@ public extension PopTip {
     UIView.animate(withDuration: animationIn, delay: delayIn, options: [.curveEaseInOut, .beginFromCurrentState], animations: { 
       self.alpha = 1
       self.backgroundMask?.alpha = 1
-    }) { (completed) in
-      if completed {
-        completion()
-      }
+    }) { (_) in
+      completion()
     }
   }
 
@@ -119,10 +113,8 @@ public extension PopTip {
     UIView.animate(withDuration: animationOut, delay: delayOut, options: [.curveEaseInOut, .beginFromCurrentState], animations: { 
       self.transform = CGAffineTransform(scaleX: 0.0001, y: 0.0001)
       self.backgroundMask?.alpha = 0
-    }) { (completed) in
-      if completed {
-        completion()
-      }
+    }) { (_) in
+      completion()
     }
   }
 
@@ -132,10 +124,8 @@ public extension PopTip {
     UIView.animate(withDuration: animationOut, delay: delayOut, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
       self.alpha = 0
       self.backgroundMask?.alpha = 0
-    }) { (completed) in
-      if completed {
-        completion()
-      }
+    }) { (_) in
+      completion()
     }
   }
 }
