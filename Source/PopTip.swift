@@ -457,6 +457,8 @@ open class PopTip: UIView {
   ///   - frame: The originating frame. The poptip's arrow will point to the center of this frame.
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(text: String, direction: PopTipDirection, maxWidth: CGFloat, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
+    resetView()
+
     attributedText = nil
     self.text = text
     accessibilityLabel = text
@@ -480,6 +482,8 @@ open class PopTip: UIView {
   ///   - frame: The originating frame. The poptip's arrow will point to the center of this frame.
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(attributedText: NSAttributedString, direction: PopTipDirection, maxWidth: CGFloat, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
+    resetView()
+
     text = nil
     self.attributedText = attributedText
     accessibilityLabel = attributedText.string
@@ -503,6 +507,8 @@ open class PopTip: UIView {
   ///   - frame: The originating frame. The poptip's arrow will point to the center of this frame.
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(customView: UIView, direction: PopTipDirection, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
+    resetView()
+
     text = nil
     attributedText = nil
     self.direction = direction
@@ -549,9 +555,7 @@ open class PopTip: UIView {
       return
     }
 
-    layer.removeAllAnimations()
-    transform = .identity
-    shouldBounce = false
+    resetView()
     isAnimating = true
     dismissTimer?.invalidate()
     dismissTimer = nil
@@ -594,6 +598,12 @@ open class PopTip: UIView {
     dismissActionAnimation(completion)
   }
 
+  fileprivate func resetView() {
+    layer.removeAllAnimations()
+    transform = .identity
+    shouldBounce = false
+  }
+
   fileprivate func updateBubble() {
     stopActionAnimation {
       UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
@@ -607,7 +617,7 @@ open class PopTip: UIView {
   fileprivate func show(duration: TimeInterval? = nil) {
     isAnimating = true
     dismissTimer?.invalidate()
-    layer.removeAllAnimations()
+
     setNeedsLayout()
     performEntranceAnimation {
       self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
@@ -718,7 +728,7 @@ open class PopTip: UIView {
   }
 
   fileprivate func pulseAnimation(offset: CGFloat) {
-    UIView.animate(withDuration: actionAnimationIn / 2, delay: actionDelayIn, options: [.curveEaseIn, .allowUserInteraction, .beginFromCurrentState, .autoreverse], animations: {
+    UIView.animate(withDuration: actionAnimationIn / 2, delay: actionDelayIn, options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState, .autoreverse, .repeat], animations: {
       self.transform = CGAffineTransform(scaleX: offset, y: offset)
     }, completion: nil)
   }
