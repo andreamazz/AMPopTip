@@ -401,7 +401,6 @@ open class PopTip: UIView {
     }
     if tapRemoveGestureRecognizer == nil {
       tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.hide))
-      tapGestureRecognizer?.cancelsTouchesInView = false
     }
     if swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.hide))
