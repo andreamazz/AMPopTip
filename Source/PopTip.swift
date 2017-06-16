@@ -620,7 +620,7 @@ open class PopTip: UIView {
 
     setNeedsLayout()
     performEntranceAnimation {
-      if self.shouldDismissOnTap {
+      if self.shouldDismissOnTapOutside {
         self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
       }
       if self.shouldDismissOnSwipeOutside {
