@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "AMPopTip"
-  s.version      = "2.1.5"
+  s.version      = "2.1.6"
   s.summary      = "Animated popover, great for subtle UI tips and onboarding."
   s.description  = <<-DESC
                     Animated popover that pops out of a frame. You can specify the
