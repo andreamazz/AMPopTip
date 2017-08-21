@@ -164,7 +164,11 @@ open class PopTip: UIView {
   open dynamic var startActionAnimationOnShow = true
   /// A direction that determines what swipe direction to dismiss when swiping outside the poptip.
   /// The default direction is `right`
-  open var swipeRemoveGestureDirection = UISwipeGestureRecognizerDirection.right
+  open var swipeRemoveGestureDirection = UISwipeGestureRecognizerDirection.right {
+    didSet {
+      swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
+    }
+  }
   /// A block that will be fired when the user taps the poptip.
   open var tapHandler: ((PopTip) -> Void)?
   /// A block that will be fired when the poptip appears.
@@ -404,6 +408,7 @@ open class PopTip: UIView {
     }
     if swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.hide))
+      swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
 
     if isApplicationInBackground == nil {
