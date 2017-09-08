@@ -195,9 +195,10 @@ open class PopTip: UIView {
   /// The view that dims the background (including the button that triggered PopTip.
   /// The mask by appears with fade in effect only.
   open private(set) var backgroundMask: UIView?
+  /// The tap gesture recognizer. Read-only.
+  open private(set) var tapGestureRecognizer: UITapGestureRecognizer?
   fileprivate var attributedText: NSAttributedString?
   fileprivate var paragraphStyle = NSMutableParagraphStyle()
-  fileprivate var tapGestureRecognizer: UITapGestureRecognizer?
   fileprivate var tapRemoveGestureRecognizer: UITapGestureRecognizer?
   fileprivate var swipeGestureRecognizer: UISwipeGestureRecognizer?
   fileprivate var dismissTimer: Timer?
