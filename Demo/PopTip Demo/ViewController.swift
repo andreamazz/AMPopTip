@@ -84,8 +84,8 @@ class ViewController: UIViewController {
       popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
-      let attributes: [String: Any] = [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.white]
-      let underline: [String: Any] = [NSFontAttributeName: UIFont.systemFont(ofSize: 13), NSForegroundColorAttributeName: UIColor.white, NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+      let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.white]
+      let underline: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
       let attributedText = NSMutableAttributedString(string: "I'm presenting a string ", attributes: attributes)
       attributedText.append(NSAttributedString(string: "with attributes!", attributes: underline))
       popTip.show(attributedText: attributedText, direction: .up, maxWidth: 200, in: view, from: sender.frame)

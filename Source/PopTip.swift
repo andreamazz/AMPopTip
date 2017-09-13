@@ -94,35 +94,35 @@ open class PopTip: UIView {
   /// The `UIFont` used in the poptip's text
   open var font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
   /// The `UIColor` of the text
-  open dynamic var textColor = UIColor.white
+  @objc open dynamic var textColor = UIColor.white
   /// The `NSTextAlignment` of the text
-  open dynamic var textAlignment = NSTextAlignment.center
+  @objc open dynamic var textAlignment = NSTextAlignment.center
   /// The `UIColor` for the poptip's background
-  open dynamic var bubbleColor = UIColor.red
+  @objc open dynamic var bubbleColor = UIColor.red
   /// The `UIColor` for the poptip's bordedr
-  open dynamic var borderColor = UIColor.clear
+  @objc open dynamic var borderColor = UIColor.clear
   /// The width for the poptip's border
-  open dynamic var borderWidth = CGFloat(0.0)
+  @objc open dynamic var borderWidth = CGFloat(0.0)
   /// The `Double` with the poptip's border radius
-  open dynamic var cornerRadius = CGFloat(4.0)
+  @objc open dynamic var cornerRadius = CGFloat(4.0)
   /// The `BOOL` that determines wether the poptip is rounded. If set to `true` the radius will equal `frame.height / 2`
-  open dynamic var isRounded = false
+  @objc open dynamic var isRounded = false
   /// Holds the offset between the poptip and origin
-  open dynamic var offset = CGFloat(0.0)
+  @objc open dynamic var offset = CGFloat(0.0)
   /// Holds the CGFloat with the padding used for the inner text
-  open dynamic var padding = CGFloat(6.0)
+  @objc open dynamic var padding = CGFloat(6.0)
   /// Holds the insets setting for padding different direction
-  open dynamic var edgeInsets = UIEdgeInsets.zero
+  @objc open dynamic var edgeInsets = UIEdgeInsets.zero
   /// Holds the CGSize with the width and height of the arrow
-  open dynamic var arrowSize = CGSize(width: 8, height: 8)
+  @objc open dynamic var arrowSize = CGSize(width: 8, height: 8)
   /// Holds the NSTimeInterval with the duration of the revealing animation
-  open dynamic var animationIn: TimeInterval = 0.4
+  @objc open dynamic var animationIn: TimeInterval = 0.4
   /// Holds the NSTimeInterval with the duration of the disappearing animation
-  open dynamic var animationOut: TimeInterval = 0.2
+  @objc open dynamic var animationOut: TimeInterval = 0.2
   /// Holds the NSTimeInterval with the delay of the revealing animation
-  open dynamic var delayIn: TimeInterval = 0
+  @objc open dynamic var delayIn: TimeInterval = 0
   /// Holds the NSTimeInterval with the delay of the disappearing animation
-  open dynamic var delayOut: TimeInterval = 0
+  @objc open dynamic var delayOut: TimeInterval = 0
   /// Holds the enum with the type of entrance animation (triggered once the poptip is shown)
   open var entranceAnimation = PopTipEntranceAnimation.scale
   /// Holds the enum with the type of exit animation (triggered once the poptip is dismissed)
@@ -130,21 +130,21 @@ open class PopTip: UIView {
   /// Holds the enum with the type of action animation (triggered once the poptip is shown)
   open var actionAnimation = PopTipActionAnimation.none
   /// Holds the NSTimeInterval with the duration of the action animation
-  open dynamic var actionAnimationIn: TimeInterval = 1.2
+  @objc open dynamic var actionAnimationIn: TimeInterval = 1.2
   /// Holds the NSTimeInterval with the duration of the action stop animation
-  open dynamic var actionAnimationOut: TimeInterval = 1.0
+  @objc open dynamic var actionAnimationOut: TimeInterval = 1.0
   /// Holds the NSTimeInterval with the delay of the action animation
-  open dynamic var actionDelayIn: TimeInterval = 0
+  @objc open dynamic var actionDelayIn: TimeInterval = 0
   /// Holds the NSTimeInterval with the delay of the action animation stop
-  open dynamic var actionDelayOut: TimeInterval = 0
+  @objc open dynamic var actionDelayOut: TimeInterval = 0
   /// CGfloat value that determines the leftmost margin from the screen
-  open dynamic var edgeMargin = CGFloat(0.0)
+  @objc open dynamic var edgeMargin = CGFloat(0.0)
   /// Holds the offset between the bubble and origin
-  open dynamic var bubbleOffset = CGFloat(0.0)
+  @objc open dynamic var bubbleOffset = CGFloat(0.0)
   /// Color of the mask that is going to dim the background when the pop up is visible
-  open dynamic var maskColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+  @objc open dynamic var maskColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
   /// Flag to enable or disable background mask
-  open dynamic var shouldShowMask = false
+  @objc open dynamic var shouldShowMask = false
   /// Holds the CGrect with the rect the tip is pointing to
   open var from = CGRect.zero {
     didSet {
@@ -155,13 +155,13 @@ open class PopTip: UIView {
   /// the animation is complete, and invisible when the subview is removed from its parent.
   open var isVisible: Bool { get { return self.superview != nil } }
   /// A boolean value that determines whether the poptip is dismissed on tap.
-  open dynamic var shouldDismissOnTap = true
+  @objc open dynamic var shouldDismissOnTap = true
   /// A boolean value that determines whether to dismiss when tapping outside the poptip.
-  open dynamic var shouldDismissOnTapOutside = true
+  @objc open dynamic var shouldDismissOnTapOutside = true
   /// A boolean value that determines whether to dismiss when swiping outside the poptip.
-  open dynamic var shouldDismissOnSwipeOutside = false
+  @objc open dynamic var shouldDismissOnSwipeOutside = false
   /// A boolean value that determines if the action animation should start automatically when the poptip is shown
-  open dynamic var startActionAnimationOnShow = true
+  @objc open dynamic var startActionAnimationOnShow = true
   /// A direction that determines what swipe direction to dismiss when swiping outside the poptip.
   /// The default direction is `right`
   open var swipeRemoveGestureDirection = UISwipeGestureRecognizerDirection.right {
@@ -179,11 +179,11 @@ open class PopTip: UIView {
   /// when using a `PopTipActionAnimationCustom` entrance animation type.
   /// Please note that the poptip will be automatically added as a subview before firing the block
   /// Remember to call the completion block provided
-  open var entranceAnimationHandler: ((@escaping (Void) -> Void) -> Void)?
+  open var entranceAnimationHandler: ((@escaping () -> Void) -> Void)?
   /// A block block that handles the exit animation of the poptip. Should be provided
   /// when using a `AMPopTipActionAnimationCustom` exit animation type.
   /// Remember to call the completion block provided
-  open var exitAnimationHandler: ((@escaping (Void) -> Void) -> Void)?
+  open var exitAnimationHandler: ((@escaping () -> Void) -> Void)?
   /// The CGPoint originating the arrow. Read only.
   open private(set) var arrowPosition = CGPoint.zero
    /// A read only reference to the view containing the poptip
@@ -310,7 +310,7 @@ open class PopTip: UIView {
   fileprivate func textBounds(for text: String?, attributedText: NSAttributedString?, view: UIView?, with font: UIFont, padding: CGFloat, edges: UIEdgeInsets, in maxWidth: CGFloat) -> CGRect {
     var bounds = CGRect.zero
     if let text = text {
-      bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+      bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
     }
     if let attributedText = attributedText {
       bounds = attributedText.boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, context: nil)
@@ -438,10 +438,10 @@ open class PopTip: UIView {
 
     paragraphStyle.alignment = textAlignment
 
-    let titleAttributes: [String : Any] = [
-      NSParagraphStyleAttributeName: paragraphStyle,
-      NSFontAttributeName: font,
-      NSForegroundColorAttributeName: textColor
+    let titleAttributes: [NSAttributedStringKey : Any] = [
+      NSAttributedStringKey.paragraphStyle: paragraphStyle,
+      NSAttributedStringKey.font: font,
+      NSAttributedStringKey.foregroundColor: textColor
     ]
 
     if let text = text {
@@ -556,7 +556,7 @@ open class PopTip: UIView {
   /// Hides the poptip and removes it from the view. The property `isVisible` will be set to `false` when the animation is complete and the poptip is removed from the parent view.
   ///
   /// - Parameter forced: Force the removal, ignoring running animations
-  open func hide(forced: Bool = false) {
+  @objc open func hide(forced: Bool = false) {
     if !forced && isAnimating {
       return
     }
@@ -600,7 +600,7 @@ open class PopTip: UIView {
   /// Stops the poptip action animation. Does nothing if the poptip wasn't animating in the first place.
   ///
   /// - Parameter completion: Optional completion block clled once the animation is completed
-  open func stopActionAnimation(_ completion: ((Void) -> Void)? = nil) {
+  open func stopActionAnimation(_ completion: (() -> Void)? = nil) {
     dismissActionAnimation(completion)
   }
 
@@ -672,7 +672,7 @@ open class PopTip: UIView {
     }
   }
 
-  fileprivate func dismissActionAnimation(_ completion: ((Void) -> Void)? = nil) {
+  fileprivate func dismissActionAnimation(_ completion: (() -> Void)? = nil) {
     shouldBounce = false
     UIView.animate(withDuration: actionAnimationOut / 2, delay: actionDelayOut, options: .beginFromCurrentState, animations: { 
       self.transform = .identity
