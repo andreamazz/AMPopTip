@@ -7,7 +7,7 @@
 [![CocoaPods](https://cocoapod-badges.herokuapp.com/v/AMPopTip/badge.svg)](http://cocoapods.org/?q=ampoptip)
 [![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/AMPopTip.svg)](http://cocoadocs.org/docsets/AMPopTip)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![Swift 3.0](https://img.shields.io/badge/swift-3.0-orange.svg)
+![Swift 3.0](https://img.shields.io/badge/swift-4.0-orange.svg)
 [![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized.
@@ -22,8 +22,11 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 # Screenshot
 ![AMPopTip](https://raw.githubusercontent.com/andreamazz/AMPopTip/master/assets/screenshot.gif)
 
-# Note about this version
+### Versioning notes
+
 With version `2.0.0` the library was re-written in Swift, and the API was slightly updated. Checkout version `1.5.x` for the previous Objective-C implementation.
+
+Version `3.0.0` introduces Swift 4 support.  
 
 # Setup with CocoaPods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
