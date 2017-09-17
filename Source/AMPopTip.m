@@ -468,7 +468,7 @@
     [self.containerView removeGestureRecognizer:self.tapRemoveGesture];
     [self.containerView removeGestureRecognizer:self.swipeRemoveGesture];
 
-    void (^completion)() = ^{
+    void (^completion)(void) = ^{
         [self.customView removeFromSuperview];
         self.customView = nil;
         [self stopActionAnimation];

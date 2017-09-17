@@ -10,7 +10,7 @@
 
 @implementation AMPopTip (Entrance)
 
-- (void)performEntranceAnimation:(void (^)())completion {
+- (void)performEntranceAnimation:(void (^)(void))completion {
     switch (self.entranceAnimation) {
         case AMPopTipEntranceAnimationScale: {
             [self entranceScale:completion];
@@ -48,7 +48,7 @@
     }
 }
 
-- (void)entranceTransition:(void (^)())completion {
+- (void)entranceTransition:(void (^)(void))completion {
     self.transform = CGAffineTransformMakeScale(0.6, 0.6);
     switch (self.direction) {
         case AMPopTipDirectionUp:
@@ -84,7 +84,7 @@
     }];
 }
 
-- (void)entranceScale:(void (^)())completion {
+- (void)entranceScale:(void (^)(void))completion {
     self.transform = CGAffineTransformMakeScale(0, 0);
     [self.containerView addSubview:self.backgroundMask];
     [self.containerView addSubview:self];
@@ -99,7 +99,7 @@
     }];
 }
 
-- (void)entranceFadeIn:(void (^)())completion {
+- (void)entranceFadeIn:(void (^)(void))completion {
     [self.containerView addSubview:self.backgroundMask];
     [self.containerView addSubview:self];
 
