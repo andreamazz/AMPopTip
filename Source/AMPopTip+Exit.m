@@ -10,7 +10,7 @@
 
 @implementation AMPopTip (Exit)
 
-- (void)performExitAnimation:(void (^)())completion {
+- (void)performExitAnimation:(void (^)(void))completion {
     switch (self.exitAnimation) {
         case AMPopTipExitAnimationScale: {
             [self exitScale:completion];
@@ -48,7 +48,7 @@
     }
 }
 
-- (void)exitScale:(void (^)())completion {
+- (void)exitScale:(void (^)(void))completion {
     self.transform = CGAffineTransformIdentity;
     
     [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
@@ -61,7 +61,7 @@
     }];
 }
 
-- (void)exitFadeOut:(void (^)())completion {
+- (void)exitFadeOut:(void (^)(void))completion {
     self.alpha = 1.0;
     [UIView animateWithDuration:self.animationOut delay:self.delayOut options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionBeginFromCurrentState) animations:^{
         self.alpha = 0.0;
