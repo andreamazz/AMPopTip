@@ -13,6 +13,10 @@
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized.
 This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.  
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/9Jjp1jzKpTgCg7fq5tVzNmnV/andreamazz/AMPopTip'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/9Jjp1jzKpTgCg7fq5tVzNmnV/andreamazz/AMPopTip.svg' />
+</a>
+
 <p align="center">
   <a href='https://appetize.io/app/g7x2pwb9jtxdpz9yjb2p5wzk6g' alt='Live demo'>
     <img width="50" height="60" src="assets/demo.png"/>
