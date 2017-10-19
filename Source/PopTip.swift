@@ -44,7 +44,7 @@ public enum PopTipEntranceAnimation {
 }
 
 /** Enum that specifies the type of entrance animation. Entrance animations are performed while showing the poptip.
-
+ 
  - `scale`: The poptip scales from 100% to 0%
  - `fadeOut`: The poptip fade out
  - `custom`: The Animation is provided by the user
@@ -62,7 +62,7 @@ public enum PopTipExitAnimation {
 }
 
 /** Enum that specifies the type of action animation. Action animations are performed after the poptip is visible and the entrance animation completed.
-
+ 
  - `bounce(offset: CGFloat?)`: The poptip bounces following its direction. The bounce offset can be provided optionally
  - `float(offset: CGFloat?)`: The poptip floats in place. The float offset can be provided optionally
  - `pulse(offset: CGFloat?)`: The poptip pulsates by changing its size. The maximum amount of pulse increase can be provided optionally
@@ -186,7 +186,7 @@ open class PopTip: UIView {
   open var exitAnimationHandler: ((@escaping () -> Void) -> Void)?
   /// The CGPoint originating the arrow. Read only.
   open private(set) var arrowPosition = CGPoint.zero
-   /// A read only reference to the view containing the poptip
+  /// A read only reference to the view containing the poptip
   open private(set) var containerView: UIView?
   /// The direction from which the poptip is shown. Read only.
   open private(set) var direction = PopTipDirection.none
@@ -212,33 +212,33 @@ open class PopTip: UIView {
     return label
   }()
   private var shouldBounce = false
-
+  
   /// Setup a poptip oriented vertically (direction .up or .down). Returns the bubble frame and the arrow position
   ///
   /// - Returns: a tuple with the bubble frame and the arrow position
   internal func setupVertically() -> (CGRect, CGPoint) {
     guard let containerView = containerView else { return (CGRect.zero, CGPoint.zero) }
-
+    
     var frame = CGRect.zero
     let offset = self.offset * (direction == .up ? -1 : 1)
-
+    
     frame.size = CGSize(width: textBounds.width + padding * 2 + edgeInsets.horizontal, height: textBounds.height + padding * 2 + edgeInsets.vertical + arrowSize.height)
     var x = from.origin.x + from.width / 2 - frame.width / 2
     if x < 0 { x = edgeMargin }
     if (x + frame.width > containerView.bounds.width) { x = containerView.bounds.width - frame.width - edgeMargin }
-
+    
     if direction == .down {
       frame.origin = CGPoint(x: x, y: from.origin.y + from.height + offset)
     } else {
       frame.origin = CGPoint(x: x, y: from.origin.y - frame.height + offset)
     }
-
+    
     // Make sure that the bubble doesn't leave the boundaries of the view
     let arrowPosition = CGPoint(
       x: from.origin.x + from.width / 2 - frame.origin.x,
       y: (direction == .up) ? frame.height : from.origin.y + from.height - frame.origin.y + offset
     )
-
+    
     if bubbleOffset > 0 && arrowPosition.x < bubbleOffset {
       bubbleOffset = arrowPosition.x - arrowSize.width
     } else if bubbleOffset < 0 && frame.width < fabs(bubbleOffset) {
@@ -246,67 +246,90 @@ open class PopTip: UIView {
     } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < fabs(bubbleOffset) {
       bubbleOffset = -(arrowSize.width + edgeMargin)
     }
-
+    
     // Make sure that the bubble doesn't leaves the boundaries of the view
     let leftSpace = frame.origin.x - containerView.frame.origin.x
     let rightSpace = containerView.frame.width - leftSpace - frame.width
-
+    
     if bubbleOffset < 0 && leftSpace < fabs(bubbleOffset) {
       bubbleOffset = -leftSpace + edgeMargin
     } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
       bubbleOffset = rightSpace - edgeMargin
     }
-
+    
     frame.origin.x += bubbleOffset
     frame.size = CGSize(width: frame.width + borderWidth * 2, height: frame.height + borderWidth * 2)
-
+    
     return (frame, arrowPosition)
   }
-
+  
   /// Setup a poptip oriented horizontally (direction .left or .right). Returns the bubble frame and the arrow position
   ///
   /// - Returns: a tuple with the bubble frame and the arrow position
   internal func setupHorizontally() -> (CGRect, CGPoint) {
     guard let containerView = containerView else { return (CGRect.zero, CGPoint.zero) }
-
+    
     var frame = CGRect.zero
     let offset = self.offset * (direction == .left ? -1 : 1)
     frame.size = CGSize(width: textBounds.width + padding * 2 + edgeInsets.horizontal + arrowSize.height, height: textBounds.height + padding * 2 + edgeInsets.vertical)
-
+    
     let x = direction == .left ? from.origin.x - frame.width + offset : from.origin.x + from.width + offset
     var y = from.origin.y + from.height / 2 - frame.height / 2
-
+    
     if y < 0 { y = edgeMargin }
     if y + frame.height > containerView.bounds.height { y = containerView.bounds.height - frame.height - edgeMargin }
     frame.origin = CGPoint(x: x, y: y)
-
+    
     // Make sure that the bubble doesn't leave the boundaries of the view
     let arrowPosition = CGPoint(
       x: direction == .left ? from.origin.x - frame.origin.x + offset : from.origin.x + from.width - frame.origin.x + offset,
       y: from.origin.y + from.height / 2 - frame.origin.y
     )
-
+    
     if bubbleOffset > 0 && arrowPosition.y < bubbleOffset {
       bubbleOffset = arrowPosition.y - arrowSize.width
     } else if bubbleOffset < 0 && frame.height < fabs(bubbleOffset) {
       bubbleOffset = -(arrowPosition.y - arrowSize.height)
     }
-
+    
     let topSpace = frame.origin.y - containerView.frame.origin.y
     let bottomSpace = containerView.frame.height - topSpace - frame.height
-
+    
     if bubbleOffset < 0 && topSpace < fabs(bubbleOffset) {
       bubbleOffset = -topSpace + edgeMargin
     } else if bubbleOffset > 0 && bottomSpace < bubbleOffset {
       bubbleOffset = bottomSpace - edgeMargin
     }
-
+    
     frame.origin.y += bubbleOffset
     frame.size = CGSize(width: frame.width + borderWidth * 2, height: frame.height + borderWidth * 2)
-
+    
     return (frame, arrowPosition)
   }
-
+  
+  /// Checks if the rect with positioning `.none` is inside the container
+  internal func rectContained(rect: CGRect) -> CGRect {
+    guard let containerView = containerView else { return .zero }
+    
+    var finalRect = rect
+    
+    // The `.none` positioning implies a rect with the origin in the middle of the poptip
+    if (rect.origin.x - rect.width / 2) < containerView.frame.origin.x {
+      finalRect.origin.x = edgeMargin
+    }
+    if (rect.origin.y - rect.height / 2) < containerView.frame.origin.y {
+      finalRect.origin.y = edgeMargin
+    }
+    if (rect.origin.x + rect.width) > (containerView.frame.origin.x + containerView.frame.width) {
+      finalRect.origin.x = containerView.frame.origin.x + containerView.frame.width - rect.width - edgeMargin
+    }
+    if (rect.origin.y + rect.height) > (containerView.frame.origin.y + containerView.frame.height) {
+      finalRect.origin.y = containerView.frame.origin.y + containerView.frame.height - rect.height - edgeMargin
+    }
+    
+    return finalRect
+  }
+  
   fileprivate func textBounds(for text: String?, attributedText: NSAttributedString?, view: UIView?, with font: UIFont, padding: CGFloat, edges: UIEdgeInsets, in maxWidth: CGFloat) -> CGRect {
     var bounds = CGRect.zero
     if let text = text {
@@ -321,22 +344,22 @@ open class PopTip: UIView {
     bounds.origin = CGPoint(x: padding + edges.left, y: padding + edges.top)
     return bounds.integral
   }
-
+  
   fileprivate func setup() {
     guard let containerView = containerView else { return }
-
+    
     var rect = CGRect.zero
     backgroundColor = .clear
-
+    
     if direction == .left {
       maxWidth = CGFloat.minimum(maxWidth, from.origin.x - padding * 2 - edgeInsets.horizontal - arrowSize.width)
     }
     if direction == .right {
       maxWidth = CGFloat.minimum(maxWidth, containerView.bounds.width - from.origin.x - from.width - padding * 2 - edgeInsets.horizontal - arrowSize.width)
     }
-
+    
     textBounds = textBounds(for: text, attributedText: attributedText, view: customView, with: font, padding: padding, edges: edgeInsets, in: maxWidth)
-
+    
     switch direction {
     case .up:
       let dimensions = setupVertically()
@@ -370,23 +393,24 @@ open class PopTip: UIView {
       layer.position = CGPoint(x: layer.position.x + rect.width / 2, y: layer.position.y + rect.height * anchor)
     case .none:
       rect.size = CGSize(width: textBounds.width + padding * 2.0 + edgeInsets.horizontal + borderWidth * 2, height: textBounds.height + padding * 2.0 + edgeInsets.vertical + borderWidth * 2)
-      rect.origin = CGPoint(x: from.midX - rect.size.width / 2, y: from.midY - rect.height / 2 - offset)
+      rect.origin = CGPoint(x: from.midX - rect.size.width / 2, y: from.midY - rect.height / 2)
+      rect = rectContained(rect: rect)
       arrowPosition = CGPoint.zero
       layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
       layer.position = CGPoint(x: from.midX, y: from.midY)
     }
-
+    
     label.frame = textBounds
     if label.superview == nil {
       addSubview(label)
     }
-
+    
     frame = rect
-
+    
     if let customView = customView {
       customView.frame = textBounds
     }
-
+    
     if !shouldShowMask {
       backgroundMask?.removeFromSuperview()
     } else {
@@ -396,9 +420,9 @@ open class PopTip: UIView {
       }
       backgroundMask?.frame = containerView.bounds
     }
-
+    
     setNeedsDisplay()
-
+    
     if tapGestureRecognizer == nil {
       tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
       tapGestureRecognizer?.cancelsTouchesInView = true
@@ -411,13 +435,13 @@ open class PopTip: UIView {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.hide))
       swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
-
+    
     if isApplicationInBackground == nil {
       NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
       NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: Notification.Name.UIApplicationWillResignActive, object: nil)
     }
   }
-
+  
   /// Custom draw override
   ///
   /// - Parameter rect: the rect occupied by the view
@@ -426,24 +450,24 @@ open class PopTip: UIView {
       let showHorizontally = direction == .left || direction == .right
       cornerRadius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
     }
-
+    
     let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: cornerRadius)
-
+    
     bubbleColor.setFill()
     path.fill()
-
+    
     borderColor.setStroke()
     path.lineWidth = borderWidth
     path.stroke()
-
+    
     paragraphStyle.alignment = textAlignment
-
+    
     let titleAttributes: [NSAttributedStringKey : Any] = [
       NSAttributedStringKey.paragraphStyle: paragraphStyle,
       NSAttributedStringKey.font: font,
       NSAttributedStringKey.foregroundColor: textColor
     ]
-
+    
     if let text = text {
       label.attributedText = NSAttributedString(string: text, attributes: titleAttributes)
     } else if let text = attributedText {
@@ -452,7 +476,7 @@ open class PopTip: UIView {
       label.attributedText = nil
     }
   }
-
+  
   /// Shows an animated poptip in a given view, from a given rectangle. The property `isVisible` will be `true` as soon as the poptip is added to the given view.
   ///
   /// - Parameters:
@@ -464,7 +488,7 @@ open class PopTip: UIView {
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(text: String, direction: PopTipDirection, maxWidth: CGFloat, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
     resetView()
-
+    
     attributedText = nil
     self.text = text
     accessibilityLabel = text
@@ -474,10 +498,10 @@ open class PopTip: UIView {
     customView?.removeFromSuperview()
     customView = nil
     from = frame
-
+    
     show(duration: duration)
   }
-
+  
   /// Shows an animated poptip in a given view, from a given rectangle. The property `isVisible` will be `true` as soon as the poptip is added to the given view.
   ///
   /// - Parameters:
@@ -489,7 +513,7 @@ open class PopTip: UIView {
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(attributedText: NSAttributedString, direction: PopTipDirection, maxWidth: CGFloat, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
     resetView()
-
+    
     text = nil
     self.attributedText = attributedText
     accessibilityLabel = attributedText.string
@@ -499,11 +523,11 @@ open class PopTip: UIView {
     customView?.removeFromSuperview()
     customView = nil
     from = frame
-
+    
     show(duration: duration)
   }
-
-
+  
+  
   /// Shows an animated poptip in a given view, from a given rectangle. The property `isVisible` will be `true` as soon as the poptip is added to the given view.
   ///
   /// - Parameters:
@@ -514,7 +538,7 @@ open class PopTip: UIView {
   ///   - duration: Optional time interval that determines when the poptip will self-dismiss.
   open func show(customView: UIView, direction: PopTipDirection, in view: UIView, from frame: CGRect, duration: TimeInterval? = nil) {
     resetView()
-
+    
     text = nil
     attributedText = nil
     self.direction = direction
@@ -525,10 +549,10 @@ open class PopTip: UIView {
     addSubview(customView)
     customView.layoutIfNeeded()
     from = frame
-
+    
     show(duration: duration)
   }
-
+  
   /// Update the current text
   ///
   /// - Parameter text: the new text
@@ -536,7 +560,7 @@ open class PopTip: UIView {
     self.text = text
     updateBubble()
   }
-
+  
   /// Update the current text
   ///
   /// - Parameter attributedText: the new attributs string
@@ -544,7 +568,7 @@ open class PopTip: UIView {
     self.attributedText = attributedText
     updateBubble()
   }
-
+  
   /// Update the current text
   ///
   /// - Parameter customView: the new custom view
@@ -552,7 +576,7 @@ open class PopTip: UIView {
     self.customView = customView
     updateBubble()
   }
-
+  
   /// Hides the poptip and removes it from the view. The property `isVisible` will be set to `false` when the animation is complete and the poptip is removed from the parent view.
   ///
   /// - Parameter forced: Force the removal, ignoring running animations
@@ -560,19 +584,19 @@ open class PopTip: UIView {
     if !forced && isAnimating {
       return
     }
-
+    
     resetView()
     isAnimating = true
     dismissTimer?.invalidate()
     dismissTimer = nil
-
+    
     if let gestureRecognizer = tapRemoveGestureRecognizer {
       containerView?.removeGestureRecognizer(gestureRecognizer)
     }
     if let gestureRecognizer = swipeGestureRecognizer {
       containerView?.removeGestureRecognizer(gestureRecognizer)
     }
-
+    
     let completion = {
       self.customView?.removeFromSuperview()
       self.customView = nil
@@ -584,32 +608,32 @@ open class PopTip: UIView {
       self.isAnimating = false
       self.dismissHandler?(self)
     }
-
+    
     if isApplicationInBackground ?? false {
       completion()
     } else {
       performExitAnimation(completion: completion)
     }
   }
-
+  
   /// Makes the poptip perform the action indefinitely. The action animation calls for the user's attention after the poptip is shown
   open func startActionAnimation() {
     performActionAnimation()
   }
-
+  
   /// Stops the poptip action animation. Does nothing if the poptip wasn't animating in the first place.
   ///
   /// - Parameter completion: Optional completion block clled once the animation is completed
   open func stopActionAnimation(_ completion: (() -> Void)? = nil) {
     dismissActionAnimation(completion)
   }
-
+  
   fileprivate func resetView() {
     layer.removeAllAnimations()
     transform = .identity
     shouldBounce = false
   }
-
+  
   fileprivate func updateBubble() {
     stopActionAnimation {
       UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
@@ -619,11 +643,11 @@ open class PopTip: UIView {
       }
     }
   }
-
+  
   fileprivate func show(duration: TimeInterval? = nil) {
     isAnimating = true
     dismissTimer?.invalidate()
-
+    
     setNeedsLayout()
     performEntranceAnimation {
       if self.shouldDismissOnTapOutside {
@@ -642,22 +666,22 @@ open class PopTip: UIView {
       }
     }
   }
-
+  
   @objc fileprivate func handleTap(_ gesture: UITapGestureRecognizer) {
     if shouldDismissOnTap {
       hide()
     }
     tapHandler?(self)
   }
-
+  
   @objc fileprivate func handleApplicationActive() {
     isApplicationInBackground = false
   }
-
+  
   @objc fileprivate func handleApplicationResignActive() {
     isApplicationInBackground = true
   }
-
+  
   fileprivate func performActionAnimation() {
     switch actionAnimation {
     case .bounce(let offset):
@@ -671,17 +695,17 @@ open class PopTip: UIView {
       return
     }
   }
-
+  
   fileprivate func dismissActionAnimation(_ completion: (() -> Void)? = nil) {
     shouldBounce = false
-    UIView.animate(withDuration: actionAnimationOut / 2, delay: actionDelayOut, options: .beginFromCurrentState, animations: { 
+    UIView.animate(withDuration: actionAnimationOut / 2, delay: actionDelayOut, options: .beginFromCurrentState, animations: {
       self.transform = .identity
     }) { (_) in
       self.layer.removeAllAnimations()
       completion?()
     }
   }
-
+  
   fileprivate func bounceAnimation(offset: CGFloat) {
     var offsetX = CGFloat(0)
     var offsetY = CGFloat(0)
@@ -695,8 +719,8 @@ open class PopTip: UIView {
     case .down:
       offsetY = offset
     }
-
-    UIView.animate(withDuration: actionAnimationIn / 10, delay: actionDelayIn, options: [.curveEaseIn, .allowUserInteraction], animations: { 
+    
+    UIView.animate(withDuration: actionAnimationIn / 10, delay: actionDelayIn, options: [.curveEaseIn, .allowUserInteraction], animations: {
       self.transform = CGAffineTransform(translationX: offsetX, y: offsetY)
     }) { (_) in
       UIView.animate(withDuration: self.actionAnimationIn - self.actionAnimationIn / 10, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: .allowUserInteraction, animations: {
@@ -708,7 +732,7 @@ open class PopTip: UIView {
       })
     }
   }
-
+  
   fileprivate func floatAnimation(offset: CGFloat) {
     var offsetX = offset
     var offsetY = offset
@@ -719,18 +743,18 @@ open class PopTip: UIView {
       offsetX = -offset
     default: break
     }
-
-    UIView.animate(withDuration: actionAnimationIn / 2, delay: actionDelayIn, options: [.curveEaseInOut, .repeat, .autoreverse, .beginFromCurrentState, .allowUserInteraction], animations: { 
+    
+    UIView.animate(withDuration: actionAnimationIn / 2, delay: actionDelayIn, options: [.curveEaseInOut, .repeat, .autoreverse, .beginFromCurrentState, .allowUserInteraction], animations: {
       self.transform = CGAffineTransform(translationX: offsetX, y: offsetY)
     }, completion: nil)
   }
-
+  
   fileprivate func pulseAnimation(offset: CGFloat) {
     UIView.animate(withDuration: actionAnimationIn / 2, delay: actionDelayIn, options: [.curveEaseInOut, .allowUserInteraction, .beginFromCurrentState, .autoreverse, .repeat], animations: {
       self.transform = CGAffineTransform(scaleX: offset, y: offset)
     }, completion: nil)
   }
-
+  
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
@@ -740,8 +764,9 @@ fileprivate extension UIEdgeInsets {
   var horizontal: CGFloat {
     return self.left + self.right
   }
-
+  
   var vertical: CGFloat {
     return self.top + self.bottom
   }
 }
+

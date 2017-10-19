@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     guard let button = ButtonType(rawValue: sender.tag) else { return }
 
     timer?.invalidate()
-
+    
     switch button {
     case .topLeft:
       let customView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 120))
