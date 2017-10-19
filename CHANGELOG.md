@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ## [3.0.2](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.2)
 
-- Fixed aniamtion issues
+- Fixed animation issues
 
 ## [3.0.1](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.1)
 
