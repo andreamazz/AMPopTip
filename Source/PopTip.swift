@@ -306,6 +306,29 @@ open class PopTip: UIView {
 
     return (frame, arrowPosition)
   }
+  
+  /// Checks if the rect with positioning `.none` is inside the container
+  internal func rectContained(rect: CGRect) -> CGRect {
+    guard let containerView = containerView else { return .zero }
+    
+    var finalRect = rect
+    
+    // The `.none` positioning implies a rect with the origin in the middle of the poptip
+    if (rect.origin.x - rect.width / 2) < containerView.frame.origin.x {
+      finalRect.origin.x = edgeMargin
+    }
+    if (rect.origin.y - rect.height / 2) < containerView.frame.origin.y {
+      finalRect.origin.y = edgeMargin
+    }
+    if (rect.origin.x + rect.width) > (containerView.frame.origin.x + containerView.frame.width) {
+      finalRect.origin.x = containerView.frame.origin.x + containerView.frame.width - rect.width - edgeMargin
+    }
+    if (rect.origin.y + rect.height) > (containerView.frame.origin.y + containerView.frame.height) {
+      finalRect.origin.y = containerView.frame.origin.y + containerView.frame.height - rect.height - edgeMargin
+    }
+    
+    return finalRect
+  }
 
   fileprivate func textBounds(for text: String?, attributedText: NSAttributedString?, view: UIView?, with font: UIFont, padding: CGFloat, edges: UIEdgeInsets, in maxWidth: CGFloat) -> CGRect {
     var bounds = CGRect.zero
@@ -370,7 +393,8 @@ open class PopTip: UIView {
       layer.position = CGPoint(x: layer.position.x + rect.width / 2, y: layer.position.y + rect.height * anchor)
     case .none:
       rect.size = CGSize(width: textBounds.width + padding * 2.0 + edgeInsets.horizontal + borderWidth * 2, height: textBounds.height + padding * 2.0 + edgeInsets.vertical + borderWidth * 2)
-      rect.origin = CGPoint(x: from.midX - rect.size.width / 2, y: from.midY - rect.height / 2 - offset)
+      rect.origin = CGPoint(x: from.midX - rect.size.width / 2, y: from.midY - rect.height / 2)
+      rect = rectContained(rect: rect)
       arrowPosition = CGPoint.zero
       layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
       layer.position = CGPoint(x: from.midX, y: from.midY)
