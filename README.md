@@ -19,7 +19,7 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 
 <p align="center">
   <a href='https://appetize.io/app/g7x2pwb9jtxdpz9yjb2p5wzk6g' alt='Live demo'>
-    <img width="50" height="60" src="assets/demo.png"/>
+    <img width="300" height="150" src="assets/demo.png"/>
   </a>
 </p>
 
