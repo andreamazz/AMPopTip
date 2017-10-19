@@ -629,7 +629,9 @@ open class PopTip: UIView {
   }
   
   fileprivate func resetView() {
+    CATransaction.begin()
     layer.removeAllAnimations()
+    CATransaction.commit()
     transform = .identity
     shouldBounce = false
   }
@@ -720,16 +722,18 @@ open class PopTip: UIView {
       offsetY = offset
     }
     
-    UIView.animate(withDuration: actionAnimationIn / 10, delay: actionDelayIn, options: [.curveEaseIn, .allowUserInteraction], animations: {
+    UIView.animate(withDuration: actionAnimationIn / 10, delay: actionDelayIn, options: [.curveEaseIn, .allowUserInteraction, .beginFromCurrentState], animations: {
       self.transform = CGAffineTransform(translationX: offsetX, y: offsetY)
-    }) { (_) in
-      UIView.animate(withDuration: self.actionAnimationIn - self.actionAnimationIn / 10, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: .allowUserInteraction, animations: {
-        self.transform = .identity
-      }, completion: { (done) in
-        if self.shouldBounce && done {
-          self.bounceAnimation(offset: offset)
-        }
-      })
+    }) { (completed) in
+      if completed {
+        UIView.animate(withDuration: self.actionAnimationIn - self.actionAnimationIn / 10, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 1, options: [.allowUserInteraction, .beginFromCurrentState], animations: {
+          self.transform = .identity
+        }, completion: { (done) in
+          if self.shouldBounce && done {
+            self.bounceAnimation(offset: offset)
+          }
+        })
+      }
     }
   }
   

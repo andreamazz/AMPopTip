@@ -44,10 +44,8 @@ public extension PopTip {
     case .fadeOut:
       exitFadeOut(completion: completion)
     case .custom:
-      containerView?.addSubview(self)
       exitAnimationHandler?(completion)
     case .none:
-      containerView?.addSubview(self)
       completion()
     }
   }
