@@ -117,7 +117,7 @@ public extension PopTip {
   }
 
   private func exitFadeOut(completion: @escaping () -> Void) {
-    alpha = 0
+    alpha = 1
 
     UIView.animate(withDuration: animationOut, delay: delayOut, options: [.curveEaseInOut, .beginFromCurrentState], animations: {
       self.alpha = 0
