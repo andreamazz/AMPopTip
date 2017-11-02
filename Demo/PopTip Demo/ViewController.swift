@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     popTip.edgeMargin = 5
     popTip.offset = 2
     popTip.bubbleOffset = 0
+    popTip.borderWidth = 1
+    popTip.borderColor = .black
     popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
 
     popTip.actionAnimation = .bounce(8)
