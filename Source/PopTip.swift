@@ -314,10 +314,10 @@ open class PopTip: UIView {
     var finalRect = rect
     
     // The `.none` positioning implies a rect with the origin in the middle of the poptip
-    if (rect.origin.x - rect.width / 2) < containerView.frame.origin.x {
+    if (rect.origin.x) < containerView.frame.origin.x {
       finalRect.origin.x = edgeMargin
     }
-    if (rect.origin.y - rect.height / 2) < containerView.frame.origin.y {
+    if (rect.origin.y) < containerView.frame.origin.y {
       finalRect.origin.y = edgeMargin
     }
     if (rect.origin.x + rect.width) > (containerView.frame.origin.x + containerView.frame.width) {
