@@ -1,5 +1,5 @@
 PODS:
-  - AMPopTip (2.1.7)
+  - AMPopTip (3.0.3)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  AMPopTip: 6c2af8317a8665b797323bdcbf27c71b6c13b425
+  AMPopTip: 0dd5044323464e267dddb3c91d25468f7a91f3f7
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Nimble: c53e6903fee94041b90ded74f135820437d8bf59
   Nimble-Snapshots: e743439f26c2fa99d8f7e0d7c01c99bcb40aa6f2

@@ -104,7 +104,7 @@ open class PopTip: UIView {
   /// The width for the poptip's border
   @objc open dynamic var borderWidth = CGFloat(0.0)
   /// The `Double` with the poptip's border radius
-  @objc open dynamic var cornerRadius = CGFloat(4.0)
+  @objc open dynamic var radius = CGFloat(4.0)
   /// The `BOOL` that determines wether the poptip is rounded. If set to `true` the radius will equal `frame.height / 2`
   @objc open dynamic var isRounded = false
   /// Holds the offset between the poptip and origin
@@ -171,6 +171,10 @@ open class PopTip: UIView {
   }
   /// A block that will be fired when the user taps the poptip.
   open var tapHandler: ((PopTip) -> Void)?
+  /// A block that will be fired when the user taps outside the poptip.
+  open var tapOutsideHandler: ((PopTip) -> Void)?
+  /// A block that will be fired when the user swipes outside the poptip.
+  open var swipeOutsideHandler: ((PopTip) -> Void)?
   /// A block that will be fired when the poptip appears.
   open var appearHandler: ((PopTip) -> Void)?
   /// A block that will be fired when the poptip is dismissed.
@@ -429,10 +433,10 @@ open class PopTip: UIView {
       self.addGestureRecognizer(tapGestureRecognizer ?? UITapGestureRecognizer())
     }
     if tapRemoveGestureRecognizer == nil {
-      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.hide))
+      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
     }
     if swipeGestureRecognizer == nil {
-      swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.hide))
+      swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
       swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
     
@@ -448,10 +452,10 @@ open class PopTip: UIView {
   open override func draw(_ rect: CGRect) {
     if isRounded {
       let showHorizontally = direction == .left || direction == .right
-      cornerRadius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
+      radius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
     }
     
-    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: cornerRadius)
+    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: radius)
     
     bubbleColor.setFill()
     path.fill()
@@ -652,12 +656,8 @@ open class PopTip: UIView {
     
     setNeedsLayout()
     performEntranceAnimation {
-      if self.shouldDismissOnTapOutside {
-        self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
-      }
-      if self.shouldDismissOnSwipeOutside {
-        self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
-      }
+      self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
+      self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
       self.appearHandler?(self)
       if self.startActionAnimationOnShow {
         self.performActionAnimation()
@@ -674,6 +674,20 @@ open class PopTip: UIView {
       hide()
     }
     tapHandler?(self)
+  }
+
+  @objc fileprivate func handleTapOutside(_ gesture: UITapGestureRecognizer) {
+    if shouldDismissOnTapOutside {
+      hide()
+    }
+    tapOutsideHandler?(self)
+  }
+
+  @objc fileprivate func handleSwipeOutside(_ gesture: UITapGestureRecognizer) {
+    if shouldDismissOnSwipeOutside {
+      hide()
+    }
+    swipeOutsideHandler?(self)
   }
   
   @objc fileprivate func handleApplicationActive() {
