@@ -104,7 +104,7 @@ open class PopTip: UIView {
   /// The width for the poptip's border
   @objc open dynamic var borderWidth = CGFloat(0.0)
   /// The `Double` with the poptip's border radius
-  @objc open dynamic var radius = CGFloat(4.0)
+  @objc open dynamic var cornerRadius = CGFloat(4.0)
   /// The `BOOL` that determines wether the poptip is rounded. If set to `true` the radius will equal `frame.height / 2`
   @objc open dynamic var isRounded = false
   /// Holds the offset between the poptip and origin
@@ -452,10 +452,10 @@ open class PopTip: UIView {
   open override func draw(_ rect: CGRect) {
     if isRounded {
       let showHorizontally = direction == .left || direction == .right
-      radius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
+      cornerRadius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
     }
     
-    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: radius)
+    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: cornerRadius)
     
     bubbleColor.setFill()
     path.fill()
