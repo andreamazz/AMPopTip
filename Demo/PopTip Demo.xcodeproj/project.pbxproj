@@ -669,7 +669,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C691B16BC4B538EB258C6A2 /* Pods-PopTip Demo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
@@ -688,7 +687,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C104AAFEC6275EC1DEAA694D /* Pods-PopTip Demo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
@@ -707,7 +705,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBEED748B9FBCD43411364E3 /* Pods-PopTip DemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
@@ -725,7 +722,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A5ACD3B0EC46135486BC6FF /* Pods-PopTip DemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
