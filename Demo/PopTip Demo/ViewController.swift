@@ -27,6 +27,8 @@ class ViewController: UIViewController {
 
     popTip.font = UIFont(name: "Avenir-Medium", size: 12)!
     popTip.shouldDismissOnTap = true
+    popTip.shouldDismissOnTapOutside = true
+    popTip.shouldDismissOnSwipeOutside = true
     popTip.edgeMargin = 5
     popTip.offset = 2
     popTip.bubbleOffset = 0
@@ -38,6 +40,14 @@ class ViewController: UIViewController {
 
     popTip.tapHandler = { _ in
       print("tap")
+    }
+
+    popTip.tapOutsideHandler = { _ in
+      print("tap outside")
+    }
+
+    popTip.swipeOutsideHandler = { _ in
+      print("swipe outside")
     }
 
     popTip.dismissHandler = { _ in

@@ -613,6 +613,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -661,6 +662,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -669,7 +671,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9C691B16BC4B538EB258C6A2 /* Pods-PopTip Demo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
@@ -680,7 +681,6 @@
 				PROVISIONING_PROFILE = "3173682a-5d59-4178-a2b9-6c42435a39d7";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -688,7 +688,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C104AAFEC6275EC1DEAA694D /* Pods-PopTip Demo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
@@ -699,7 +698,6 @@
 				PROVISIONING_PROFILE = "3173682a-5d59-4178-a2b9-6c42435a39d7";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -707,7 +705,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBEED748B9FBCD43411364E3 /* Pods-PopTip DemoTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
@@ -716,7 +713,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
 			};
 			name = Debug;
@@ -725,7 +721,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A5ACD3B0EC46135486BC6FF /* Pods-PopTip DemoTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
@@ -734,7 +729,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
 			};
 			name = Release;
@@ -750,7 +744,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -765,7 +758,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

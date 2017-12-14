@@ -171,6 +171,10 @@ open class PopTip: UIView {
   }
   /// A block that will be fired when the user taps the poptip.
   open var tapHandler: ((PopTip) -> Void)?
+  /// A block that will be fired when the user taps outside the poptip.
+  open var tapOutsideHandler: ((PopTip) -> Void)?
+  /// A block that will be fired when the user swipes outside the poptip.
+  open var swipeOutsideHandler: ((PopTip) -> Void)?
   /// A block that will be fired when the poptip appears.
   open var appearHandler: ((PopTip) -> Void)?
   /// A block that will be fired when the poptip is dismissed.
@@ -429,10 +433,10 @@ open class PopTip: UIView {
       self.addGestureRecognizer(tapGestureRecognizer ?? UITapGestureRecognizer())
     }
     if tapRemoveGestureRecognizer == nil {
-      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.hide))
+      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
     }
     if swipeGestureRecognizer == nil {
-      swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.hide))
+      swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
       swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
     
@@ -652,12 +656,8 @@ open class PopTip: UIView {
     
     setNeedsLayout()
     performEntranceAnimation {
-      if self.shouldDismissOnTapOutside {
-        self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
-      }
-      if self.shouldDismissOnSwipeOutside {
-        self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
-      }
+      self.containerView?.addGestureRecognizer(self.tapRemoveGestureRecognizer ?? UITapGestureRecognizer())
+      self.containerView?.addGestureRecognizer(self.swipeGestureRecognizer ?? UITapGestureRecognizer())
       self.appearHandler?(self)
       if self.startActionAnimationOnShow {
         self.performActionAnimation()
@@ -674,6 +674,20 @@ open class PopTip: UIView {
       hide()
     }
     tapHandler?(self)
+  }
+
+  @objc fileprivate func handleTapOutside(_ gesture: UITapGestureRecognizer) {
+    if shouldDismissOnTapOutside {
+      hide()
+    }
+    tapOutsideHandler?(self)
+  }
+
+  @objc fileprivate func handleSwipeOutside(_ gesture: UITapGestureRecognizer) {
+    if shouldDismissOnSwipeOutside {
+      hide()
+    }
+    swipeOutsideHandler?(self)
   }
   
   @objc fileprivate func handleApplicationActive() {
