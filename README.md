@@ -106,6 +106,14 @@ popTip.appearHandler = { popTip in
 popTip.dismissHandler = { popTip in
   print("\(popTip) dismissed")
 }
+
+popTip.tapOutsideHandler = { _ in
+  print("tap outside")
+}
+
+popTip.swipeOutsideHandler = { _ in
+  print("swipe outside")
+}
 ```
 
 # Updating the PopTip
