@@ -427,16 +427,15 @@ open class PopTip: UIView {
     
     setNeedsDisplay()
     
-    if shouldDismissOnTap || shouldDismissOnTapOutside { /////If shouldDismissOnTapOutside enabled, we need both tap gestures to prevent 'tapRemoveGestureRecognizer' being called when tapping on the bubble
-        if tapGestureRecognizer == nil {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
-            tapGesture.cancelsTouchesInView = false
-            self.addGestureRecognizer(tapGesture)
-            tapGestureRecognizer = tapGesture
-        }
-        if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
-            tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
-        }
+    if shouldDismissOnTap || shouldDismissOnTapOutside {
+      if tapGestureRecognizer == nil {
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
+        tapGestureRecognizer?.cancelsTouchesInView = false
+        self.addGestureRecognizer(tapGestureRecognizer!)
+      }
+      if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
+        tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
+      }
     }
     if shouldDismissOnSwipeOutside && swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
@@ -659,13 +658,13 @@ open class PopTip: UIView {
     
     setNeedsLayout()
     performEntranceAnimation {
-        if let tapRemoveGesture = self.tapRemoveGestureRecognizer {
-            self.containerView?.addGestureRecognizer(tapRemoveGesture)
-        }
-        if let swipeGesture = self.swipeGestureRecognizer {
-            self.containerView?.addGestureRecognizer(swipeGesture)
-        }
-        
+      if let tapRemoveGesture = self.tapRemoveGestureRecognizer {
+        self.containerView?.addGestureRecognizer(tapRemoveGesture)
+      }
+      if let swipeGesture = self.swipeGestureRecognizer {
+        self.containerView?.addGestureRecognizer(swipeGesture)
+      }
+      
       self.appearHandler?(self)
       if self.startActionAnimationOnShow {
         self.performActionAnimation()
