@@ -191,6 +191,20 @@ typedef NS_ENUM(NSInteger, AMPopTipActionAnimation) {
  * @param text The new text
  */
 - (void)updateText:(nonnull NSString *)text;
+  
+/** Update the attributed text
+ *
+ * Set the new attributed text shown in the poptip
+ * @param text The new text
+ */
+- (void)updateAttributedText:(nonnull NSAttributedString *)text;
+
+/** Update the custom view
+ *
+ * Set the new custom view in the poptip
+ * @param view The new view
+ */
+- (void)updateCustomView:(nonnull UIView *)view;
 
 /** Makes the popover perform the action animation
  *

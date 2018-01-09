@@ -451,7 +451,18 @@
                                                             repeats:NO];
     }
 }
+  
 
+
+- (void)updateBubble {
+  [self stopActionAnimation];
+  [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [self setup];
+  } completion:^(BOOL finished) {
+    [self startActionAnimation];
+  }];
+}
+  
 - (void)hide {
     [self hideForced:NO];
 }
@@ -497,7 +508,18 @@
 - (void)updateText:(NSString *)text {
     self.text = text;
     self.accessibilityLabel = text;
-    [self setNeedsLayout];
+    [self updateBubble];
+}
+  
+- (void)updateAttributedText:(NSAttributedString *)text {
+    self.attributedText = text;
+    self.accessibilityLabel = text;
+    [self updateBubble];
+}
+  
+- (void)updateCustomView:(UIView *)view {
+    self.customView = view;
+    [self updateBubble];
 }
 
 - (void)startActionAnimation {
