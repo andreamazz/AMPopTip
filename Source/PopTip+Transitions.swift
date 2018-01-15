@@ -6,6 +6,8 @@
 //  Copyright © 2017 Andrea Mazzini. All rights reserved.
 //
 
+import UIKit
+
 public extension PopTip {
 
   /// Triggers the chosen entrance animation
