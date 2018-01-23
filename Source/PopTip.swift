@@ -191,7 +191,7 @@ open class PopTip: UIView {
   /// The CGPoint originating the arrow. Read only.
   open private(set) var arrowPosition = CGPoint.zero
   /// A read only reference to the view containing the poptip
-  open private(set) var containerView: UIView?
+  open private(set) weak var containerView: UIView?
   /// The direction from which the poptip is shown. Read only.
   open private(set) var direction = PopTipDirection.none
   /// Holds the readonly BOOL with the poptip animation state.
