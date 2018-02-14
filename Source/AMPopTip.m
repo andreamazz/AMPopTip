@@ -513,7 +513,7 @@
   
 - (void)updateAttributedText:(NSAttributedString *)text {
     self.attributedText = text;
-    self.accessibilityLabel = text;
+    self.accessibilityLabel = [text string];
     [self updateBubble];
 }
   
