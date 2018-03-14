@@ -72,7 +72,7 @@ public enum PopTipActionAnimation {
   /// The poptip bounces following its direction. The bounce offset can be provided optionally
   case bounce(CGFloat?)
   /// The poptip floats in place. The float offset can be provided optionally. Defaults to 8 points
-  case float(CGFloat?)
+  case float(offsetX: CGFloat?, offsetY: CGFloat?)
   /// The poptip pulsates by changing its size. The maximum amount of pulse increase can be provided optionally. Defaults to 1.1 (110% of the original size)
   case pulse(CGFloat?)
   /// No animation
@@ -710,8 +710,8 @@ open class PopTip: UIView {
     case .bounce(let offset):
       shouldBounce = true
       bounceAnimation(offset: offset ?? DefaultBounceOffset)
-    case .float(let offset):
-      floatAnimation(offset: offset ?? DefaultFloatOffset)
+    case .float(let offsetX, let offsetY):
+      floatAnimation(offsetX: offsetX ?? DefaultFloatOffset, offsetY: offsetY ?? DefaultFloatOffset)
     case .pulse(let offset):
       pulseAnimation(offset: offset ?? DefaultPulseOffset)
     case .none:
@@ -758,9 +758,9 @@ open class PopTip: UIView {
     }
   }
   
-  fileprivate func floatAnimation(offset: CGFloat) {
-    var offsetX = offset
-    var offsetY = offset
+  fileprivate func floatAnimation(offsetX: CGFloat, offsetY: CGFloat) {
+    var offsetX = offsetX
+    var offsetY = offsetY
     switch direction {
     case .up, .none:
       offsetY = -offset
