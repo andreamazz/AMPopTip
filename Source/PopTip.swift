@@ -763,9 +763,9 @@ open class PopTip: UIView {
     var offsetY = offsetY
     switch direction {
     case .up, .none:
-      offsetY = -offset
+      offsetY = -offsetY
     case .left:
-      offsetX = -offset
+      offsetX = -offsetX
     default: break
     }
     
