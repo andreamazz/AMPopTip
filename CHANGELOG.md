@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [3.1.4](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.4)
+## [3.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.2.0)
 
 - Merged #152
 
