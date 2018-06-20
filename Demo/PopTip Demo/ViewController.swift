@@ -42,7 +42,17 @@ class ViewController: UIViewController {
     popTip.offset = 2
     popTip.bubbleOffset = 0
     popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
-
+    
+    /*
+     Other customization:
+    */
+//    popTip.borderWidth = 2
+//    popTip.borderColor = UIColor.blue
+//    popTip.shadowOpacity = 0.4
+//    popTip.shadowRadius = 3
+//    popTip.shadowOffset = CGSize(width: 1, height: 1)
+//    popTip.shadowColor = .black
+    
     popTip.actionAnimation = .bounce(8)
 
     popTip.tapHandler = { _ in

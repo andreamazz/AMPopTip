@@ -107,6 +107,14 @@ open class PopTip: UIView {
   @objc open dynamic var cornerRadius = CGFloat(4.0)
   /// The `BOOL` that determines wether the poptip is rounded. If set to `true` the radius will equal `frame.height / 2`
   @objc open dynamic var isRounded = false
+  /// The `UIColor` with the poptip's shadow color
+  @objc open dynamic var shadowColor: UIColor = .clear
+  /// The `CGSize` with the poptip's shadow offset
+  @objc open dynamic var shadowOffset: CGSize = .zero
+  /// The `Float` with the poptip's shadow radius
+  @objc open dynamic var shadowRadius: Float = 0
+  /// The `Float` with the poptip's shadow opacity
+  @objc open dynamic var shadowOpacity: Float = 0
   /// Holds the offset between the poptip and origin
   @objc open dynamic var offset = CGFloat(0.0)
   /// Holds the CGFloat with the padding used for the inner text
@@ -460,6 +468,12 @@ open class PopTip: UIView {
     }
     
     let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, arrowRadius: arrowRadius, borderWidth: borderWidth, radius: cornerRadius)
+    
+    layer.shadowPath = path.cgPath
+    layer.shadowOpacity = shadowOpacity
+    layer.shadowRadius = CGFloat(shadowRadius)
+    layer.shadowOffset = shadowOffset
+    layer.shadowColor = shadowColor.cgColor
     
     bubbleColor.setFill()
     path.fill()
