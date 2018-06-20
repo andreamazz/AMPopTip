@@ -20,7 +20,16 @@ class ViewController: UIViewController {
   var topRightDirection = PopTipDirection.down
   var timer: Timer? = nil
 
-  let /* Woody Allen's */ quotes = ["Life doesn't imitate art, it imitates bad television.", "The difference between sex and love is that sex relieves tension and love causes it.", "If you want to make God laugh, tell him about your plans.", "Eighty percent of success is showing up.", "If you're not failing every now and again, it's a sign you're not doing anything very innovative.", "Confidence is what you have before you understand the problem.", "Life is full of misery, loneliness, and suffering - and it's all over much too soon."]
+  let /* Rival Sons's Tied Up */ lyrics = [
+    "Go to the dark side full moon",
+    "You shoot the apple off of my head",
+    "'Cause your love, sweet love, is all that you put me through",
+    "And honey without it you know I'd rather be dead",
+    "I'm tied up",
+    "I'm tangled up",
+    "And I'm all wrapped up",
+    "In you"
+  ]
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -110,7 +119,7 @@ class ViewController: UIViewController {
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: direction, maxWidth: 200, in: view, from: sender.frame)
       direction = direction.cycleDirection()
       timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
-        self.popTip.update(text: self.quotes.sample())
+        self.popTip.update(text: self.lyrics.sample())
       }
     }
   }
