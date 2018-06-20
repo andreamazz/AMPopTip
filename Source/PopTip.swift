@@ -115,6 +115,8 @@ open class PopTip: UIView {
   @objc open dynamic var edgeInsets = UIEdgeInsets.zero
   /// Holds the CGSize with the width and height of the arrow
   @objc open dynamic var arrowSize = CGSize(width: 8, height: 8)
+  /// CGfloat value that determines the radius of the vertex for the pointing arrow
+  @objc open dynamic var arrowRadius = CGFloat(0.0)
   /// Holds the NSTimeInterval with the duration of the revealing animation
   @objc open dynamic var animationIn: TimeInterval = 0.4
   /// Holds the NSTimeInterval with the duration of the disappearing animation
@@ -457,7 +459,7 @@ open class PopTip: UIView {
       cornerRadius = (frame.size.height - (showHorizontally ? 0 : arrowSize.height)) / 2
     }
     
-    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, borderWidth: borderWidth, radius: cornerRadius)
+    let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, arrowRadius: arrowRadius, borderWidth: borderWidth, radius: cornerRadius)
     
     bubbleColor.setFill()
     path.fill()
@@ -682,14 +684,14 @@ open class PopTip: UIView {
     }
     tapHandler?(self)
   }
-
+  
   @objc fileprivate func handleTapOutside(_ gesture: UITapGestureRecognizer) {
     if shouldDismissOnTapOutside {
       hide()
     }
     tapOutsideHandler?(self)
   }
-
+  
   @objc fileprivate func handleSwipeOutside(_ gesture: UITapGestureRecognizer) {
     if shouldDismissOnSwipeOutside {
       hide()
@@ -794,4 +796,3 @@ fileprivate extension UIEdgeInsets {
     return self.top + self.bottom
   }
 }
-

@@ -58,6 +58,8 @@ class ViewController: UIViewController {
 
     timer?.invalidate()
     
+    popTip.arrowRadius = 0
+    
     switch button {
     case .topLeft:
       let customView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 120))
@@ -103,6 +105,7 @@ class ViewController: UIViewController {
       popTip.bubbleColor = UIColor(red: 0.81, green: 0.04, blue: 0.14, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: .left, maxWidth: 200, in: view, from: sender.frame)
     case .center:
+      popTip.arrowRadius = 2
       popTip.bubbleColor = UIColor(red: 0.31, green: 0.57, blue: 0.87, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: direction, maxWidth: 200, in: view, from: sender.frame)
       direction = direction.cycleDirection()
