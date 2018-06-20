@@ -223,6 +223,7 @@ actionDelayIn = <#TimeInterval#>
 actionDelayOut = <#TimeInterval#>
 edgeMargin = <#CGFloat#>
 bubbleOffset = <#CGFloat#> // Offset between the bubble and the arrow
+arrowRadius = <#CGFloat#>
 ```
 
 # Author
