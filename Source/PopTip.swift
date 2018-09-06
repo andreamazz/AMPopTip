@@ -291,7 +291,16 @@ open class PopTip: UIView {
     var y = from.origin.y + from.height / 2 - frame.height / 2
     
     if y < 0 { y = edgeMargin }
-    if y + frame.height > containerView.bounds.height { y = containerView.bounds.height - frame.height - edgeMargin }
+    //Make sure we stay in the view limits except if it has scroll then it must be inside contentview limits not the view
+    if let containerScrollView = containerView as? UIScrollView {
+        if y + frame.height > containerScrollView.contentSize.height {
+            y = containerScrollView.contentSize.height - frame.height - edgeMargin
+        }
+    } else {
+        if y + frame.height > containerView.bounds.height {
+            y = containerView.bounds.height - frame.height - edgeMargin
+        }
+    }
     frame.origin = CGPoint(x: x, y: y)
     
     // Make sure that the bubble doesn't leave the boundaries of the view
