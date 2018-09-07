@@ -120,7 +120,7 @@ open class PopTip: UIView {
   /// Holds the CGFloat with the padding used for the inner text
   @objc open dynamic var padding = CGFloat(6.0)
   /// Holds the insets setting for padding different direction
-  @objc open dynamic var edgeInsets = UIEdgeInsets.zero
+  @objc open dynamic var edgeInsets = UIEdgeInsets()
   /// Holds the CGSize with the width and height of the arrow
   @objc open dynamic var arrowSize = CGSize(width: 8, height: 8)
   /// CGfloat value that determines the radius of the vertex for the pointing arrow
@@ -174,7 +174,7 @@ open class PopTip: UIView {
   @objc open dynamic var startActionAnimationOnShow = true
   /// A direction that determines what swipe direction to dismiss when swiping outside the poptip.
   /// The default direction is `right`
-  open var swipeRemoveGestureDirection = UISwipeGestureRecognizerDirection.right {
+    open var swipeRemoveGestureDirection = UISwipeGestureRecognizer.Direction.right {
     didSet {
       swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
@@ -356,7 +356,7 @@ open class PopTip: UIView {
   fileprivate func textBounds(for text: String?, attributedText: NSAttributedString?, view: UIView?, with font: UIFont, padding: CGFloat, edges: UIEdgeInsets, in maxWidth: CGFloat) -> CGRect {
     var bounds = CGRect.zero
     if let text = text {
-      bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+        bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
     }
     if let attributedText = attributedText {
       bounds = attributedText.boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, context: nil)
@@ -462,8 +462,8 @@ open class PopTip: UIView {
     }
     
     if isApplicationInBackground == nil {
-      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
   }
   
@@ -493,10 +493,10 @@ open class PopTip: UIView {
     
     paragraphStyle.alignment = textAlignment
     
-    let titleAttributes: [NSAttributedStringKey : Any] = [
-      NSAttributedStringKey.paragraphStyle: paragraphStyle,
-      NSAttributedStringKey.font: font,
-      NSAttributedStringKey.foregroundColor: textColor
+    let titleAttributes: [NSAttributedString.Key : Any] = [
+        NSAttributedString.Key.paragraphStyle: paragraphStyle,
+        NSAttributedString.Key.font: font,
+        NSAttributedString.Key.foregroundColor: textColor
     ]
     
     if let text = text {
