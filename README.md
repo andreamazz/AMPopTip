@@ -26,7 +26,7 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 
 With version `2.0.0` the library was re-written in Swift, and the API was slightly updated. Checkout version `1.5.x` for the previous Objective-C implementation.
 
-Version `3.0.0` introduces Swift 4 support.  
+Version `3.0.0` introduces Swift 4 support, `3.5.0` Swift 4.2.  
 
 # Setup with CocoaPods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
@@ -227,7 +227,7 @@ arrowRadius = <#CGFloat#>
 shadowOpacity = <#Float#>
 shadowRadius = <#Float#>
 shadowOffset = <#CGSize#>
-shadowColor = <#UIColor#> 
+shadowColor = <#UIColor#>
 ```
 
 # Author
