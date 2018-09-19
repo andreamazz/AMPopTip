@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     popTip.edgeMargin = 5
     popTip.offset = 2
     popTip.bubbleOffset = 0
-    popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+    popTip.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     
     /*
      Other customization:
@@ -115,8 +115,8 @@ class ViewController: UIViewController {
       popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
-      let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.white]
-      let underline: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
+      let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.white]
+      let underline: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
       let attributedText = NSMutableAttributedString(string: "I'm presenting a string ", attributes: attributes)
       attributedText.append(NSAttributedString(string: "with attributes!", attributes: underline))
       popTip.show(attributedText: attributedText, direction: .up, maxWidth: 200, in: view, from: sender.frame)

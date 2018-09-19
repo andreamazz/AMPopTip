@@ -174,7 +174,7 @@ open class PopTip: UIView {
   @objc open dynamic var startActionAnimationOnShow = true
   /// A direction that determines what swipe direction to dismiss when swiping outside the poptip.
   /// The default direction is `right`
-  open var swipeRemoveGestureDirection = UISwipeGestureRecognizerDirection.right {
+  open var swipeRemoveGestureDirection = UISwipeGestureRecognizer.Direction.right {
     didSet {
       swipeGestureRecognizer?.direction = swipeRemoveGestureDirection
     }
@@ -255,9 +255,9 @@ open class PopTip: UIView {
     
     if bubbleOffset > 0 && arrowPosition.x < bubbleOffset {
       bubbleOffset = arrowPosition.x - arrowSize.width
-    } else if bubbleOffset < 0 && frame.width < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && frame.width < abs(bubbleOffset) {
       bubbleOffset = -(arrowPosition.x - arrowSize.width)
-    } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < abs(bubbleOffset) {
       bubbleOffset = -(arrowSize.width + edgeMargin)
     }
     
@@ -265,7 +265,7 @@ open class PopTip: UIView {
     let leftSpace = frame.origin.x - containerView.frame.origin.x
     let rightSpace = containerView.frame.width - leftSpace - frame.width
     
-    if bubbleOffset < 0 && leftSpace < fabs(bubbleOffset) {
+    if bubbleOffset < 0 && leftSpace < abs(bubbleOffset) {
       bubbleOffset = -leftSpace + edgeMargin
     } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
       bubbleOffset = rightSpace - edgeMargin
@@ -311,14 +311,14 @@ open class PopTip: UIView {
     
     if bubbleOffset > 0 && arrowPosition.y < bubbleOffset {
       bubbleOffset = arrowPosition.y - arrowSize.width
-    } else if bubbleOffset < 0 && frame.height < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && frame.height < abs(bubbleOffset) {
       bubbleOffset = -(arrowPosition.y - arrowSize.height)
     }
     
     let topSpace = frame.origin.y - containerView.frame.origin.y
     let bottomSpace = containerView.frame.height - topSpace - frame.height
     
-    if bubbleOffset < 0 && topSpace < fabs(bubbleOffset) {
+    if bubbleOffset < 0 && topSpace < abs(bubbleOffset) {
       bubbleOffset = -topSpace + edgeMargin
     } else if bubbleOffset > 0 && bottomSpace < bubbleOffset {
       bubbleOffset = bottomSpace - edgeMargin
@@ -356,7 +356,7 @@ open class PopTip: UIView {
   fileprivate func textBounds(for text: String?, attributedText: NSAttributedString?, view: UIView?, with font: UIFont, padding: CGFloat, edges: UIEdgeInsets, in maxWidth: CGFloat) -> CGRect {
     var bounds = CGRect.zero
     if let text = text {
-      bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+      bounds = NSString(string: text).boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
     }
     if let attributedText = attributedText {
       bounds = attributedText.boundingRect(with: CGSize(width: maxWidth, height: CGFloat.infinity), options: .usesLineFragmentOrigin, context: nil)
@@ -462,8 +462,8 @@ open class PopTip: UIView {
     }
     
     if isApplicationInBackground == nil {
-      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(PopTip.handleApplicationResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
   }
   
@@ -493,10 +493,10 @@ open class PopTip: UIView {
     
     paragraphStyle.alignment = textAlignment
     
-    let titleAttributes: [NSAttributedStringKey : Any] = [
-      NSAttributedStringKey.paragraphStyle: paragraphStyle,
-      NSAttributedStringKey.font: font,
-      NSAttributedStringKey.foregroundColor: textColor
+    let titleAttributes: [NSAttributedString.Key : Any] = [
+      NSAttributedString.Key.paragraphStyle: paragraphStyle,
+      NSAttributedString.Key.font: font,
+      NSAttributedString.Key.foregroundColor: textColor
     ]
     
     if let text = text {
