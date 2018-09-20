@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
-- `3.3.0` Releases - [3.3.0](#330) | [3.4.0](#340)  
+- `3.5.0` Releases - [3.5.0](#350)  
+- `3.4.0` Releases - [3.4.0](#340)  
+- `3.3.0` Releases - [3.3.0](#330)  
 - `3.2.0` Releases - [3.2.0](#320) | [3.2.1](#321)  
 - `3.1.0` Releases - [3.1.0](#310) | [3.1.1](#311) | [3.1.2](#312) | [3.1.3](#313) | [3.1.4](#314)  
 - `3.0.0` Releases - [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302) | [3.0.3](#303)  
@@ -19,6 +21,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [3.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.5.0)
+
+- Swift 4.2 support
 
 ## [3.4.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.4.0)
 

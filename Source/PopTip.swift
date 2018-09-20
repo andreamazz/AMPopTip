@@ -255,9 +255,9 @@ open class PopTip: UIView {
     
     if bubbleOffset > 0 && arrowPosition.x < bubbleOffset {
       bubbleOffset = arrowPosition.x - arrowSize.width
-    } else if bubbleOffset < 0 && frame.width < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && frame.width < abs(bubbleOffset) {
       bubbleOffset = -(arrowPosition.x - arrowSize.width)
-    } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < abs(bubbleOffset) {
       bubbleOffset = -(arrowSize.width + edgeMargin)
     }
     
@@ -265,7 +265,7 @@ open class PopTip: UIView {
     let leftSpace = frame.origin.x - containerView.frame.origin.x
     let rightSpace = containerView.frame.width - leftSpace - frame.width
     
-    if bubbleOffset < 0 && leftSpace < fabs(bubbleOffset) {
+    if bubbleOffset < 0 && leftSpace < abs(bubbleOffset) {
       bubbleOffset = -leftSpace + edgeMargin
     } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
       bubbleOffset = rightSpace - edgeMargin
@@ -311,14 +311,14 @@ open class PopTip: UIView {
     
     if bubbleOffset > 0 && arrowPosition.y < bubbleOffset {
       bubbleOffset = arrowPosition.y - arrowSize.width
-    } else if bubbleOffset < 0 && frame.height < fabs(bubbleOffset) {
+    } else if bubbleOffset < 0 && frame.height < abs(bubbleOffset) {
       bubbleOffset = -(arrowPosition.y - arrowSize.height)
     }
     
     let topSpace = frame.origin.y - containerView.frame.origin.y
     let bottomSpace = containerView.frame.height - topSpace - frame.height
     
-    if bubbleOffset < 0 && topSpace < fabs(bubbleOffset) {
+    if bubbleOffset < 0 && topSpace < abs(bubbleOffset) {
       bubbleOffset = -topSpace + edgeMargin
     } else if bubbleOffset > 0 && bottomSpace < bubbleOffset {
       bubbleOffset = bottomSpace - edgeMargin
@@ -493,7 +493,7 @@ open class PopTip: UIView {
     
     paragraphStyle.alignment = textAlignment
     
-    let titleAttributes: [NSAttributedStringKey : Any] = [
+    let titleAttributes: [NSAttributedString.Key : Any] = [
       NSAttributedString.Key.paragraphStyle: paragraphStyle,
       NSAttributedString.Key.font: font,
       NSAttributedString.Key.foregroundColor: textColor

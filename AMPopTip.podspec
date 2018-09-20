@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "AMPopTip"
-  s.version       = "3.4.0"
+  s.version       = "3.5.0"
   s.summary       = "Animated popover, great for subtle UI tips and onboarding."
   s.description   = <<-DESC
                      Animated popover that pops out of a frame. You can specify the
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.author        = { "Andrea Mazzini" => "andrea.mazzini@gmail.com" }
   s.source        = { :git => "https://github.com/andreamazz/AMPopTip.git", :tag => s.version }
   s.platform      = :ios, '8.0'
-  s.swift_version = '4.0'
+  s.swift_version = '4.2'
   s.source_files  = 'Source', '*.{swift}'
   s.requires_arc  = true
   s.social_media_url = 'https://twitter.com/theandreamazz'

@@ -1,5 +1,5 @@
 PODS:
-  - AMPopTip (3.0.3)
+  - AMPopTip (3.4.0)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
   - FBSnapshotTestCase/Core (2.1.4)
@@ -20,12 +20,19 @@ DEPENDENCIES:
   - Nimble-Snapshots (= 4.4.0)
   - Quick (= 1.1.0)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - FBSnapshotTestCase
+    - Nimble
+    - Nimble-Snapshots
+    - Quick
+
 EXTERNAL SOURCES:
   AMPopTip:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  AMPopTip: 0dd5044323464e267dddb3c91d25468f7a91f3f7
+  AMPopTip: 80cf814fe063b054af0ea20d2e4c404faf6bbc6d
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Nimble: c53e6903fee94041b90ded74f135820437d8bf59
   Nimble-Snapshots: e743439f26c2fa99d8f7e0d7c01c99bcb40aa6f2
@@ -33,4 +40,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 68d6239712fba8e0da2721828fdb2901c0ef7977
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0
