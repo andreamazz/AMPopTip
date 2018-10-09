@@ -445,16 +445,14 @@ open class PopTip: UIView {
     }
     
     setNeedsDisplay()
-    
-    if shouldDismissOnTap || shouldDismissOnTapOutside {
-      if tapGestureRecognizer == nil {
+
+    if tapGestureRecognizer == nil {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
         tapGestureRecognizer?.cancelsTouchesInView = false
         self.addGestureRecognizer(tapGestureRecognizer!)
-      }
-      if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
+    }
+    if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
         tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
-      }
     }
     if shouldDismissOnSwipeOutside && swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
