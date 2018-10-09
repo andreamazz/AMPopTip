@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `3.5.0` Releases - [3.5.0](#350)  
+- `3.4.0` Releases - [3.4.0](#340)  
+- `3.3.0` Releases - [3.3.0](#330)  
+- `3.2.0` Releases - [3.2.0](#320) | [3.2.1](#321)  
+- `3.1.0` Releases - [3.1.0](#310) | [3.1.1](#311) | [3.1.2](#312) | [3.1.3](#313) | [3.1.4](#314)  
 - `3.0.0` Releases - [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302) | [3.0.3](#303)  
 - `2.1.0` Releases - [2.1.0](#210) | [2.1.1](#211) | [2.1.2](#212) | [2.1.3](#213) | [2.1.4](#214) | [2.1.5](#215) | [2.1.6](#216) | [2.1.7](#217)  
 - `2.0.0` Releases - [2.0.0](#200) | [2.0.1](#201)  
@@ -16,6 +21,51 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [3.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.5.0)
+
+- Swift 4.2 support
+
+## [3.4.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.4.0)
+
+- Merged #166
+
+## [3.3.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.3.0)
+
+- Merged #157
+- Added support for shadows
+
+## [3.2.1](https://github.com/andreamazz/AMPopTip/releases/tag/3.2.1)
+
+Fixed the float animation  
+
+## [3.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.2.0)
+
+- Merged #152
+
+### Changed
+
+The animation `float` now accepts two associated values: `float(offsetX: CGFloat?, offsetY: CGFloat?)`
+
+## [3.1.4](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.4)
+
+- Merged #150
+
+## [3.1.3](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.3)
+
+- Fixed #147
+
+## [3.1.2](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.2)
+
+- Merged #146
+
+## [3.1.1](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.1)
+
+- Merged #143
+
+## [3.1.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.0)
+
+- Merged #142  
 
 ## [3.0.3](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.3)
 

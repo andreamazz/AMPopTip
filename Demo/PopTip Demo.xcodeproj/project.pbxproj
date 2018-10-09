@@ -215,7 +215,6 @@
 				653472321EB7B89C002DA5DA /* Frameworks */,
 				653472331EB7B89C002DA5DA /* Resources */,
 				7483E95CD89D07F4250A4921 /* [CP] Embed Pods Frameworks */,
-				BFD4BAC9E305B428E627CB0C /* [CP] Copy Pods Resources */,
 				65FAEDD31ECAED0600F5681E /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -237,7 +236,6 @@
 				653472461EB7B89D002DA5DA /* Frameworks */,
 				653472471EB7B89D002DA5DA /* Resources */,
 				B71127FF1C40B67C39D3C10B /* [CP] Embed Pods Frameworks */,
-				A3CCFC53EAD56664920D2FC8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,7 +255,6 @@
 				65FAEDBF1ECAED0600F5681E /* Sources */,
 				65FAEDC01ECAED0600F5681E /* Frameworks */,
 				65FAEDC11ECAED0600F5681E /* Resources */,
-				E86A762C1C9ED166349ADBC6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -420,21 +417,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A3CCFC53EAD56664920D2FC8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B71127FF1C40B67C39D3C10B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,36 +439,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BFD4BAC9E305B428E627CB0C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E86A762C1C9ED166349ADBC6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip Demo-PopTip Extension/Pods-PopTip Demo-PopTip Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -613,6 +565,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -661,6 +614,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -679,7 +633,7 @@
 				PROVISIONING_PROFILE = "3173682a-5d59-4178-a2b9-6c42435a39d7";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -697,7 +651,7 @@
 				PROVISIONING_PROFILE = "3173682a-5d59-4178-a2b9-6c42435a39d7";
 				PROVISIONING_PROFILE_SPECIFIER = Development;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -713,7 +667,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
 			};
 			name = Debug;
@@ -730,7 +683,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PopTip Demo.app/PopTip Demo";
 			};
 			name = Release;
@@ -746,7 +698,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -761,7 +712,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

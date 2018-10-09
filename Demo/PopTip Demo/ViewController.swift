@@ -20,7 +20,16 @@ class ViewController: UIViewController {
   var topRightDirection = PopTipDirection.down
   var timer: Timer? = nil
 
-  let /* Woody Allen's */ quotes = ["Life doesn't imitate art, it imitates bad television.", "The difference between sex and love is that sex relieves tension and love causes it.", "If you want to make God laugh, tell him about your plans.", "Eighty percent of success is showing up.", "If you're not failing every now and again, it's a sign you're not doing anything very innovative.", "Confidence is what you have before you understand the problem.", "Life is full of misery, loneliness, and suffering - and it's all over much too soon."]
+  let /* Rival Sons's Tied Up */ lyrics = [
+    "Go to the dark side full moon",
+    "You shoot the apple off of my head",
+    "'Cause your love, sweet love, is all that you put me through",
+    "And honey without it you know I'd rather be dead",
+    "I'm tied up",
+    "I'm tangled up",
+    "And I'm all wrapped up",
+    "In you"
+  ]
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,10 +41,18 @@ class ViewController: UIViewController {
     popTip.edgeMargin = 5
     popTip.offset = 2
     popTip.bubbleOffset = 0
-    popTip.borderWidth = 1
-    popTip.borderColor = .black
-    popTip.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
-
+    popTip.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    
+    /*
+     Other customization:
+    */
+//    popTip.borderWidth = 2
+//    popTip.borderColor = UIColor.blue
+//    popTip.shadowOpacity = 0.4
+//    popTip.shadowRadius = 3
+//    popTip.shadowOffset = CGSize(width: 1, height: 1)
+//    popTip.shadowColor = .black
+    
     popTip.actionAnimation = .bounce(8)
 
     popTip.tapHandler = { _ in
@@ -59,6 +76,8 @@ class ViewController: UIViewController {
     guard let button = ButtonType(rawValue: sender.tag) else { return }
 
     timer?.invalidate()
+    
+    popTip.arrowRadius = 0
     
     switch button {
     case .topLeft:
@@ -96,8 +115,8 @@ class ViewController: UIViewController {
       popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
-      let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.white]
-      let underline: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
+      let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.white]
+      let underline: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
       let attributedText = NSMutableAttributedString(string: "I'm presenting a string ", attributes: attributes)
       attributedText.append(NSAttributedString(string: "with attributes!", attributes: underline))
       popTip.show(attributedText: attributedText, direction: .up, maxWidth: 200, in: view, from: sender.frame)
@@ -105,11 +124,12 @@ class ViewController: UIViewController {
       popTip.bubbleColor = UIColor(red: 0.81, green: 0.04, blue: 0.14, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: .left, maxWidth: 200, in: view, from: sender.frame)
     case .center:
+      popTip.arrowRadius = 2
       popTip.bubbleColor = UIColor(red: 0.31, green: 0.57, blue: 0.87, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: direction, maxWidth: 200, in: view, from: sender.frame)
       direction = direction.cycleDirection()
       timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { (_) in
-        self.popTip.update(text: self.quotes.sample())
+        self.popTip.update(text: self.lyrics.sample())
       }
     }
   }
