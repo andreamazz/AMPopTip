@@ -155,6 +155,8 @@ open class PopTip: UIView {
   @objc open dynamic var maskColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
   /// Flag to enable or disable background mask
   @objc open dynamic var shouldShowMask = false
+  /// Flag to enable or disable the checks that make sure that the tip does not extend over the container
+  @objc open dynamic var constrainInContainerView = true
   /// Holds the CGrect with the rect the tip is pointing to
   open var from = CGRect.zero {
     didSet {
@@ -239,7 +241,7 @@ open class PopTip: UIView {
     frame.size = CGSize(width: textBounds.width + padding * 2 + edgeInsets.horizontal, height: textBounds.height + padding * 2 + edgeInsets.vertical + arrowSize.height)
     var x = from.origin.x + from.width / 2 - frame.width / 2
     if x < 0 { x = edgeMargin }
-    if (x + frame.width > containerView.bounds.width) { x = containerView.bounds.width - frame.width - edgeMargin }
+    if constrainInContainerView && (x + frame.width > containerView.bounds.width) { x = containerView.bounds.width - frame.width - edgeMargin }
     
     if direction == .down {
       frame.origin = CGPoint(x: x, y: from.origin.y + from.height + offset)
@@ -261,16 +263,17 @@ open class PopTip: UIView {
       bubbleOffset = -(arrowSize.width + edgeMargin)
     }
     
-    // Make sure that the bubble doesn't leaves the boundaries of the view
-    let leftSpace = frame.origin.x - containerView.frame.origin.x
-    let rightSpace = containerView.frame.width - leftSpace - frame.width
-    
-    if bubbleOffset < 0 && leftSpace < abs(bubbleOffset) {
-      bubbleOffset = -leftSpace + edgeMargin
-    } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
-      bubbleOffset = rightSpace - edgeMargin
+    if constrainInContainerView {
+      // Make sure that the bubble doesn't leaves the boundaries of the view
+      let leftSpace = frame.origin.x - containerView.frame.origin.x
+      let rightSpace = containerView.frame.width - leftSpace - frame.width
+      
+      if bubbleOffset < 0 && leftSpace < abs(bubbleOffset) {
+        bubbleOffset = -leftSpace + edgeMargin
+      } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
+        bubbleOffset = rightSpace - edgeMargin
+      }
     }
-    
     frame.origin.x += bubbleOffset
     frame.size = CGSize(width: frame.width + borderWidth * 2, height: frame.height + borderWidth * 2)
     
@@ -291,7 +294,7 @@ open class PopTip: UIView {
     var y = from.origin.y + from.height / 2 - frame.height / 2
     
     if y < 0 { y = edgeMargin }
-    //Make sure we stay in the view limits except if it has scroll then it must be inside contentview limits not the view
+    // Make sure we stay in the view limits except if it has scroll then it must be inside contentview limits not the view
     if let containerScrollView = containerView as? UIScrollView {
         if y + frame.height > containerScrollView.contentSize.height {
             y = containerScrollView.contentSize.height - frame.height - edgeMargin
@@ -315,13 +318,15 @@ open class PopTip: UIView {
       bubbleOffset = -(arrowPosition.y - arrowSize.height)
     }
     
-    let topSpace = frame.origin.y - containerView.frame.origin.y
-    let bottomSpace = containerView.frame.height - topSpace - frame.height
-    
-    if bubbleOffset < 0 && topSpace < abs(bubbleOffset) {
-      bubbleOffset = -topSpace + edgeMargin
-    } else if bubbleOffset > 0 && bottomSpace < bubbleOffset {
-      bubbleOffset = bottomSpace - edgeMargin
+    if constrainInContainerView {
+      let topSpace = frame.origin.y - containerView.frame.origin.y
+      let bottomSpace = containerView.frame.height - topSpace - frame.height
+      
+      if bubbleOffset < 0 && topSpace < abs(bubbleOffset) {
+        bubbleOffset = -topSpace + edgeMargin
+      } else if bubbleOffset > 0 && bottomSpace < bubbleOffset {
+        bubbleOffset = bottomSpace - edgeMargin
+      }
     }
     
     frame.origin.y += bubbleOffset
@@ -332,7 +337,7 @@ open class PopTip: UIView {
   
   /// Checks if the rect with positioning `.none` is inside the container
   internal func rectContained(rect: CGRect) -> CGRect {
-    guard let containerView = containerView else { return .zero }
+    guard let containerView = containerView, constrainInContainerView else { return rect }
     
     var finalRect = rect
     
