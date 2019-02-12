@@ -241,7 +241,9 @@ open class PopTip: UIView {
     frame.size = CGSize(width: textBounds.width + padding * 2 + edgeInsets.horizontal, height: textBounds.height + padding * 2 + edgeInsets.vertical + arrowSize.height)
     var x = from.origin.x + from.width / 2 - frame.width / 2
     if x < 0 { x = edgeMargin }
-    if constrainInContainerView && (x + frame.width > containerView.bounds.width) { x = containerView.bounds.width - frame.width - edgeMargin }
+    if constrainInContainerView && (x + frame.width > containerView.bounds.width) {
+      x = containerView.bounds.width - frame.width - edgeMargin
+    }
     
     if direction == .down {
       frame.origin = CGPoint(x: x, y: from.origin.y + from.height + offset)
@@ -250,7 +252,7 @@ open class PopTip: UIView {
     }
     
     // Make sure that the bubble doesn't leave the boundaries of the view
-    let arrowPosition = CGPoint(
+    var arrowPosition = CGPoint(
       x: from.origin.x + from.width / 2 - frame.origin.x,
       y: (direction == .up) ? frame.height : from.origin.y + from.height - frame.origin.y + offset
     )
@@ -264,7 +266,7 @@ open class PopTip: UIView {
     }
     
     if constrainInContainerView {
-      // Make sure that the bubble doesn't leaves the boundaries of the view
+      // Make sure that the bubble doesn't leave the boundaries of the view
       let leftSpace = frame.origin.x - containerView.frame.origin.x
       let rightSpace = containerView.frame.width - leftSpace - frame.width
       
@@ -276,6 +278,12 @@ open class PopTip: UIView {
     }
     frame.origin.x += bubbleOffset
     frame.size = CGSize(width: frame.width + borderWidth * 2, height: frame.height + borderWidth * 2)
+    
+    // Only when the tip is not constrained, make sure to center the frame if the containerView is smaller than the tip
+    if containerView.frame.width < frame.width, !constrainInContainerView {
+      frame.origin.x = -frame.width / 2 + containerView.frame.width / 2
+      arrowPosition.x += frame.width / 2 - containerView.frame.width / 2
+    }
     
     return (frame, arrowPosition)
   }
@@ -296,13 +304,13 @@ open class PopTip: UIView {
     if y < 0 { y = edgeMargin }
     // Make sure we stay in the view limits except if it has scroll then it must be inside contentview limits not the view
     if let containerScrollView = containerView as? UIScrollView {
-        if y + frame.height > containerScrollView.contentSize.height {
-            y = containerScrollView.contentSize.height - frame.height - edgeMargin
-        }
+      if y + frame.height > containerScrollView.contentSize.height {
+        y = containerScrollView.contentSize.height - frame.height - edgeMargin
+      }
     } else {
-        if y + frame.height > containerView.bounds.height {
-            y = containerView.bounds.height - frame.height - edgeMargin
-        }
+      if y + frame.height > containerView.bounds.height && constrainInContainerView {
+        y = containerView.bounds.height - frame.height - edgeMargin
+      }
     }
     frame.origin = CGPoint(x: x, y: y)
     
@@ -450,14 +458,14 @@ open class PopTip: UIView {
     }
     
     setNeedsDisplay()
-
+    
     if tapGestureRecognizer == nil {
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
-        tapGestureRecognizer?.cancelsTouchesInView = false
-        self.addGestureRecognizer(tapGestureRecognizer!)
+      tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTap(_:)))
+      tapGestureRecognizer?.cancelsTouchesInView = false
+      self.addGestureRecognizer(tapGestureRecognizer!)
     }
     if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
-        tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
+      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
     }
     if shouldDismissOnSwipeOutside && swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
