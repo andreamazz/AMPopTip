@@ -195,6 +195,10 @@ popTip.actionAnimation = .bounce(16) // This will bounce for 16px instead of the
 
 The arrow is centered by default, and moves to avoid the edge of the screen. You can manually change the offset from the center using the `bubbleOffset` property.
 
+# A note about subviews
+
+The popover is presented inside the view provided in the `in` parameter. If this view is smaller than the resulting popover, to prevent clipping set `clipsToBounds = false` on the presenting view, and set `constrainInContainerView = false` to the pop tip instance. See #175 for more context.  
+
 # Customization
 
 Use the appearance proxy to customize the popover before creating the instance, or just use its public properties:

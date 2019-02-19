@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `3.5.0` Releases - [3.6.0](#360)  
 - `3.5.0` Releases - [3.5.0](#350)  
 - `3.4.0` Releases - [3.4.0](#340)  
 - `3.3.0` Releases - [3.3.0](#330)  
@@ -21,6 +22,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [3.6.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.6.0)
+
+- Fixed #175  
 
 ## [3.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.5.0)
 
