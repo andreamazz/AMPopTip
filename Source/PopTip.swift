@@ -157,6 +157,8 @@ open class PopTip: UIView {
   @objc open dynamic var shouldShowMask = false
   /// Flag to enable or disable the checks that make sure that the tip does not extend over the container
   @objc open dynamic var constrainInContainerView = true
+  /// Specify a different view that the tooltip cannot exceed for the case where constrainInContainerView = false
+  @objc open dynamic var constrainToView: UIView?
   /// Holds the CGrect with the rect the tip is pointing to
   open var from = CGRect.zero {
     didSet {
@@ -241,8 +243,14 @@ open class PopTip: UIView {
     frame.size = CGSize(width: textBounds.width + padding * 2 + edgeInsets.horizontal, height: textBounds.height + padding * 2 + edgeInsets.vertical + arrowSize.height)
     var x = from.origin.x + from.width / 2 - frame.width / 2
     if x < 0 { x = edgeMargin }
+
     if constrainInContainerView && (x + frame.width > containerView.bounds.width) {
       x = containerView.bounds.width - frame.width - edgeMargin
+    } else if let constraintView = constrainToView {
+      let constraintPoint = containerView.convert(CGPoint(x: x, y: 0), to: constraintView)
+      if constraintPoint.x + frame.width > constraintView.frame.size.width {
+        x = constraintView.convert(CGPoint(x:constraintView.frame.size.width - frame.width - edgeMargin, y:0), to: containerView).x
+      }
     }
     
     if direction == .down {
@@ -264,7 +272,7 @@ open class PopTip: UIView {
     } else if bubbleOffset < 0 && (frame.origin.x - arrowPosition.x) < abs(bubbleOffset) {
       bubbleOffset = -(arrowSize.width + edgeMargin)
     }
-    
+
     if constrainInContainerView {
       // Make sure that the bubble doesn't leave the boundaries of the view
       let leftSpace = frame.origin.x - containerView.frame.origin.x
@@ -275,12 +283,33 @@ open class PopTip: UIView {
       } else if bubbleOffset > 0 && rightSpace < bubbleOffset {
         bubbleOffset = rightSpace - edgeMargin
       }
+    } else if let constraintView = constrainToView {
+        // Make sure that the bubble doesn't leave the boundaries of the constraintView
+        let frameInConstraintView = containerView.convert(frame, to: constraintView)
+        let constraintFrame = constraintView.frame
+
+        if frameInConstraintView.origin.x < 0 {
+            bubbleOffset = frameInConstraintView.origin.x + edgeMargin
+        } else if frameInConstraintView.origin.x + frameInConstraintView.size.width > constraintFrame.width {
+            bubbleOffset = -(frameInConstraintView.origin.x + frameInConstraintView.size.width - constraintFrame.width) - edgeMargin
+        }
     }
     frame.origin.x += bubbleOffset
     frame.size = CGSize(width: frame.width + borderWidth * 2, height: frame.height + borderWidth * 2)
-    
-    // Only when the tip is not constrained, make sure to center the frame if the containerView is smaller than the tip
-    if containerView.frame.width < frame.width, !constrainInContainerView {
+
+    // Center the tooltip if possible (i.e. it won't appear off screen as a result of centering)
+    if let constraintView = constrainToView {
+        let frameInConstraintView = containerView.convert(frame, to: constraintView)
+        let fromInConstraintView = containerView.convert(frame, to: constraintView)
+
+        if fromInConstraintView.origin.x + fromInConstraintView.size.width / 2 - frameInConstraintView.width / 2 > edgeMargin &&
+           fromInConstraintView.origin.x + fromInConstraintView.size.width / 2 + frameInConstraintView.width / 2 < constraintView.bounds.width - edgeMargin {
+            frame.origin.x = from.origin.x + from.width / 2 - frame.width / 2
+            arrowPosition.x = frame.width / 2
+        }
+
+    } else if containerView.frame.width < frame.width && !constrainInContainerView {
+      // Only when the tip is not constrained, make sure to center the frame if the containerView is smaller than the tip
       frame.origin.x = -frame.width / 2 + containerView.frame.width / 2
       arrowPosition.x += frame.width / 2 - containerView.frame.width / 2
     }
