@@ -93,6 +93,7 @@ class ViewController: UIViewController {
       label.font = UIFont.systemFont(ofSize: 12)
       customView.addSubview(label)
       popTip.bubbleColor = UIColor(red: 0.95, green: 0.65, blue: 0.21, alpha: 1)
+      popTip.cornerRadius = 10
       popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
 
       popTip.entranceAnimationHandler = { [weak self] completion in

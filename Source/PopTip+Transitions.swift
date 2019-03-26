@@ -13,7 +13,7 @@ public extension PopTip {
   /// Triggers the chosen entrance animation
   ///
   /// - Parameter completion: the completion handler
-  public func performEntranceAnimation(completion: @escaping () -> Void) {
+  func performEntranceAnimation(completion: @escaping () -> Void) {
     switch entranceAnimation {
     case .scale:
       entranceScale(completion: completion)
@@ -39,7 +39,7 @@ public extension PopTip {
   /// Triggers the chosen exit animation
   ///
   /// - Parameter completion: the completion handler
-  public func performExitAnimation(completion: @escaping () -> Void) {
+  func performExitAnimation(completion: @escaping () -> Void) {
     switch exitAnimation {
     case .scale:
       exitScale(completion: completion)
