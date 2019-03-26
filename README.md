@@ -38,6 +38,11 @@ Version `3.0.0` introduces Swift 4 support, `3.5.0` Swift 4.2.
 * Run ```carthage update```
 * Add ```AMPopTip.framework``` in your project
 
+You can then import the framework in your project
+```swift
+import AMPopTip
+```
+
 # Usage
 The API is fairly straight forward, you can show and hide the popover at any time.
 
