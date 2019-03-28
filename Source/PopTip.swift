@@ -170,6 +170,9 @@ open class PopTip: UIView {
   @objc open dynamic var shouldDismissOnTap = true
   /// A boolean value that determines whether to dismiss when tapping outside the poptip.
   @objc open dynamic var shouldDismissOnTapOutside = true
+  /// A boolean value that determines whether to consider the originating frame as part of the poptip,
+  /// i.e wether to call the `tapHandler` or the `tapOutsideHandler` when the tap occurs in the `from` frame.
+  @objc open dynamic var shouldConsiderOriginatingFrameAsPopTip = false
   /// A boolean value that determines whether to dismiss when swiping outside the poptip.
   @objc open dynamic var shouldDismissOnSwipeOutside = false
   /// A boolean value that determines if the action animation should start automatically when the poptip is shown
@@ -723,7 +726,12 @@ open class PopTip: UIView {
     if shouldDismissOnTapOutside {
       hide()
     }
-    tapOutsideHandler?(self)
+
+    if shouldConsiderOriginatingFrameAsPopTip && from.contains(gesture.location(in: containerView)) {
+      tapHandler?(self)
+    } else {
+      tapOutsideHandler?(self)
+    }
   }
   
   @objc fileprivate func handleSwipeOutside(_ gesture: UITapGestureRecognizer) {
