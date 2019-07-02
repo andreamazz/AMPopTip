@@ -11,7 +11,7 @@
 [![Join the chat at https://gitter.im/andreamazz/AMPopTip](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreamazz/AMPopTip?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Animated popover that pops out of a frame. You can specify the direction of the popover and the arrow that points to its origin. Color, border radius and font can be easily customized.
-This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.  
+This popover can be used to leave subtle hints about your UI and provide fun looking onboarding popups.
 
 <p align="center">
   <a href='https://appetize.io/app/g7x2pwb9jtxdpz9yjb2p5wzk6g' alt='Live demo'>
@@ -26,7 +26,7 @@ This popover can be used to leave subtle hints about your UI and provide fun loo
 
 With version `2.0.0` the library was re-written in Swift, and the API was slightly updated. Checkout version `1.5.x` for the previous Objective-C implementation.
 
-Version `3.0.0` introduces Swift 4 support, `3.5.0` Swift 4.2.  
+Version `3.0.0` introduces Swift 4 support, `3.5.0` Swift 4.2.
 
 # Setup with CocoaPods
 * Add ```pod 'AMPopTip'``` to your ```Podfile```
@@ -202,7 +202,7 @@ The arrow is centered by default, and moves to avoid the edge of the screen. You
 
 # A note about subviews
 
-The popover is presented inside the view provided in the `in` parameter. If this view is smaller than the resulting popover, to prevent clipping set `clipsToBounds = false` on the presenting view, and set `constrainInContainerView = false` to the pop tip instance. See #175 for more context.  
+The popover is presented inside the view provided in the `in` parameter. If this view is smaller than the resulting popover, to prevent clipping set `clipsToBounds = false` on the presenting view, and set `constrainInContainerView = false` to the pop tip instance. See #175 for more context.
 
 # Customization
 
@@ -231,7 +231,8 @@ actionAnimationOut = <#TimeInterval#>
 actionDelayIn = <#TimeInterval#>
 actionDelayOut = <#TimeInterval#>
 edgeMargin = <#CGFloat#>
-bubbleOffset = <#CGFloat#> // Offset between the bubble and the arrow
+bubbleOffset = <#CGFloat#> // Offset between the bubble and the origin
+arrowOffset = <#CGFloat#> // Offset between the bubble center and the arrow
 arrowRadius = <#CGFloat#>
 shadowOpacity = <#Float#>
 shadowRadius = <#Float#>
@@ -242,7 +243,7 @@ shadowColor = <#UIColor#>
 # Author
 [Andrea Mazzini](https://twitter.com/theandreamazz). I'm available for freelance work, feel free to contact me.
 
-Want to support the development of [these free libraries](https://cocoapods.org/owners/734)? Buy me a coffee ☕️ via [Paypal](https://www.paypal.me/andreamazzini).  
+Want to support the development of [these free libraries](https://cocoapods.org/owners/734)? Buy me a coffee ☕️ via [Paypal](https://www.paypal.me/andreamazzini).
 
 # Contributors
 Thanks to [everyone](https://github.com/andreamazz/AMPopTip/graphs/contributors) kind enough to submit a pull request.
