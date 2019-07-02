@@ -151,6 +151,8 @@ open class PopTip: UIView {
   @objc open dynamic var edgeMargin = CGFloat(0.0)
   /// Holds the offset between the bubble and origin
   @objc open dynamic var bubbleOffset = CGFloat(0.0)
+  /// Holds the offset between the center of the bubble and the arrow
+  @objc open dynamic var arrowOffset = CGFloat(0.0)
   /// Color of the mask that is going to dim the background when the pop up is visible
   @objc open dynamic var maskColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
   /// Flag to enable or disable background mask
@@ -253,10 +255,12 @@ open class PopTip: UIView {
     } else {
       frame.origin = CGPoint(x: x, y: from.origin.y - frame.height + offset)
     }
-    
+   
+    // Constraint the offset in the boundaries of the bubble, maintaining the sign (hence the arrowOffset / arrowOffset)
+    let constrainedArrowOffset = abs(arrowOffset) > (frame.size.width / 2) ? ((arrowOffset / arrowOffset) * (frame.size.width / 2 - cornerRadius * 2)) : arrowOffset
     // Make sure that the bubble doesn't leave the boundaries of the view
     var arrowPosition = CGPoint(
-      x: from.origin.x + from.width / 2 - frame.origin.x,
+      x: from.origin.x + from.width / 2 - frame.origin.x - constrainedArrowOffset,
       y: (direction == .up) ? frame.height : from.origin.y + from.height - frame.origin.y + offset
     )
     
@@ -317,10 +321,12 @@ open class PopTip: UIView {
     }
     frame.origin = CGPoint(x: x, y: y)
     
+    // Constraint the offset in the boundaries of the bubble, maintaining the sign (hence the arrowOffset / arrowOffset)
+    let constrainedArrowOffset = abs(arrowOffset) > (frame.size.height / 2) ? ((arrowOffset / arrowOffset) * (frame.size.height / 2  - cornerRadius * 2)) : arrowOffset
     // Make sure that the bubble doesn't leave the boundaries of the view
     let arrowPosition = CGPoint(
       x: direction == .left ? from.origin.x - frame.origin.x + offset : from.origin.x + from.width - frame.origin.x + offset,
-      y: from.origin.y + from.height / 2 - frame.origin.y
+      y: from.origin.y + from.height / 2 - frame.origin.y - constrainedArrowOffset
     )
     
     if bubbleOffset > 0 && arrowPosition.y < bubbleOffset {
