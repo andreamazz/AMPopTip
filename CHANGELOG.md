@@ -2,31 +2,36 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
-- `4.0.0` Releases - [4.0.0](#400) | [4.0.1](#401)  
-- `3.6.0` Releases - [3.6.0](#360)  
-- `3.5.0` Releases - [3.5.0](#350)  
-- `3.4.0` Releases - [3.4.0](#340)  
-- `3.3.0` Releases - [3.3.0](#330)  
-- `3.2.0` Releases - [3.2.0](#320) | [3.2.1](#321)  
-- `3.1.0` Releases - [3.1.0](#310) | [3.1.1](#311) | [3.1.2](#312) | [3.1.3](#313) | [3.1.4](#314)  
-- `3.0.0` Releases - [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302) | [3.0.3](#303)  
-- `2.1.0` Releases - [2.1.0](#210) | [2.1.1](#211) | [2.1.2](#212) | [2.1.3](#213) | [2.1.4](#214) | [2.1.5](#215) | [2.1.6](#216) | [2.1.7](#217)  
-- `2.0.0` Releases - [2.0.0](#200) | [2.0.1](#201)  
-- `1.5.0` Releases - [1.5.0](#150) | [1.5.1](#151)  [1.5.2](#152)   
-- `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)   
-- `1.3.0` Releases - [1.3.0](#130)   
-- `1.2.0` Releases - [1.2.0](#120)   
-- `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)  
-- `1.0.0` Releases - [1.0.0](#100) | [1.0.1](#101) | [1.0.2](#102) | [1.0.3](#103)  
-- `0.10.x` Releases - [0.10.0](#0100) | [0.10.1](#0101) | [0.10.2](#0102)  
-- `0.9.x` Releases - [0.9](#09) | [0.9.1](#091) | [0.9.2](#092) | [0.9.3](#093) | [0.9.4](#094) | [0.9.5](#095) | [0.9.6](#096) | [0.9.7](#097) | [0.9.8](#098) | [0.9.9](#099) | [0.9.10](#0910) | [0.9.11](#0911) | [0.9.12](#0912) | [0.9.13](#0913) | [0.9.14](#0914)  
+- `4.1.0` Releases - [4.2.0](#410)
+- `4.0.0` Releases - [4.0.0](#400) | [4.0.1](#401)
+- `3.6.0` Releases - [3.6.0](#360)
+- `3.5.0` Releases - [3.5.0](#350)
+- `3.4.0` Releases - [3.4.0](#340)
+- `3.3.0` Releases - [3.3.0](#330)
+- `3.2.0` Releases - [3.2.0](#320) | [3.2.1](#321)
+- `3.1.0` Releases - [3.1.0](#310) | [3.1.1](#311) | [3.1.2](#312) | [3.1.3](#313) | [3.1.4](#314)
+- `3.0.0` Releases - [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302) | [3.0.3](#303)
+- `2.1.0` Releases - [2.1.0](#210) | [2.1.1](#211) | [2.1.2](#212) | [2.1.3](#213) | [2.1.4](#214) | [2.1.5](#215) | [2.1.6](#216) | [2.1.7](#217)
+- `2.0.0` Releases - [2.0.0](#200) | [2.0.1](#201)
+- `1.5.0` Releases - [1.5.0](#150) | [1.5.1](#151)  [1.5.2](#152)
+- `1.4.0` Releases - [1.4.0](#140) | [1.4.1](#141) | [1.4.2](#142)
+- `1.3.0` Releases - [1.3.0](#130)
+- `1.2.0` Releases - [1.2.0](#120)
+- `1.1.0` Releases - [1.1.0](#110) | [1.1.1](#111) | [1.1.2](#112)
+- `1.0.0` Releases - [1.0.0](#100) | [1.0.1](#101) | [1.0.2](#102) | [1.0.3](#103)
+- `0.10.x` Releases - [0.10.0](#0100) | [0.10.1](#0101) | [0.10.2](#0102)
+- `0.9.x` Releases - [0.9](#09) | [0.9.1](#091) | [0.9.2](#092) | [0.9.3](#093) | [0.9.4](#094) | [0.9.5](#095) | [0.9.6](#096) | [0.9.7](#097) | [0.9.8](#098) | [0.9.9](#099) | [0.9.10](#0910) | [0.9.11](#0911) | [0.9.12](#0912) | [0.9.13](#0913) | [0.9.14](#0914)
 - `0.8.x` Releases - [0.8](#08)
 
 ---
 
+## [4.1.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.1.0)
+
+- Added `arrowOffset`
+
 ## [4.0.1](https://github.com/andreamazz/AMPopTip/releases/tag/4.0.1)
 
-- Merge #174  
+- Merge #174
 
 ## [4.0.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.0.0)
 
@@ -34,7 +39,7 @@ All notable changes to this project will be documented in this file.
 
 ## [3.6.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.6.0)
 
-- Fixed #175  
+- Fixed #175
 
 ## [3.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.5.0)
 
@@ -51,7 +56,7 @@ All notable changes to this project will be documented in this file.
 
 ## [3.2.1](https://github.com/andreamazz/AMPopTip/releases/tag/3.2.1)
 
-Fixed the float animation  
+Fixed the float animation
 
 ## [3.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.2.0)
 
@@ -79,11 +84,11 @@ The animation `float` now accepts two associated values: `float(offsetX: CGFloat
 
 ## [3.1.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.1.0)
 
-- Merged #142  
+- Merged #142
 
 ## [3.0.3](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.3)
 
-- Merged #135, #136, #137  
+- Merged #135, #136, #137
 
 ## [3.0.2](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.2)
 
@@ -91,11 +96,11 @@ The animation `float` now accepts two associated values: `float(offsetX: CGFloat
 
 ## [3.0.1](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.1)
 
-- Fixed #133  
+- Fixed #133
 
 ## [3.0.0](https://github.com/andreamazz/AMPopTip/releases/tag/3.0.0)
 
-- Swift 4 support  
+- Swift 4 support
 
 ## [2.1.7](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.7)
 
@@ -125,31 +130,31 @@ The animation `float` now accepts two associated values: `float(offsetX: CGFloat
 ## [2.1.1](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.1)
 
 - Fixed #117
-- Fixed regression with the iOS extensions  
+- Fixed regression with the iOS extensions
 
 ## [2.1.0](https://github.com/andreamazz/AMPopTip/releases/tag/2.1.0)
 
-- Added ability to change the bubble contents    
+- Added ability to change the bubble contents
 
 ## [2.0.1](https://github.com/andreamazz/AMPopTip/releases/tag/2.0.1)
 
-- Fixed #116  
+- Fixed #116
 
 ## [2.0.0](https://github.com/andreamazz/AMPopTip/releases/tag/2.0.0)
 
-- AMPopTip was re-written in Swift. The API was also slightly changed. Make sure to check out the README.  
+- AMPopTip was re-written in Swift. The API was also slightly changed. Make sure to check out the README.
 
 ## [1.5.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.5.2)
 
-- Fixed #114  
+- Fixed #114
 
 ## [1.5.1](https://github.com/andreamazz/AMPopTip/releases/tag/1.5.1)
 
-- Merged #111  
+- Merged #111
 
 ## [1.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.5.0)
 
-- Added dimmable background (#107)  
+- Added dimmable background (#107)
 
 ## [1.4.2](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.2)
 
@@ -161,11 +166,11 @@ The animation `float` now accepts two associated values: `float(offsetX: CGFloat
 
 ## [1.4.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.4.0)
 
-- Added `hideForced:`  
+- Added `hideForced:`
 
 ## [1.3.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.3.0)
 
-- Merged #87  
+- Merged #87
 
 ## [1.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.2.0)
 
@@ -181,7 +186,7 @@ The animation `float` now accepts two associated values: `float(offsetX: CGFloat
 
 ## [1.1.0](https://github.com/andreamazz/AMPopTip/releases/tag/1.1.0)
 
-- Merged #75  
+- Merged #75
 
 ## [1.0.3](https://github.com/andreamazz/AMPopTip/releases/tag/1.0.3)
 
@@ -202,7 +207,7 @@ Stable release
 ## [0.10.2](https://github.com/andreamazz/AMPopTip/releases/tag/0.10.2)
 
 #### Added
-- Ability to define exit animations. Thanks to [@valeriomazzeo](https://github.com/valeriomazzeo)  
+- Ability to define exit animations. Thanks to [@valeriomazzeo](https://github.com/valeriomazzeo)
 
 ## [0.10.1](https://github.com/andreamazz/AMPopTip/releases/tag/0.10.1)
 
@@ -269,22 +274,22 @@ Stable release
 
 ## [0.9.3](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.3)
 
-#### Added  
+#### Added
 - Carthage Support
 
 ## [0.9.2](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.2)
 
-#### Fixed  
+#### Fixed
 - Issue #40
 
 ## [0.9.1](https://github.com/andreamazz/AMPopTip/releases/tag/0.9.1)
 
-#### Fixed  
+#### Fixed
 - Issue #39
 
 ## [0.9](https://github.com/andreamazz/AMPopTip/releases/tag/0.9)
 
-#### Added  
+#### Added
 - Support for custom animations. Thanks to [Kevin Hirsch](https://github.com/kevin-hirsch)
 
 ## [0.8](https://github.com/andreamazz/AMPopTip/releases/tag/0.8)
