@@ -1,13 +1,11 @@
 import Foundation
 
-public func throwAssertion() -> MatcherFunc<Void> {
-    return MatcherFunc { actualExpression, failureMessage in
-    #if arch(x86_64) && _runtime(_ObjC) && !SWIFT_PACKAGE
-        failureMessage.postfixMessage = "throw an assertion"
-        failureMessage.actualValue = nil
+public func throwAssertion() -> Predicate<Void> {
+    return Predicate { actualExpression in
+    #if arch(x86_64) && (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) && !SWIFT_PACKAGE
+        let message = ExpectationMessage.expectedTo("throw an assertion")
 
-        var succeeded = true
-
+        var actualError: Error?
         let caughtException: BadInstructionException? = catchBadInstruction {
             #if os(tvOS)
                 if !NimbleEnvironment.activeInstance.suppressTVOSAssertionWarning {
@@ -27,21 +25,19 @@ public func throwAssertion() -> MatcherFunc<Void> {
             #endif
             do {
                 try actualExpression.evaluate()
-            } catch let error {
-                succeeded = false
-                failureMessage.postfixMessage += "; threw error instead <\(error)>"
+            } catch {
+                actualError = error
             }
         }
 
-        if !succeeded {
-            return false
+        if let actualError = actualError {
+            return PredicateResult(
+                bool: false,
+                message: message.appended(message: "; threw error instead <\(actualError)>")
+            )
+        } else {
+            return PredicateResult(bool: caughtException != nil, message: message)
         }
-
-        if caughtException == nil {
-            return false
-        }
-
-        return true
     #elseif SWIFT_PACKAGE
         fatalError("The throwAssertion Nimble matcher does not currently support Swift CLI." +
             " You can silence this error by placing the test case inside an #if !SWIFT_PACKAGE" +
@@ -49,7 +45,8 @@ public func throwAssertion() -> MatcherFunc<Void> {
     #else
         fatalError("The throwAssertion Nimble matcher can only run on x86_64 platforms with " +
             "Objective-C (e.g. Mac, iPhone 5s or later simulators). You can silence this error " +
-            "by placing the test case inside an #if arch(x86_64) or _runtime(_ObjC) conditional statement")
+            "by placing the test case inside an #if arch(x86_64) or (os(macOS) || os(iOS) || os(tvOS) || os(watchOS)) conditional statement")
+        // swiftlint:disable:previous line_length
     #endif
     }
 }
