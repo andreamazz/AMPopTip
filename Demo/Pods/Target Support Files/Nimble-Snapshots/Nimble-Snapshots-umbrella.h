@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "Nimble_Snapshots.h"
 #import "XCTestObservationCenter+CurrentTestCaseTracker.h"
 #import "NBSMockedApplication.h"
 

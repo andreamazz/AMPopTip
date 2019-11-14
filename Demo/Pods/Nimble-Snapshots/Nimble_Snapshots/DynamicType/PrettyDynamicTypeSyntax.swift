@@ -4,27 +4,40 @@ import Nimble
 
 public struct DynamicTypeSnapshot {
     let name: String?
+    let identifier: String?
     let record: Bool
     let sizes: [UIContentSizeCategory]
     let deviceAgnostic: Bool
 
-    init(name: String?, record: Bool, sizes: [UIContentSizeCategory], deviceAgnostic: Bool) {
+    init(name: String?, identifier: String?, record: Bool, sizes: [UIContentSizeCategory], deviceAgnostic: Bool) {
         self.name = name
+        self.identifier = identifier
         self.record = record
         self.sizes = sizes
         self.deviceAgnostic = deviceAgnostic
     }
 }
 
-public func dynamicTypeSnapshot(_ name: String? = nil, sizes: [UIContentSizeCategory] = allContentSizeCategories(),
+public func dynamicTypeSnapshot(_ name: String? = nil,
+                                identifier: String? = nil,
+                                sizes: [UIContentSizeCategory] = allContentSizeCategories(),
                                 deviceAgnostic: Bool = false) -> DynamicTypeSnapshot {
-    return DynamicTypeSnapshot(name: name, record: false, sizes: sizes, deviceAgnostic: deviceAgnostic)
+    return DynamicTypeSnapshot(name: name,
+                               identifier: identifier,
+                               record: false,
+                               sizes: sizes,
+                               deviceAgnostic: deviceAgnostic)
 }
 
 public func recordDynamicTypeSnapshot(_ name: String? = nil,
+                                      identifier: String? = nil,
                                       sizes: [UIContentSizeCategory] = allContentSizeCategories(),
                                       deviceAgnostic: Bool = false) -> DynamicTypeSnapshot {
-    return DynamicTypeSnapshot(name: name, record: true, sizes: sizes, deviceAgnostic: deviceAgnostic)
+    return DynamicTypeSnapshot(name: name,
+                               identifier: identifier,
+                               record: true,
+                               sizes: sizes,
+                               deviceAgnostic: deviceAgnostic)
 }
 
 public func == (lhs: Expectation<Snapshotable>, rhs: DynamicTypeSnapshot) {

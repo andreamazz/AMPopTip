@@ -85,8 +85,7 @@ class ViewController: UIViewController {
     case .topLeft:
       popTip.bubbleColor = UIColor(red: 0.95, green: 0.65, blue: 0.21, alpha: 1)
       popTip.cornerRadius = 10
-      if !showSwiftUIView
-      {
+      if !showSwiftUIView {
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 120))
         let imageView = UIImageView(image: UIImage(named: "comment"))
         imageView.frame = CGRect(x: (80 - imageView.frame.width) / 2, y: 0, width: imageView.frame.width, height: imageView.frame.height)
@@ -101,8 +100,7 @@ class ViewController: UIViewController {
         
         popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
       }
-      else if #available(iOS 13.0.0, *)
-      {
+      else if #available(iOS 13.0.0, *) {
         #if canImport(SwiftUI) && canImport(Combine)
         popTip.show(rootView: SwiftUIView(), direction: .down, in: view, from: sender.frame, parent: self)
         #endif
@@ -116,8 +114,7 @@ class ViewController: UIViewController {
           completion()
         })
       }
-      if #available(iOS 13.0.0, *)
-      {
+      if #available(iOS 13.0.0, *) {
         self.showSwiftUIView.toggle()
       }
 
