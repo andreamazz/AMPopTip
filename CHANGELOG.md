@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `4.3.0` Releases - [4.3.0](#430)
 - `4.2.0` Releases - [4.2.0](#420)
 - `4.1.0` Releases - [4.1.0](#410)
 - `4.0.0` Releases - [4.0.0](#400) | [4.0.1](#401)
@@ -25,6 +26,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [4.3.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.3.0)
+
+- Added SwiftUI Support, see #196  
 
 ## [4.2.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.2.0)
 
