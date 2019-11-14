@@ -17,5 +17,6 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
   s.source_files  = 'Source/*.swift'
   s.requires_arc  = true
+  s.weak_framework = 'SwiftUI'
   s.social_media_url = 'https://twitter.com/theandreamazz'
 end
