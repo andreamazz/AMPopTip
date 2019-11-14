@@ -1,28 +1,27 @@
 PODS:
-  - AMPopTip (3.6.0)
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
-  - Nimble (6.1.0)
-  - Nimble-Snapshots (4.4.0):
-    - Nimble-Snapshots/Core (= 4.4.0)
-  - Nimble-Snapshots/Core (4.4.0):
-    - FBSnapshotTestCase (~> 2.0)
-    - Nimble
-    - Quick
-  - Quick (1.1.0)
+  - AMPopTip (4.2.0)
+  - iOSSnapshotTestCase (2.2.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 2.2.0)
+  - iOSSnapshotTestCase/Core (2.2.0)
+  - iOSSnapshotTestCase/SwiftSupport (2.2.0):
+    - iOSSnapshotTestCase/Core
+  - Nimble (7.3.4)
+  - Nimble-Snapshots (6.4.1):
+    - Nimble-Snapshots/Core (= 6.4.1)
+  - Nimble-Snapshots/Core (6.4.1):
+    - iOSSnapshotTestCase (~> 2.0)
+    - Nimble (~> 7.0)
+  - Quick (2.2.0)
 
 DEPENDENCIES:
   - AMPopTip (from `../`)
-  - Nimble (= 6.1.0)
-  - Nimble-Snapshots (= 4.4.0)
-  - Quick (= 1.1.0)
+  - Nimble
+  - Nimble-Snapshots
+  - Quick
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - FBSnapshotTestCase
+  trunk:
+    - iOSSnapshotTestCase
     - Nimble
     - Nimble-Snapshots
     - Quick
@@ -32,12 +31,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AMPopTip: ebba6ae1859d3b22a68562e1baf8ea0e159b545e
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  Nimble: c53e6903fee94041b90ded74f135820437d8bf59
-  Nimble-Snapshots: e743439f26c2fa99d8f7e0d7c01c99bcb40aa6f2
-  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  AMPopTip: 43444807604e7d38713fc15b93fa65fbe369227c
+  iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
+  Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
+  Nimble-Snapshots: 438fb1a6fa3c655e246fc9ac375f6cd2964d759a
+  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
 
-PODFILE CHECKSUM: 68d6239712fba8e0da2721828fdb2901c0ef7977
+PODFILE CHECKSUM: 427d9003aa8e98a2af5857ca6737809dc88b2119
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

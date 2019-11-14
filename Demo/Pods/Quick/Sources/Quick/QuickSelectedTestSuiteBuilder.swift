@@ -1,4 +1,4 @@
-#if os(OSX) || os(iOS) || os(watchOS) || os(tvOS)
+#if canImport(Darwin)
 import Foundation
 
 /**

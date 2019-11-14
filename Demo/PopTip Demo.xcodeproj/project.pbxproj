@@ -19,6 +19,7 @@
 		65FAEDCB1ECAED0600F5681E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FAEDC91ECAED0600F5681E /* MainInterface.storyboard */; };
 		65FAEDCF1ECAED0600F5681E /* PopTip Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 65FAEDC31ECAED0600F5681E /* PopTip Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		94178E90A7FECC3842CC852D /* Pods_PopTip_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16769670F46D31DE64BD65FD /* Pods_PopTip_DemoTests.framework */; };
+		94A7C1BF237D8D1A0057E047 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A7C1BE237D8D190057E047 /* SwiftUIView.swift */; };
 		CC7B379E0562CFF5318FA3F3 /* Pods_PopTip_Demo_PopTip_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17A0968287A7268EA4723232 /* Pods_PopTip_Demo_PopTip_Extension.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		65FAEDC71ECAED0600F5681E /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		65FAEDCA1ECAED0600F5681E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		65FAEDCC1ECAED0600F5681E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94A7C1BE237D8D190057E047 /* SwiftUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		9C691B16BC4B538EB258C6A2 /* Pods-PopTip Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTip Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A1C9EDB2CED7C68DC4FC9991 /* Pods-PopTip Demo-PopTip Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PopTip Demo-PopTip Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-PopTip Demo-PopTip Extension/Pods-PopTip Demo-PopTip Extension.release.xcconfig"; sourceTree = "<group>"; };
 		AB67F6130915DD986BE56F57 /* Pods_PopTip_DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PopTip_DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				65E698341EC0C39F002F1E3C /* Resources */,
 				653472381EB7B89C002DA5DA /* AppDelegate.swift */,
 				6534723A1EB7B89C002DA5DA /* ViewController.swift */,
+				94A7C1BE237D8D190057E047 /* SwiftUIView.swift */,
 			);
 			path = "PopTip Demo";
 			sourceTree = "<group>";
@@ -387,7 +390,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AMPopTip/AMPopTip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -396,7 +399,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PopTip Demo/Pods-PopTip Demo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		887F82599A48E0558A60AB6B /* [CP] Check Pods Manifest.lock */ = {
@@ -423,22 +426,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Nimble-Snapshots/Nimble_Snapshots.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble_Snapshots.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PopTip DemoTests/Pods-PopTip DemoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -450,6 +453,7 @@
 			files = (
 				6534723B1EB7B89C002DA5DA /* ViewController.swift in Sources */,
 				653472391EB7B89C002DA5DA /* AppDelegate.swift in Sources */,
+				94A7C1BF237D8D1A0057E047 /* SwiftUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

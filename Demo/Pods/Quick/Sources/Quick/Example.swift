@@ -1,12 +1,17 @@
 import Foundation
 
-private var numberOfExamplesRun = 0
+#if canImport(Darwin)
+@objcMembers
+public class _ExampleBase: NSObject {}
+#else
+public class _ExampleBase: NSObject {}
+#endif
 
 /**
     Examples, defined with the `it` function, use assertions to
     demonstrate how code should behave. These are like "tests" in XCTest.
 */
-final public class Example: NSObject {
+final public class Example: _ExampleBase {
     /**
         A boolean indicating whether the example is a shared example;
         i.e.: whether it is an example defined with `itBehavesLike`.
@@ -57,12 +62,15 @@ final public class Example: NSObject {
     public func run() {
         let world = World.sharedWorld
 
-        if numberOfExamplesRun == 0 {
+        if world.numberOfExamplesRun == 0 {
             world.suiteHooks.executeBefores()
         }
 
-        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: numberOfExamplesRun)
+        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun)
         world.currentExampleMetadata = exampleMetadata
+        defer {
+            world.currentExampleMetadata = nil
+        }
 
         world.exampleHooks.executeBefores(exampleMetadata)
         group!.phase = .beforesExecuting
@@ -80,9 +88,9 @@ final public class Example: NSObject {
         group!.phase = .aftersFinished
         world.exampleHooks.executeAfters(exampleMetadata)
 
-        numberOfExamplesRun += 1
+        world.numberOfExamplesRun += 1
 
-        if !world.isRunningAdditionalSuites && numberOfExamplesRun >= world.includedExampleCount {
+        if !world.isRunningAdditionalSuites && world.numberOfExamplesRun >= world.cachedIncludedExampleCount {
             world.suiteHooks.executeAfters()
         }
     }

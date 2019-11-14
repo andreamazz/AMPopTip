@@ -1,7 +1,7 @@
 import Foundation
 
 internal func raiseError(_ message: String) -> Never {
-#if _runtime(_ObjC)
+#if canImport(Darwin)
     NSException(name: .internalInconsistencyException, reason: message, userInfo: nil).raise()
 #endif
 

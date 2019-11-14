@@ -15,7 +15,8 @@ Pod::Spec.new do |s|
   s.source        = { :git => "https://github.com/andreamazz/AMPopTip.git", :tag => s.version }
   s.platform      = :ios, '8.0'
   s.swift_version = '5.0'
-  s.source_files  = 'Source', '*.{swift}'
+  s.source_files  = 'Source/*.swift'
   s.requires_arc  = true
+  s.weak_framework = 'SwiftUI'
   s.social_media_url = 'https://twitter.com/theandreamazz'
 end

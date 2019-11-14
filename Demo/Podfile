@@ -11,9 +11,9 @@ target 'PopTip Demo' do
 
   target 'PopTip DemoTests' do
     inherit! :search_paths
-    pod 'Quick', '1.1.0'
-    pod 'Nimble', '6.1.0'
-    pod 'Nimble-Snapshots', '4.4.0'
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'Nimble-Snapshots'
   end
 
 end
