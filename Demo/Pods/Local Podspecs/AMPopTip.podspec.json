@@ -21,6 +21,7 @@
   "swift_versions": "5.0",
   "source_files": "Source/*.swift",
   "requires_arc": true,
+  "weak_frameworks": "SwiftUI",
   "social_media_url": "https://twitter.com/theandreamazz",
   "swift_version": "5.0"
 }

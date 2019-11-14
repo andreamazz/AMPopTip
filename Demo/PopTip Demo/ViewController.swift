@@ -71,6 +71,8 @@ class ViewController: UIViewController {
       print("dismiss")
     }
   }
+  
+  var showSwiftUIView = false
 
   @IBAction func action(sender: UIButton) {
     guard let button = ButtonType(rawValue: sender.tag) else { return }
@@ -81,29 +83,42 @@ class ViewController: UIViewController {
     
     switch button {
     case .topLeft:
-      let customView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 120))
-      let imageView = UIImageView(image: UIImage(named: "comment"))
-      imageView.frame = CGRect(x: (80 - imageView.frame.width) / 2, y: 0, width: imageView.frame.width, height: imageView.frame.height)
-      customView.addSubview(imageView)
-      let label = UILabel(frame: CGRect(x: 0, y: imageView.frame.height, width: 80, height: 120 - imageView.frame.height))
-      label.numberOfLines = 0
-      label.text = "This is a custom view"
-      label.textAlignment = .center
-      label.textColor = .white
-      label.font = UIFont.systemFont(ofSize: 12)
-      customView.addSubview(label)
       popTip.bubbleColor = UIColor(red: 0.95, green: 0.65, blue: 0.21, alpha: 1)
       popTip.cornerRadius = 10
-      popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
-
+      if !showSwiftUIView
+      {
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 120))
+        let imageView = UIImageView(image: UIImage(named: "comment"))
+        imageView.frame = CGRect(x: (80 - imageView.frame.width) / 2, y: 0, width: imageView.frame.width, height: imageView.frame.height)
+        customView.addSubview(imageView)
+        let label = UILabel(frame: CGRect(x: 0, y: imageView.frame.height, width: 80, height: 120 - imageView.frame.height))
+        label.numberOfLines = 0
+        label.text = "This is a custom view"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 12)
+        customView.addSubview(label)
+        
+        popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
+      }
+      else if #available(iOS 13.0.0, *)
+      {
+        #if canImport(SwiftUI) && canImport(Combine)
+        popTip.show(rootView: SwiftUIView(), direction: .down, in: view, from: sender.frame, parent: self)
+        #endif
+      }
       popTip.entranceAnimationHandler = { [weak self] completion in
         guard let `self` = self else { return }
         self.popTip.transform = CGAffineTransform(rotationAngle: 0.3)
-        UIView.animate(withDuration: 0.5, animations: { 
+        UIView.animate(withDuration: 0.5, animations: {
           self.popTip.transform = .identity
         }, completion: { (_) in
           completion()
         })
+      }
+      if #available(iOS 13.0.0, *)
+      {
+        self.showSwiftUIView.toggle()
       }
 
     case .topRight:
@@ -114,6 +129,7 @@ class ViewController: UIViewController {
         topRightDirection = .left
       }
       popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
+      
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
       let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -121,9 +137,11 @@ class ViewController: UIViewController {
       let attributedText = NSMutableAttributedString(string: "I'm presenting a string ", attributes: attributes)
       attributedText.append(NSAttributedString(string: "with attributes!", attributes: underline))
       popTip.show(attributedText: attributedText, direction: .up, maxWidth: 200, in: view, from: sender.frame)
+      
     case .bottomRight:
       popTip.bubbleColor = UIColor(red: 0.81, green: 0.04, blue: 0.14, alpha: 1)
       popTip.show(text: "Animated popover, great for subtle UI tips and onboarding", direction: .left, maxWidth: 200, in: view, from: sender.frame)
+      
     case .center:
       popTip.arrowRadius = 2
       popTip.bubbleColor = UIColor(red: 0.31, green: 0.57, blue: 0.87, alpha: 1)

@@ -31,7 +31,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AMPopTip: f7d587e42dca04778c86ecceed790a6f72362e36
+  AMPopTip: 43444807604e7d38713fc15b93fa65fbe369227c
   iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: 438fb1a6fa3c655e246fc9ac375f6cd2964d759a
