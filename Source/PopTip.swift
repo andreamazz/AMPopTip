@@ -7,7 +7,9 @@
 //
 
 import UIKit
+#if canImport(SwiftUI) && canImport(Combine)
 import SwiftUI
+#endif
 
 /// Enum that specifies the direction of the poptip
 public enum PopTipDirection {
@@ -606,6 +608,7 @@ open class PopTip: UIView {
     show(duration: duration)
   }
     
+#if canImport(SwiftUI) && canImport(Combine)
   /// Shows an animated poptip in a given view, from a given rectangle. The property `isVisible` will be `true` as soon as the poptip is added to the given view.
   ///
   /// - Parameters:
@@ -638,6 +641,7 @@ open class PopTip: UIView {
 
     show(duration: duration)
   }
+#endif
   
   /// Update the current text
   ///
