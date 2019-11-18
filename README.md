@@ -71,6 +71,15 @@ let customView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
 popTip.show(customView: customView, direction: .down, in: view, from: someView.frame)
 ```
 
+## Showing a custom SwiftUI view
+You can provide a custom SwiftUI view that will be embed in a `UIHostingController`, added to a parent controller and then wrapped in the PopTip and presented.
+
+```swift
+let customSwiftUIView = MySwiftUIView()
+// Configure your view
+popTip.show(rootView: customSwiftUIView, direction: .down, in: view, from: someView.frame, parent: someParentViewController)
+```
+
 ## Dismissing the popover
 
 You can hide the popover by calling:
