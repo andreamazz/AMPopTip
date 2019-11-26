@@ -48,10 +48,10 @@ class ViewController: UIViewController {
     */
 //    popTip.borderWidth = 2
 //    popTip.borderColor = UIColor.blue
-//    popTip.shadowOpacity = 0.4
-//    popTip.shadowRadius = 3
-//    popTip.shadowOffset = CGSize(width: 1, height: 1)
-//    popTip.shadowColor = .black
+    popTip.shadowOpacity = 0.4
+    popTip.shadowRadius = 3
+    popTip.shadowOffset = CGSize(width: 1, height: 1)
+    popTip.shadowColor = .black
     
     popTip.actionAnimation = .bounce(8)
 

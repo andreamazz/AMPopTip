@@ -501,8 +501,7 @@ open class PopTip: UIView {
     }
     
     let path = PopTip.pathWith(rect: rect, frame: frame, direction: direction, arrowSize: arrowSize, arrowPosition: arrowPosition, arrowRadius: arrowRadius, borderWidth: borderWidth, radius: cornerRadius)
-    
-    layer.shadowPath = path.cgPath
+
     layer.shadowOpacity = shadowOpacity
     layer.shadowRadius = CGFloat(shadowRadius)
     layer.shadowOffset = shadowOffset
@@ -732,6 +731,15 @@ open class PopTip: UIView {
     stopActionAnimation {
       UIView.animate(withDuration: 0.2, delay: 0, options: [.transitionCrossDissolve, .beginFromCurrentState], animations: {
         self.setup()
+        
+        let path = PopTip.pathWith(rect: self.frame, frame: self.frame, direction: self.direction, arrowSize: self.arrowSize, arrowPosition: self.arrowPosition, arrowRadius: self.arrowRadius, borderWidth: self.borderWidth, radius: self.cornerRadius)
+
+        let shadowAnimation = CABasicAnimation(keyPath: "shadowPath")
+        shadowAnimation.duration = 0.2
+        shadowAnimation.toValue = path.cgPath
+        shadowAnimation.isRemovedOnCompletion = true
+        self.layer.add(shadowAnimation, forKey: "shadowAnimation")
+        
       }) { (_) in
         self.startActionAnimation()
       }
