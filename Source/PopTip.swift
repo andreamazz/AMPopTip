@@ -601,7 +601,6 @@ open class PopTip: UIView {
     self.customView?.removeFromSuperview()
     self.customView = customView
     addSubview(customView)
-    customView.layoutIfNeeded()
     from = frame
     
     show(duration: duration)
@@ -752,6 +751,8 @@ open class PopTip: UIView {
     
     setNeedsLayout()
     performEntranceAnimation {
+      self.customView?.layoutIfNeeded()
+
       if let tapRemoveGesture = self.tapRemoveGestureRecognizer {
         self.containerView?.addGestureRecognizer(tapRemoveGesture)
       }
