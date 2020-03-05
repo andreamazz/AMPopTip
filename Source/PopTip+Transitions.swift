@@ -63,6 +63,7 @@ public extension PopTip {
       transform = transform.translatedBy(x: from.origin.x, y: 0)
     case .right:
       transform = transform.translatedBy(x: (containerView?.frame.width ?? 0) - from.origin.x, y: 0)
+    case .auto, .autoHorizontal, .autoVertical: break // The decision will be made at this point
     }
     if let backgroundMask = backgroundMask {
       containerView?.addSubview(backgroundMask)

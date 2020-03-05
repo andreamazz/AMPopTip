@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 12)
         customView.addSubview(label)
         
-        popTip.show(customView: customView, direction: .down, in: view, from: sender.frame)
+        popTip.show(customView: customView, direction: .auto, in: view, from: sender.frame)
       }
       else if #available(iOS 13.0.0, *) {
         #if canImport(SwiftUI) && canImport(Combine)
@@ -130,14 +130,7 @@ class ViewController: UIViewController {
       } else {
         topRightDirection = .left
       }
-      popTip.show(text: "I have a offset to move the bubble down or left side.", direction: topRightDirection, maxWidth: 150, in: view, from: sender.frame)
-      DispatchQueue.main.asyncAfter(wallDeadline: .now()) {
-        self.popTip.hide()
-      }
-      DispatchQueue.main.asyncAfter(wallDeadline: .now()) {
-        self.popTip.show(text: "I have a offset to move the bubble down or left side.", direction: self.topRightDirection, maxWidth: 150, in: self.view, from: sender.frame)
-      }
-      
+      popTip.show(text: "I have an offset to move the bubble down or left side.", direction: .autoHorizontal, maxWidth: 150, in: view, from: sender.frame)
       
     case .bottomLeft:
       popTip.bubbleColor = UIColor(red: 0.73, green: 0.91, blue: 0.55, alpha: 1)
@@ -168,6 +161,12 @@ class ViewController: UIViewController {
 extension PopTipDirection {
   func cycleDirection() -> PopTipDirection {
     switch self {
+    case .auto:
+      return .auto
+    case .autoVertical:
+      return .autoVertical
+    case .autoHorizontal:
+      return .autoHorizontal
     case .up:
       return .right
     case .right:

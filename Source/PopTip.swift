@@ -11,6 +11,10 @@ import UIKit
 import SwiftUI
 #endif
 
+//public enum PopTipAxis {
+//  case
+//}
+
 /// Enum that specifies the direction of the poptip
 public enum PopTipDirection {
   /// Up, the poptip will appear above the element, arrow pointing down
@@ -21,8 +25,18 @@ public enum PopTipDirection {
   case left
   /// Right, the poptip will appear on the right of the element, arrow pointing left
   case right
+  /// Automatic, the poptip will decide where to pop by checking the available space
+  case auto
+  /// Automatic in the horizontal axis, the poptip will decide where to pop by checking the available space left and right
+  case autoHorizontal
+  /// Automatic in the vertical axis, the poptip will decide where to pop by checking the available space top and bottom
+  case autoVertical
   /// None, the poptip will appear above the element with no arrow
   case none
+  
+  var isAuto: Bool {
+    return self == .autoVertical || self == .autoHorizontal || self == .auto
+  }
 }
 
 /** Enum that specifies the type of entrance animation. Entrance animations are performed while showing the poptip.
@@ -400,6 +414,23 @@ open class PopTip: UIView {
     var rect = CGRect.zero
     backgroundColor = .clear
     
+    // Decide the direction if not specified
+    if direction.isAuto {
+      var spaces: [PopTipDirection: CGFloat] = [:]
+      
+      if direction == .autoHorizontal || direction == .auto {
+        spaces[.left] = from.minX - containerView.frame.minX
+        spaces[.right] = containerView.frame.maxX - from.maxX
+      }
+      
+      if direction == .autoVertical || direction == .auto {
+        spaces[.up] = from.minY - containerView.frame.minY
+        spaces[.down] = containerView.frame.maxY - from.maxY
+      }
+      
+      direction = spaces.sorted(by: { $0.1 > $1.1 }).first!.key
+    }
+    
     if direction == .left {
       maxWidth = CGFloat.minimum(maxWidth, from.origin.x - padding * 2 - edgeInsets.horizontal - arrowSize.width)
     }
@@ -409,7 +440,9 @@ open class PopTip: UIView {
     
     textBounds = textBounds(for: text, attributedText: attributedText, view: customView, with: font, padding: padding, edges: edgeInsets, in: maxWidth)
     
+    
     switch direction {
+    case .auto, .autoHorizontal, .autoVertical: break // The decision will be made at this point
     case .up:
       let dimensions = setupVertically()
       rect = dimensions.0
@@ -832,6 +865,7 @@ open class PopTip: UIView {
     var offsetX = CGFloat(0)
     var offsetY = CGFloat(0)
     switch direction {
+    case .auto, .autoHorizontal, .autoVertical: break // The decision will be made at this point
     case .up, .none:
       offsetY = -offset
     case .left:

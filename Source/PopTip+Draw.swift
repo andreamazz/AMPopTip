@@ -21,6 +21,7 @@ public extension PopTip {
     var baloonFrame = CGRect.zero
     
     switch direction {
+    case .auto, .autoHorizontal, .autoVertical: break // The decision will be made at this point
     case .none:
       baloonFrame = CGRect(x: borderWidth, y: borderWidth, width: frame.width - borderWidth * 2, height: frame.height - borderWidth * 2)
       path = UIBezierPath(roundedRect: baloonFrame, cornerRadius: radius)

@@ -62,6 +62,9 @@ popTip.show(text: "Hey! Listen!", direction: .none, maxWidth: 200, in: view, fro
 ## Coordinate system
 Please note that the frame you are intended to provide needs to refer to the absolute coordinate system of the view you are presenting the popover in. This means that if you are presenting the popover in a view, pointing to a nested subview, you'll need to convert its frame using UIKit's `convertRect(_:toView:)`. Read the reference [here](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/#//apple_ref/occ/instm/UIView/convertRect:toView:).
 
+## Direction
+You can specify the direction that the tip will occupy, or you can let the library decide by using `auto` (all axis), `autoHorizontal` (only `left` or `right`) or `autoVertical` (only `up` or `down`). Once the popup is visible, the `direction` property will hold the direction that was decided. 
+
 ## Showing a custom view
 You can provide a custom view that will be wrapped in the PopTip and presented.
 
