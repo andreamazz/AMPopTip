@@ -14,6 +14,8 @@
 		653472401EB7B89C002DA5DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6534723F1EB7B89C002DA5DA /* Assets.xcassets */; };
 		653472431EB7B89C002DA5DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 653472411EB7B89C002DA5DA /* LaunchScreen.storyboard */; };
 		6534724E1EB7B89D002DA5DA /* PopTipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6534724D1EB7B89D002DA5DA /* PopTipTests.swift */; };
+		656B9B87238E875400426E10 /* AutolayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656B9B86238E875400426E10 /* AutolayoutView.swift */; };
+		656B9B89238E876C00426E10 /* AutolayoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 656B9B88238E876C00426E10 /* AutolayoutView.xib */; };
 		65FAEDC51ECAED0600F5681E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FAEDC41ECAED0600F5681E /* NotificationCenter.framework */; };
 		65FAEDC81ECAED0600F5681E /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FAEDC71ECAED0600F5681E /* TodayViewController.swift */; };
 		65FAEDCB1ECAED0600F5681E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FAEDC91ECAED0600F5681E /* MainInterface.storyboard */; };
@@ -71,6 +73,8 @@
 		653472491EB7B89D002DA5DA /* PopTip DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PopTip DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6534724D1EB7B89D002DA5DA /* PopTipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopTipTests.swift; sourceTree = "<group>"; };
 		6534724F1EB7B89D002DA5DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		656B9B86238E875400426E10 /* AutolayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutView.swift; sourceTree = "<group>"; };
+		656B9B88238E876C00426E10 /* AutolayoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutolayoutView.xib; sourceTree = "<group>"; };
 		65FAEDC31ECAED0600F5681E /* PopTip Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PopTip Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FAEDC41ECAED0600F5681E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		65FAEDC71ECAED0600F5681E /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +164,8 @@
 				653472381EB7B89C002DA5DA /* AppDelegate.swift */,
 				6534723A1EB7B89C002DA5DA /* ViewController.swift */,
 				94A7C1BE237D8D190057E047 /* SwiftUIView.swift */,
+				656B9B86238E875400426E10 /* AutolayoutView.swift */,
+				656B9B88238E876C00426E10 /* AutolayoutView.xib */,
 			);
 			path = "PopTip Demo";
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				653472431EB7B89C002DA5DA /* LaunchScreen.storyboard in Resources */,
+				656B9B89238E876C00426E10 /* AutolayoutView.xib in Resources */,
 				653472401EB7B89C002DA5DA /* Assets.xcassets in Resources */,
 				6534723E1EB7B89C002DA5DA /* Main.storyboard in Resources */,
 			);
@@ -452,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6534723B1EB7B89C002DA5DA /* ViewController.swift in Sources */,
+				656B9B87238E875400426E10 /* AutolayoutView.swift in Sources */,
 				653472391EB7B89C002DA5DA /* AppDelegate.swift in Sources */,
 				94A7C1BF237D8D1A0057E047 /* SwiftUIView.swift in Sources */,
 			);

@@ -738,7 +738,6 @@ open class PopTip: UIView {
         shadowAnimation.toValue = path.cgPath
         shadowAnimation.isRemovedOnCompletion = true
         self.layer.add(shadowAnimation, forKey: "shadowAnimation")
-        
       }) { (_) in
         self.startActionAnimation()
       }
