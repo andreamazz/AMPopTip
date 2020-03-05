@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `4.5.0` Releases - [4.5.0](#450)
 - `4.4.0` Releases - [4.4.0](#440)
 - `4.3.0` Releases - [4.3.0](#430)
 - `4.2.0` Releases - [4.2.0](#420)
@@ -28,7 +29,11 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [4.3.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.3.0)
+## [4.5.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.5.0)
+
+- Add `auto`, `autoHorizontal` and `autoVertical` direction options. 
+
+## [4.4.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.4.0)
 
 - Fixed #199 and #200 
 
