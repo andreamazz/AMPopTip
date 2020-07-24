@@ -29,7 +29,7 @@ class PopTipTests: QuickSpec {
   }()
 
   override func spec() {
-    describe("showing a text") { 
+    describe("showing a text") {
       it("displays correctly on the right") {
         self.subject.show(text: "Hello", direction: .right, maxWidth: 200, in: self.container, from: CGRect(x: 50, y: 50, width: 0, height: 0))
         if RECORD_SNAPSHOT {
