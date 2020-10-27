@@ -584,6 +584,7 @@ open class PopTip: UIView {
     self.maxWidth = maxWidth
     customView?.removeFromSuperview()
     customView = nil
+    label.isHidden = false
     from = frame
     
     show(duration: duration)
@@ -609,6 +610,7 @@ open class PopTip: UIView {
     self.maxWidth = maxWidth
     customView?.removeFromSuperview()
     customView = nil
+    label.isHidden = false
     from = frame
     
     show(duration: duration)
@@ -633,6 +635,7 @@ open class PopTip: UIView {
     maxWidth = customView.frame.size.width
     self.customView?.removeFromSuperview()
     self.customView = customView
+    label.isHidden = true
     addSubview(customView)
     from = frame
     
