@@ -31,12 +31,13 @@ public extension PopTip {
       let arrowStartPoint = CGPoint(x: arrowPosition.x - arrowSize.width / 2, y: arrowPosition.y + arrowSize.height)
       let arrowEndPoint = CGPoint(x: arrowPosition.x + arrowSize.width / 2, y: arrowPosition.y + arrowSize.height)
       let arrowVertex = arrowPosition
-      let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius)
       
       // 1: Arrow starting point
       path.move(to: CGPoint(x: arrowStartPoint.x, y: arrowStartPoint.y))
       // 2: Arrow vertex arc
-      path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      if let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius) {
+        path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      }
       // 3: End drawing arrow
       path.addLine(to: CGPoint(x: arrowEndPoint.x, y: arrowEndPoint.y))
       // 4: Top right line
@@ -61,15 +62,16 @@ public extension PopTip {
     case .up:
       baloonFrame = CGRect(x: 0, y: 0, width: rect.size.width - borderWidth * 2, height: rect.size.height - arrowSize.height - borderWidth * 2)
       
-      let arrowStartPoint = CGPoint(x: arrowPosition.x + arrowSize.width/2, y: arrowPosition.y - arrowSize.height)
-      let arrowEndPoint = CGPoint(x: arrowPosition.x - arrowSize.width/2, y: arrowPosition.y - arrowSize.height)
+      let arrowStartPoint = CGPoint(x: arrowPosition.x + arrowSize.width / 2, y: arrowPosition.y - arrowSize.height)
+      let arrowEndPoint = CGPoint(x: arrowPosition.x - arrowSize.width / 2, y: arrowPosition.y - arrowSize.height)
       let arrowVertex = arrowPosition
-      let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius)
       
       // 1: Arrow starting point
       path.move(to: CGPoint(x: arrowStartPoint.x, y: arrowStartPoint.y))
       // 2: Arrow vertex arc
-      path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      if let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius) {
+        path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      }
       // 3: End drawing arrow
       path.addLine(to: CGPoint(x: arrowEndPoint.x, y: arrowEndPoint.y))
       // 4: Bottom left line
@@ -97,12 +99,13 @@ public extension PopTip {
       let arrowStartPoint = CGPoint(x: arrowPosition.x - arrowSize.height, y: arrowPosition.y - arrowSize.width / 2)
       let arrowEndPoint = CGPoint(x: arrowPosition.x - arrowSize.height, y: arrowPosition.y + arrowSize.width / 2)
       let arrowVertex = arrowPosition
-      let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius)
       
       // 1: Arrow starting point
       path.move(to: CGPoint(x: arrowStartPoint.x, y: arrowStartPoint.y))
       // 2: Arrow vertex arc
-      path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      if let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius) {
+        path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      }
       // 3: End drawing arrow
       path.addLine(to: CGPoint(x: arrowEndPoint.x, y: arrowEndPoint.y))
       // 4: Right bottom line
@@ -130,12 +133,13 @@ public extension PopTip {
       let arrowStartPoint = CGPoint(x: arrowPosition.x + arrowSize.height, y: arrowPosition.y + arrowSize.width / 2)
       let arrowEndPoint = CGPoint(x: arrowPosition.x + arrowSize.height, y: arrowPosition.y - arrowSize.width / 2)
       let arrowVertex = arrowPosition
-      let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius)
       
       // 1: Arrow starting point
       path.move(to: CGPoint(x: arrowStartPoint.x, y: arrowStartPoint.y))
       // 2: Arrow vertex arc
-      path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      if let cornerPoint = self.roundCornerCircleCenter(start: arrowStartPoint, vertex: arrowVertex, end: arrowEndPoint, radius: arrowRadius) {
+        path.addArc(withCenter: cornerPoint.center, radius: arrowRadius, startAngle: cornerPoint.startAngle, endAngle: cornerPoint.endAngle, clockwise: true)
+      }
       // 3: End drawing arrow
       path.addLine(to: CGPoint(x: arrowEndPoint.x, y: arrowEndPoint.y))
       // 6: Left top line
@@ -160,10 +164,10 @@ public extension PopTip {
     return path
   }
   
-  private class func roundCornerCircleCenter(start: CGPoint, vertex: CGPoint, end: CGPoint, radius: CGFloat) -> CornerPoint {
+  private class func roundCornerCircleCenter(start: CGPoint, vertex: CGPoint, end: CGPoint, radius: CGFloat) -> CornerPoint? {
     
-    let firstLineAngle: CGFloat = atan2(vertex.y - start.y , vertex.x - start.x)
-    let secondLineAngle: CGFloat = atan2(end.y - vertex.y , end.x - vertex.x)
+    let firstLineAngle: CGFloat = atan2(vertex.y - start.y, vertex.x - start.x)
+    let secondLineAngle: CGFloat = atan2(end.y - vertex.y, end.x - vertex.x)
     
     let firstLineOffset = CGVector(dx: -sin(firstLineAngle) * radius, dy: cos(firstLineAngle) * radius)
     let secondLineOffset = CGVector(dx: -sin(secondLineAngle) * radius, dy: cos(secondLineAngle) * radius)
@@ -180,8 +184,14 @@ public extension PopTip {
     let x4 = end.x + secondLineOffset.dx
     let y4 = end.y + secondLineOffset.dy
     
-    let intersectionX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4))
-    let intersectionY = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4))
+    let divisor = ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4))
+    
+    if divisor == 0 {
+      return nil
+    }
+    
+    let intersectionX = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / divisor
+    let intersectionY = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / divisor
     
     return CornerPoint(center: CGPoint(x: intersectionX, y: intersectionY),
                        startAngle: firstLineAngle - CGFloat.pi / 2,
