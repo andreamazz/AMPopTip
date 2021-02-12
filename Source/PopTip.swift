@@ -237,7 +237,8 @@ open class PopTip: UIView {
   open private(set) var tapGestureRecognizer: UITapGestureRecognizer?
   fileprivate var attributedText: NSAttributedString?
   fileprivate var paragraphStyle = NSMutableParagraphStyle()
-  fileprivate var tapRemoveGestureRecognizer: UITapGestureRecognizer?
+  /// The tap remove gesture recognizer. Read-only.
+  open private(set) var tapRemoveGestureRecognizer: UITapGestureRecognizer?
   fileprivate var swipeGestureRecognizer: UISwipeGestureRecognizer?
   fileprivate var dismissTimer: Timer?
   fileprivate var textBounds = CGRect.zero
@@ -512,6 +513,7 @@ open class PopTip: UIView {
     }
     if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
       tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
+      tapRemoveGestureRecognizer?.cancelsTouchesInView = false
     }
     if shouldDismissOnSwipeOutside && swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
