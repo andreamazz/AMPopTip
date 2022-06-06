@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `4.7.0` Releases - [4.7.0](#470) 
 - `4.6.0` Releases - [4.6.0](#460) | [4.6.1](#461) 
 - `4.5.0` Releases - [4.5.0](#450) | [4.5.1](#451) | [4.5.2](#452) | [4.5.3](#453)  
 - `4.4.0` Releases - [4.4.0](#440)
@@ -29,6 +30,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [4.6.1](https://github.com/andreamazz/AMPopTip/releases/tag/4.7.0)
+
+- Build with Swift 5.3  
 
 ## [4.6.1](https://github.com/andreamazz/AMPopTip/releases/tag/4.6.1)
 
