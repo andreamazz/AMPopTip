@@ -238,7 +238,7 @@ open class PopTip: UIView {
   /// The tap gesture recognizer. Read-only.
   open private(set) var tapGestureRecognizer: UITapGestureRecognizer?
   /// The tap remove gesture recognizer. Read-only.
-  open private(set) var tapRemoveGestureRecognizer: UITapGestureRecognizer?
+  open private(set) var tapToRemoveGestureRecognizer: UITapGestureRecognizer?
   fileprivate var attributedText: NSAttributedString?
   fileprivate var paragraphStyle = NSMutableParagraphStyle()
   fileprivate var swipeGestureRecognizer: UISwipeGestureRecognizer?
@@ -513,9 +513,8 @@ open class PopTip: UIView {
       tapGestureRecognizer?.cancelsTouchesInView = false
       self.addGestureRecognizer(tapGestureRecognizer!)
     }
-    if shouldDismissOnTapOutside && tapRemoveGestureRecognizer == nil {
-      tapRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
-      tapRemoveGestureRecognizer?.cancelsTouchesInView = false
+    if shouldDismissOnTapOutside && tapToRemoveGestureRecognizer == nil {
+      tapToRemoveGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PopTip.handleTapOutside(_:)))
     }
     if shouldDismissOnSwipeOutside && swipeGestureRecognizer == nil {
       swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(PopTip.handleSwipeOutside(_:)))
@@ -719,7 +718,7 @@ open class PopTip: UIView {
     dismissTimer?.invalidate()
     dismissTimer = nil
 
-    if let gestureRecognizer = tapRemoveGestureRecognizer {
+    if let gestureRecognizer = tapToRemoveGestureRecognizer {
       containerView?.removeGestureRecognizer(gestureRecognizer)
     }
     if let gestureRecognizer = swipeGestureRecognizer {
@@ -793,7 +792,7 @@ open class PopTip: UIView {
     performEntranceAnimation {
       self.customView?.layoutIfNeeded()
 
-      if let tapRemoveGesture = self.tapRemoveGestureRecognizer {
+      if let tapRemoveGesture = self.tapToRemoveGestureRecognizer {
         self.containerView?.addGestureRecognizer(tapRemoveGesture)
       }
       if let swipeGesture = self.swipeGestureRecognizer {
@@ -819,6 +818,10 @@ open class PopTip: UIView {
   }
 
   @objc fileprivate func handleTapOutside(_ gesture: UITapGestureRecognizer) {
+    if !isVisible {
+      return
+    }
+
     if shouldDismissOnTapOutside {
       hide()
     }

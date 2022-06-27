@@ -128,6 +128,13 @@ popTip.swipeOutsideHandler = { _ in
 }
 ```
 
+# Forwarding tap gesture on dismiss
+
+By default the "tap to dismiss" gesture recognizer cancels the taps in the view, you can enable this behaviour manually if needed:
+```swift
+popTip.tapToRemoveGestureRecognizer?.cancelsTouchesInView = false
+```
+
 # Updating the PopTip
 
 You can update the text, attributed text, or custom view to a PopTip already visible:

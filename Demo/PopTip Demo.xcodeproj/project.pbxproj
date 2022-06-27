@@ -642,8 +642,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-Demo";
@@ -662,8 +663,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-Demo";
@@ -714,6 +716,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-Demo.PopTip-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -729,6 +732,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-Demo.PopTip-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
