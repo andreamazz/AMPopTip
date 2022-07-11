@@ -39,6 +39,7 @@ class ViewController: UIViewController {
     popTip.shouldDismissOnTap = true
     popTip.shouldDismissOnTapOutside = true
     popTip.shouldDismissOnSwipeOutside = true
+    popTip.shouldConsiderCutoutTapSeparately = true
     popTip.edgeMargin = 5
     popTip.offset = 2
     popTip.bubbleOffset = 0
@@ -64,6 +65,10 @@ class ViewController: UIViewController {
     popTip.tapOutsideHandler = { _ in
       print("tap outside")
     }
+    
+    popTip.tapCutoutHandler = { _ in
+      print("tap cutout")
+    }
 
     popTip.swipeOutsideHandler = { _ in
       print("swipe outside")
@@ -78,6 +83,7 @@ class ViewController: UIViewController {
   }
   
   var showSwiftUIView = false
+  var showMaskAndCutout = false
 
   @IBAction func action(sender: UIButton) {
     guard let button = ButtonType(rawValue: sender.tag) else { return }
@@ -85,6 +91,16 @@ class ViewController: UIViewController {
     timer?.invalidate()
     
     popTip.arrowRadius = 0
+    
+    switch button {
+    case .topRight:
+      showMaskAndCutout.toggle()
+      popTip.shouldShowMask = showMaskAndCutout
+      popTip.shouldCutoutMask = showMaskAndCutout
+    default:
+      popTip.shouldShowMask = false
+      popTip.shouldCutoutMask = false
+    }
     
     switch button {
     case .topLeft:

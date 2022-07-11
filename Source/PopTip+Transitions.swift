@@ -22,14 +22,14 @@ public extension PopTip {
     case .fadeIn:
       entranceFadeIn(completion: completion)
     case .custom:
-      if let backgroundMask = backgroundMask {
-        containerView?.addSubview(backgroundMask)
+      if shouldShowMask {
+        addBackgroundMask(to: containerView)
       }
       containerView?.addSubview(self)
       entranceAnimationHandler?(completion)
     case .none:
-      if let backgroundMask = backgroundMask {
-        containerView?.addSubview(backgroundMask)
+      if shouldShowMask {
+        addBackgroundMask(to: containerView)
       }
       containerView?.addSubview(self)
       completion()
@@ -65,8 +65,8 @@ public extension PopTip {
       transform = transform.translatedBy(x: (containerView?.frame.width ?? 0) - from.origin.x, y: 0)
     case .auto, .autoHorizontal, .autoVertical: break // The decision will be made at this point
     }
-    if let backgroundMask = backgroundMask {
-      containerView?.addSubview(backgroundMask)
+    if shouldShowMask {
+      addBackgroundMask(to: containerView)
     }
     containerView?.addSubview(self)
 
@@ -80,8 +80,8 @@ public extension PopTip {
 
   private func entranceScale(completion: @escaping () -> Void) {
     transform = CGAffineTransform(scaleX: 0, y: 0)
-    if let backgroundMask = backgroundMask {
-      containerView?.addSubview(backgroundMask)
+    if shouldShowMask {
+      addBackgroundMask(to: containerView)
     }
     containerView?.addSubview(self)
 
@@ -94,8 +94,8 @@ public extension PopTip {
   }
 
   private func entranceFadeIn(completion: @escaping () -> Void) {
-    if let backgroundMask = backgroundMask {
-      containerView?.addSubview(backgroundMask)
+    if shouldShowMask {
+      addBackgroundMask(to: containerView)
     }
     containerView?.addSubview(self)
 
@@ -128,5 +128,34 @@ public extension PopTip {
     }) { (_) in
       completion()
     }
+  }
+    
+  private func addBackgroundMask(to targetView: UIView?) {
+
+    guard let backgroundMask = backgroundMask, let targetView = targetView else { return }
+      
+    targetView.addSubview(backgroundMask)
+
+    guard shouldCutoutMask else {
+      backgroundMask.backgroundColor = maskColor
+      return
+    }
+
+    let cutoutView = UIView(frame: backgroundMask.bounds)
+    let cutoutShapeMaskLayer = CAShapeLayer()
+    let cutoutPath = cutoutPathGenerator(from)
+    let path = UIBezierPath(rect: backgroundMask.bounds)
+
+    path.append(cutoutPath)
+
+    cutoutShapeMaskLayer.path = path.cgPath
+    cutoutShapeMaskLayer.fillRule = .evenOdd
+
+    cutoutView.layer.mask = cutoutShapeMaskLayer
+    cutoutView.clipsToBounds = true
+    cutoutView.backgroundColor = maskColor
+    cutoutView.isUserInteractionEnabled = false
+
+    backgroundMask.addSubview(cutoutView)
   }
 }
