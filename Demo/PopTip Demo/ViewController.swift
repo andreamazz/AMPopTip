@@ -102,6 +102,23 @@ class ViewController: UIViewController {
       popTip.shouldCutoutMask = false
     }
     
+    popTip.bubbleLayerGenerator = { path in
+      guard button == .bottomLeft else { return nil } // Only use bubbleLayer when button is bottomLeft
+      
+      let gradient = CAGradientLayer()
+      gradient.frame = path.bounds
+      gradient.colors = [UIColor.black.withAlphaComponent(0.4).cgColor, UIColor.black.withAlphaComponent(0.3)]
+      gradient.locations = [0, 1]
+      gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+      gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+        
+      let shapeMask = CAShapeLayer()
+      shapeMask.path = path.cgPath
+      gradient.mask = shapeMask
+      
+      return gradient
+    }
+    
     switch button {
     case .topLeft:
       popTip.bubbleColor = UIColor(red: 0.95, green: 0.65, blue: 0.21, alpha: 1)
@@ -154,6 +171,7 @@ class ViewController: UIViewController {
       let underline: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
       let attributedText = NSMutableAttributedString(string: "I'm presenting a string ", attributes: attributes)
       attributedText.append(NSAttributedString(string: "with attributes!", attributes: underline))
+      attributedText.append(NSAttributedString(string: " And custom background!", attributes: attributes))
       popTip.show(attributedText: attributedText, direction: .up, maxWidth: 200, in: view, from: sender.frame)
       
     case .bottomRight:

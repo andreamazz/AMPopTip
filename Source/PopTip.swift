@@ -116,9 +116,11 @@ open class PopTip: UIView {
   @objc open dynamic var textColor = UIColor.white
   /// The `NSTextAlignment` of the text
   @objc open dynamic var textAlignment = NSTextAlignment.center
-  /// The `UIColor` for the poptip's background
+  /// The `UIColor` for the poptip's background. If `bubbleLayer` is specificed, this will be ignored
   @objc open dynamic var bubbleColor = UIColor.red
-  /// The `UIColor` for the poptip's bordedr
+  /// The `CALayer` generator closure for poptip's sublayer 0. If nil, the bubbleColor will be used as solid fill
+  @objc open dynamic var bubbleLayerGenerator: ((_ path: UIBezierPath) -> CALayer?)?
+  /// The `UIColor` for the poptip's border
   @objc open dynamic var borderColor = UIColor.clear
   /// The width for the poptip's border
   @objc open dynamic var borderWidth = CGFloat(0.0)
@@ -259,6 +261,11 @@ open class PopTip: UIView {
   fileprivate var customView: UIView?
   fileprivate var hostingController: UIViewController?
   fileprivate var isApplicationInBackground: Bool?
+  fileprivate var bubbleLayer: CALayer? {
+    willSet {
+      bubbleLayer?.removeFromSuperlayer()
+    }
+  }
   fileprivate var label: UILabel = {
     let label = UILabel()
     label.numberOfLines = 0
@@ -553,8 +560,14 @@ open class PopTip: UIView {
     layer.shadowOffset = shadowOffset
     layer.shadowColor = shadowColor.cgColor
 
-    bubbleColor.setFill()
-    path.fill()
+    if let bubbleLayerGenerator = self.bubbleLayerGenerator, let bubbleLayer = bubbleLayerGenerator(path) {
+      self.bubbleLayer = bubbleLayer
+      layer.insertSublayer(bubbleLayer, at: 0)
+    } else {
+      bubbleLayer = nil
+      bubbleColor.setFill()
+      path.fill()
+    }
 
     borderColor.setStroke()
     path.lineWidth = borderWidth
@@ -741,6 +754,7 @@ open class PopTip: UIView {
       self.hostingController?.removeFromParent()
       self.customView = nil
       self.dismissActionAnimation()
+      self.bubbleLayer = nil
       self.backgroundMask?.removeFromSuperview()
       self.backgroundMask?.subviews.forEach { $0.removeFromSuperview() }
       self.removeFromSuperview()
