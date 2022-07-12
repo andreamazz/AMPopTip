@@ -107,7 +107,7 @@ class ViewController: UIViewController {
       
       let gradient = CAGradientLayer()
       gradient.frame = path.bounds
-      gradient.colors = [UIColor.black.withAlphaComponent(0.4).cgColor, UIColor.black.withAlphaComponent(0.3)]
+      gradient.colors = [UIColor.black.withAlphaComponent(0.6).cgColor, UIColor.black.withAlphaComponent(0.2).cgColor]
       gradient.locations = [0, 1]
       gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
       gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
