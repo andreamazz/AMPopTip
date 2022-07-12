@@ -94,15 +94,42 @@ Or you can specify the duration of the popover:
 popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: view, from: someView.frame, duration: 3)
 ```
 
-You can also let the user dismiss the popover by tapping on it:
+You can also let the user dismiss the popover by tapping on it (default `true`):
 ```swift
 popTip.shouldDismissOnTap = true
+```
+
+You can also let the user tap outside the popover dismiss the PopTip (default `true`):
+```swift
+popTip.shouldDismissOnTapOutside = true
+```
+
+You can also consider the origin frame as part of the popTip, i.e. treat the origin frame the same as tapping the popover (default `false`):
+```swift
+popTip.shouldConsiderOriginatingFrameAsPopTip = true
+```
+
+You can also consider the cutout as a separate tap area that will call a different callback (default `false`):
+```swift
+popTip.shouldConsiderCutoutTapSeparately = true
+```
+
+You can also allow the user to dismiss via swiping outside the PopTip (default `false`) (direction is controlled via `popTip.swipeRemoveGestureDirection` with `UISwipeGestureRecognizer.Direction`):
+```swift
+popTip.shouldDismissOnSwipeOutside = false
 ```
 
 You can add a block that will be fired when the user taps the PopTip...
 ```swift
 popTip.tapHandler = { popTip in
   print("\(popTip) tapped")
+}
+```
+
+... when the cutout is tapped...
+```swift
+popTip.tapCutoutHandler = { popTip in
+  print("\(popTip) cutout tapped")
 }
 ```
 
@@ -229,10 +256,11 @@ Use the appearance proxy to customize the popover before creating the instance, 
 textColor = <#UIColor#>;
 textAlignment = <#NSTextAlignment#>
 bubbleColor = <#UIColor#>
+bubbleLayerGenerator = <#(PopTip)->Void#>
 borderColor = <#UIColor#>
 borderWidth = <#CGFloat#>
 cornerRadius = <#CGFloat#> // Popover's border radius
-rounded = <#Bool#> // If set to YES the radius will equal frame.height / 2
+isRounded = <#Bool#> // If set to YES the radius will equal frame.height / 2
 offset = <#CGFloat#> // Offset between the popover and the origin
 font = <#UIFont#>
 padding = <#CGFloat#>
@@ -243,6 +271,7 @@ animationOut = <#TimeInterval#>
 delayIn = <#TimeInterval#>
 delayOut = <#TimeInterval#>
 entranceAnimation = <#PopTipEntranceAnimation#>
+exitAnimation = <#PopTipExitAnimation#>
 actionAnimation = <#PopTipActionAnimation#>
 actionAnimationIn = <#TimeInterval#>
 actionAnimationOut = <#TimeInterval#>
@@ -256,6 +285,61 @@ shadowOpacity = <#Float#>
 shadowRadius = <#Float#>
 shadowOffset = <#CGSize#>
 shadowColor = <#UIColor#>
+maskColor = <#UIColor#>
+shouldShowMask = <#Bool#>
+shouldCutoutMask = <#Bool#>
+cutoutPathGenerator = <#(CGRect)->UIBezierPath#>
+constrainInContainerView = <#Bool#>
+```
+
+## Background mask
+A background mask can be applied to dim the background when the PopTip is active, this can be enabeld by setting the public property to `true`:
+```swift
+popTip.shouldShowMask = true
+```
+
+The color is set by the `maskColor` property (default is `UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)`):
+```swift
+popTip.maskColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.6)
+```
+
+### Adding a cutout
+A cutout can be applied to the background mask to allow the `from` view to be visible through the dimmed background. `shouldShowMask` must be `true` as well as `shouldCutoutMask` for this to work. The cutout path is supplied via a closure with a signature of `(_ from: CGRect) -> UIBezierPath` stored against public property `cutoutPathGenerator`. The closure will provide an argument which is the `CGRect` frame supplied to `popTip.show(...)`.
+
+The default generator add an `8` rounded rectangle around the `from` frame area which has `8` padding in the `x` and `y` directions, it is as follows but can be changed to whatever is desired:
+```swift
+popTip.cutoutPathGenerator = { from in
+  UIBezierPath(roundedRect: from.insetBy(dx: -8, dy: -8), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8))
+}
+```
+
+A seperate callback closure can be called on tapping the area defined by the `cutoutPathGenerator` provided both `shouldShowMask` and `shouldCutoutMask` are `true`, the closure is as follows:
+```swift
+popTip.tapCutoutHandler = { popTip in
+  print("\(popTip) cutout tapped")
+}
+```
+
+## Custom bubble background
+A custom `CALayer` can be used as the background for the PopTip bubble, this is supplied via a closure with a signauture of `((_ path: UIBezierPath) -> CALayer?)?` stored against public property `bubbleLayerGenerator`. The closure will provide an argument which is the `UIBezierPath` that represents the draw path for the PopTip bubble and arrow.
+
+If `bubbleLayerGenerator` is `nil`, then the `bubbleColor` will be used instead for a solid background fill. If `bubbleLayerGenerator` is not `nil`, then it will be used, providing it provides a valid `CALayer`, otherwise `bubbleColor` will be used as a solid color fallback. Example below:
+```swift
+popTip.bubbleLayerGenerator = { path in
+  
+  let gradient = CAGradientLayer()
+  gradient.frame = path.bounds
+  gradient.colors = [UIColor.black.withAlphaComponent(0.4).cgColor, UIColor.black.withAlphaComponent(0.3)]
+  gradient.locations = [0, 1]
+  gradient.startPoint = CGPoint(x: 0.5, y: 0.0)
+  gradient.endPoint = CGPoint(x: 0.5, y: 1.0)
+    
+  let shapeMask = CAShapeLayer()
+  shapeMask.path = path.cgPath
+  gradient.mask = shapeMask
+  
+  return gradient
+}
 ```
 
 # Author
