@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `4.9.0` Releases - [4.9.0](#490) 
 - `4.8.0` Releases - [4.8.0](#480) 
 - `4.7.0` Releases - [4.7.0](#470) 
 - `4.6.0` Releases - [4.6.0](#460) | [4.6.1](#461) 
@@ -31,6 +32,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [4.9.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.9.0)  
+
+- Add cutout and gradient background [#239](https://github.com/andreamazz/AMPopTip/pull/239)  
 
 ## [4.8.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.8.0)
 
