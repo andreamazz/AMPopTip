@@ -13,7 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Select Xcode 11
-      run: sudo xcode-select -switch /Applications/Xcode_13.3.app
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
     - name: Run tests
       run: xcodebuild -workspace 'Demo/PopTip Demo.xcworkspace' -scheme 'PopTip Demo' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.6' test
