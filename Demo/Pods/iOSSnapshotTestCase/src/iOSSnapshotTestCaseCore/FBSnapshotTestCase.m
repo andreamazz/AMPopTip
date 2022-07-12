@@ -7,8 +7,8 @@
  *
  */
 
-#import <FBSnapshotTestCase/FBSnapshotTestCase.h>
-#import <FBSnapshotTestCase/FBSnapshotTestController.h>
+#import "Public/FBSnapshotTestCase.h"
+#import "Public/FBSnapshotTestController.h"
 
 @implementation FBSnapshotTestCase {
     FBSnapshotTestController *_snapshotController;
@@ -37,6 +37,16 @@
 {
     NSAssert1(_snapshotController, @"%s cannot be called before [super setUp]", __FUNCTION__);
     _snapshotController.recordMode = recordMode;
+}
+
+- (NSString *)bundleResourcePath
+{
+    return _snapshotController.bundleResourcePath;
+}
+
+- (void)setBundleResourcePath:(NSString *)bundleResourcePath
+{
+    _snapshotController.bundleResourcePath = bundleResourcePath;
 }
 
 - (FBSnapshotTestCaseFileNameIncludeOption)fileNameOptions
@@ -242,7 +252,13 @@
     if (dir && dir.length > 0) {
         return dir;
     }
-    return [[NSBundle bundleForClass:self.class].resourcePath stringByAppendingPathComponent:@"ReferenceImages"];
+    NSString* _Nonnull bundleResourcePath;
+    if (_snapshotController.bundleResourcePath == nil) {
+        bundleResourcePath = [NSBundle bundleForClass:self.class].resourcePath;
+    } else {
+        bundleResourcePath = _snapshotController.bundleResourcePath;
+    }
+    return [bundleResourcePath stringByAppendingPathComponent:@"ReferenceImages"];
 }
 
 - (NSString *)getImageDiffDirectoryWithDefault:(NSString *)dir

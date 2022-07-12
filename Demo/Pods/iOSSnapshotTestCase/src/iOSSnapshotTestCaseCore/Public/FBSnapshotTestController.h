@@ -7,10 +7,8 @@
  *
  */
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-#import <FBSnapshotTestCase/FBSnapshotTestCasePlatform.h>
+#import "FBSnapshotTestCasePlatform.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,6 +56,11 @@ extern NSString *const FBDiffedImageKey;
  Record snapshots.
  */
 @property (readwrite, nonatomic, assign) BOOL recordMode;
+
+/**
+ The bundleResourcePath can be manually set to the root folder where reference images are stored.
+ */
+@property (readwrite, nonatomic, copy, nullable) NSString *bundleResourcePath;
 
 /**
  When set, allows fine-grained control over what you want the file names to include.

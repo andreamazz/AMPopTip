@@ -28,7 +28,11 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#if SWIFT_PACKAGE
+#import "UIImage+Diff.h"
+#else
 #import <FBSnapshotTestCase/UIImage+Diff.h>
+#endif
 
 @implementation UIImage (Diff)
 

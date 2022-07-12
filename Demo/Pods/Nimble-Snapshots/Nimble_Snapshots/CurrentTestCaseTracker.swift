@@ -3,7 +3,8 @@ import XCTest
 /// Helper class providing access to the currently executing XCTestCase instance, if any
 @objc
 public final class CurrentTestCaseTracker: NSObject, XCTestObservation {
-    @objc public static let shared = CurrentTestCaseTracker()
+    @objc(sharedInstance)
+    public static let shared = CurrentTestCaseTracker()
 
     private(set) var currentTestCase: XCTestCase?
 
@@ -28,7 +29,12 @@ extension XCTestCase {
             let name = (fullName ?? "").components(separatedBy: characterSet).joined()
         #endif
 
-        if let quickClass = NSClassFromString("QuickSpec"), self.isKind(of: quickClass) {
+        #if SWIFT_PACKAGE
+            let className: AnyClass? = NSClassFromString("Quick.QuickSpec")
+        #else
+            let className: AnyClass? = NSClassFromString("QuickSpec")
+        #endif
+        if let quickClass = className, self.isKind(of: quickClass) {
             let className = String(describing: type(of: self))
             if let range = name.range(of: className), range.lowerBound == name.startIndex {
                 return name.replacingCharacters(in: range, with: "")

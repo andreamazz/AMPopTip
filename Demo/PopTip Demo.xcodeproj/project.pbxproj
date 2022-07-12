@@ -683,6 +683,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -700,6 +701,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H72GR44F4M;
 				INFOPLIST_FILE = "PopTip DemoTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.whoisandrea.PopTip-DemoTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -39,7 +39,8 @@
     FooSpec/testBar
  */
 + (nullable instancetype)qck_hooked_testSuiteForTestCaseWithName:(nonnull NSString *)name {
-    return [QuickTestSuite selectedTestSuiteForTestCaseWithName:name];
+    NSArray<NSString *> *components = [name componentsSeparatedByString:@"/"];
+    return [QuickTestSuite selectedTestSuiteForTestCaseWithName:[components firstObject] testName:[components count] > 1 ? [components lastObject] : nil];
 }
 
 @end

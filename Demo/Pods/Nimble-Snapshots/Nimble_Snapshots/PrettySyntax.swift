@@ -4,51 +4,46 @@ import Nimble
 
 public struct Snapshot {
     let name: String?
+    let identifier: String?
     let record: Bool
     let usesDrawRect: Bool
 
-    init(name: String?, record: Bool, usesDrawRect: Bool) {
+    init(name: String?, identifier: String?, record: Bool, usesDrawRect: Bool) {
         self.name = name
+        self.identifier = identifier
         self.record = record
         self.usesDrawRect = usesDrawRect
     }
 }
 
 public func snapshot(_ name: String? = nil,
+                     identifier: String? = nil,
                      usesDrawRect: Bool = false) -> Snapshot {
-    return Snapshot(name: name, record: false, usesDrawRect: usesDrawRect)
+    return Snapshot(name: name, identifier: identifier, record: false, usesDrawRect: usesDrawRect)
 }
 
 public func recordSnapshot(_ name: String? = nil,
+                           identifier: String? = nil,
                            usesDrawRect: Bool = false) -> Snapshot {
-    return Snapshot(name: name, record: true, usesDrawRect: usesDrawRect)
+    return Snapshot(name: name, identifier: identifier, record: true, usesDrawRect: usesDrawRect)
 }
 
 public func == (lhs: Expectation<Snapshotable>, rhs: Snapshot) {
-    if let name = rhs.name {
-        if rhs.record {
-            lhs.to(recordSnapshot(named: name, usesDrawRect: rhs.usesDrawRect))
-        } else {
-            lhs.to(haveValidSnapshot(named: name, usesDrawRect: rhs.usesDrawRect))
-        }
-
+    if rhs.record {
+        lhs.to(recordSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
     } else {
-        if rhs.record {
-            lhs.to(recordSnapshot(usesDrawRect: rhs.usesDrawRect))
-        } else {
-            lhs.to(haveValidSnapshot(usesDrawRect: rhs.usesDrawRect))
-        }
+        lhs.to(haveValidSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
     }
 }
 
 // MARK: - Nicer syntax using emoji
 
 // swiftlint:disable:next identifier_name
-public func 📷(_ snapshottable: Snapshotable, file: FileString = #file, line: UInt = #line) {
-    expect(snapshottable, file: file, line: line).to(recordSnapshot())
+public func 📷(_ file: FileString = #file, line: UInt = #line, snapshottable: Snapshotable) {
+  expect(file: file, line: line, snapshottable).to(recordSnapshot())
 }
 
 // swiftlint:disable:next identifier_name
-public func 📷(_ snapshottable: Snapshotable, named name: String, file: FileString = #file, line: UInt = #line) {
-    expect(snapshottable, file: file, line: line).to(recordSnapshot(named: name))
+public func 📷(_ name: String, file: FileString = #file, line: UInt = #line, snapshottable: Snapshotable) {
+  expect(file: file, line: line, snapshottable).to(recordSnapshot(named: name))
 }

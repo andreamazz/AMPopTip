@@ -1,71 +1,75 @@
-import Foundation
-
-public func allPass<T, U>
-    (_ passFunc: @escaping (T?) throws -> Bool) -> Predicate<U>
-    where U: Sequence, T == U.Iterator.Element {
-        let matcher = Predicate.simpleNilable("pass a condition") { actualExpression in
-            return PredicateStatus(bool: try passFunc(try actualExpression.evaluate()))
+public func allPass<S: Sequence>(
+    _ passFunc: @escaping (S.Element) throws -> Bool
+) -> Predicate<S> {
+    let matcher = Predicate<S.Element>.define("pass a condition") { actualExpression, message in
+        guard let actual = try actualExpression.evaluate() else {
+            return PredicateResult(status: .fail, message: message)
         }
-        return createPredicate(matcher)
+        return PredicateResult(bool: try passFunc(actual), message: message)
+    }
+    return createPredicate(matcher)
 }
 
-public func allPass<T, U>
-    (_ passName: String, _ passFunc: @escaping (T?) throws -> Bool) -> Predicate<U>
-    where U: Sequence, T == U.Iterator.Element {
-        let matcher = Predicate.simpleNilable(passName) { actualExpression in
-            return PredicateStatus(bool: try passFunc(try actualExpression.evaluate()))
+public func allPass<S: Sequence>(
+    _ passName: String,
+    _ passFunc: @escaping (S.Element) throws -> Bool
+) -> Predicate<S> {
+    let matcher = Predicate<S.Element>.define(passName) { actualExpression, message in
+        guard let actual = try actualExpression.evaluate() else {
+            return PredicateResult(status: .fail, message: message)
         }
-        return createPredicate(matcher)
+        return PredicateResult(bool: try passFunc(actual), message: message)
+    }
+    return createPredicate(matcher)
 }
 
-public func allPass<S, M>(_ elementMatcher: M) -> Predicate<S>
-    where S: Sequence, M: Matcher, S.Iterator.Element == M.ValueType {
-        return createPredicate(elementMatcher.predicate)
+public func allPass<S: Sequence>(_ elementPredicate: Predicate<S.Element>) -> Predicate<S> {
+    return createPredicate(elementPredicate)
 }
 
-public func allPass<S>(_ elementPredicate: Predicate<S.Iterator.Element>) -> Predicate<S>
-    where S: Sequence {
-        return createPredicate(elementPredicate)
-}
+private func createPredicate<S: Sequence>(_ elementMatcher: Predicate<S.Element>) -> Predicate<S> {
+    return Predicate { actualExpression in
+        guard let actualValue = try actualExpression.evaluate() else {
+            return PredicateResult(
+                status: .fail,
+                message: .appends(.expectedTo("all pass"), " (use beNil() to match nils)")
+            )
+        }
 
-private func createPredicate<S>(_ elementMatcher: Predicate<S.Iterator.Element>) -> Predicate<S>
-    where S: Sequence {
-        return Predicate { actualExpression in
-            guard let actualValue = try actualExpression.evaluate() else {
-                return PredicateResult(
-                    status: .fail,
-                    message: .appends(.expectedTo("all pass"), " (use beNil() to match nils)")
+        var failure: ExpectationMessage = .expectedTo("all pass")
+        for currentElement in actualValue {
+            let exp = Expression(
+                expression: { currentElement },
+                location: actualExpression.location
+            )
+            let predicateResult = try elementMatcher.satisfies(exp)
+            if predicateResult.status == .matches {
+                failure = predicateResult.message.prepended(expectation: "all ")
+            } else {
+                failure = predicateResult.message
+                    .replacedExpectation({ .expectedTo($0.expectedMessage) })
+                    .wrappedExpectation(
+                        before: "all ",
+                        after: ", but failed first at element <\(stringify(currentElement))>"
+                            + " in <\(stringify(actualValue))>"
                 )
+                return PredicateResult(status: .doesNotMatch, message: failure)
             }
-
-            var failure: ExpectationMessage = .expectedTo("all pass")
-            for currentElement in actualValue {
-                let exp = Expression(
-                    expression: {currentElement}, location: actualExpression.location)
-                let predicateResult = try elementMatcher.satisfies(exp)
-                if predicateResult.status == .matches {
-                    failure = predicateResult.message.prepended(expectation: "all ")
-                } else {
-                    failure = predicateResult.message
-                        .replacedExpectation({ .expectedTo($0.expectedMessage) })
-                        .wrappedExpectation(
-                            before: "all ",
-                            after: ", but failed first at element <\(stringify(currentElement))>"
-                                + " in <\(stringify(actualValue))>"
-                    )
-                    return PredicateResult(status: .doesNotMatch, message: failure)
-                }
-            }
-            failure = failure.replacedExpectation({ expectation in
-                return .expectedTo(expectation.expectedMessage)
-            })
-            return PredicateResult(status: .matches, message: failure)
         }
+        failure = failure.replacedExpectation({ expectation in
+            return .expectedTo(expectation.expectedMessage)
+        })
+        return PredicateResult(status: .matches, message: failure)
+    }
 }
 
 #if canImport(Darwin)
-extension NMBObjCMatcher {
-    @objc public class func allPassMatcher(_ matcher: NMBMatcher) -> NMBPredicate {
+import class Foundation.NSObject
+import struct Foundation.NSFastEnumerationIterator
+import protocol Foundation.NSFastEnumeration
+
+extension NMBPredicate {
+    @objc public class func allPassMatcher(_ predicate: NMBPredicate) -> NMBPredicate {
         return NMBPredicate { actualExpression in
             let location = actualExpression.location
             let actualValue = try actualExpression.evaluate()
@@ -98,22 +102,7 @@ extension NMBObjCMatcher {
 
             let expr = Expression(expression: ({ nsObjects }), location: location)
             let pred: Predicate<[NSObject]> = createPredicate(Predicate { expr in
-                if let predicate = matcher as? NMBPredicate {
-                    return predicate.satisfies(({ try expr.evaluate() }), location: expr.location).toSwift()
-                } else {
-                    let failureMessage = FailureMessage()
-                    let result = matcher.matches(
-                        // swiftlint:disable:next force_try
-                        ({ try! expr.evaluate() }),
-                        failureMessage: failureMessage,
-                        location: expr.location
-                    )
-                    let expectationMsg = failureMessage.toExpectationMessage()
-                    return PredicateResult(
-                        bool: result,
-                        message: expectationMsg
-                    )
-                }
+                return predicate.satisfies(({ try expr.evaluate() }), location: expr.location).toSwift()
             })
             return try pred.satisfies(expr).toObjectiveC()
         }

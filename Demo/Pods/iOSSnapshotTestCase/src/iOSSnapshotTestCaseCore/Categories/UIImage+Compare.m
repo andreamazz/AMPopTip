@@ -28,7 +28,11 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#if SWIFT_PACKAGE
+#import "UIImage+Compare.h"
+#else
 #import <FBSnapshotTestCase/UIImage+Compare.h>
+#endif
 
 // This makes debugging much more fun
 typedef union {

@@ -1,8 +1,9 @@
 # iOSSnapshotTestCase (previously [FBSnapshotTestCase](https://github.com/facebookarchive/ios-snapshot-test-case))
 
-[![Build Status](https://travis-ci.org/uber/ios-snapshot-test-case.svg)](https://travis-ci.org/uber/ios-snapshot-test-case)
+[![Build Status](https://github.com/uber/ios-snapshot-test-case/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/uber/ios-snapshot-test-case/actions)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/iOSSnapshotTestCase.svg)](https://img.shields.io/cocoapods/v/iOSSnapshotTestCase.svg)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
 
 ## What it does
 
@@ -50,6 +51,18 @@ Add the following line to your Cartfile:
 ```carthage
 github "uber/ios-snapshot-test-case" ~> 6.1.0
 ```
+
+#### Swift Package Manager
+
+Add the following line to your `Package.swift`:
+
+```spm
+dependencies: [
+  .package(url: "https://github.com/uber/ios-snapshot-test-case.git", from: "7.0.0"),
+],
+```
+
+...or integrate with Xcode via `File -> Swift Packages -> Add Package Dependency...` using the URL of the repository. We recommend using "Up to Next Major" with the Version field, as we use Semantic Versioning and only put breaking changes in major versions.
 
 ### Step 2: Setup Test Scheme
 Replace "Tests" with the name of your test project.

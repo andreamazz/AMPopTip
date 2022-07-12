@@ -16,20 +16,17 @@ func shortCategoryName(_ category: UIContentSizeCategory) -> String {
 }
 
 func combinePredicates<T>(_ predicates: [Predicate<T>],
-                          ignoreFailures: Bool = false,
                           deferred: (() -> Void)? = nil) -> Predicate<T> {
-    return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
+    return Predicate { actualExpression in
         defer {
             deferred?()
         }
 
-        return try predicates.reduce(true) { acc, matcher -> Bool in
-            guard acc || ignoreFailures else {
-                return false
-            }
-
-            let result = try matcher.matches(actualExpression, failureMessage: failureMessage)
-            return result && acc
+        let result = PredicateResult(status: .fail, message: .fail(""))
+        return try predicates.reduce(result) { _, matcher -> PredicateResult in
+            let result = try matcher.satisfies(actualExpression)
+            return PredicateResult(status: PredicateStatus(bool: result.status == .matches),
+                                   message: result.message)
         }
     }
 }
@@ -37,6 +34,7 @@ func combinePredicates<T>(_ predicates: [Predicate<T>],
 public func haveValidDynamicTypeSnapshot(named name: String? = nil,
                                          identifier: String? = nil,
                                          usesDrawRect: Bool = false,
+                                         pixelTolerance: CGFloat? = nil,
                                          tolerance: CGFloat? = nil,
                                          sizes: [UIContentSizeCategory] = allContentSizeCategories(),
                                          isDeviceAgnostic: Bool = false) -> Predicate<Snapshotable> {
@@ -46,22 +44,24 @@ public func haveValidDynamicTypeSnapshot(named name: String? = nil,
         let sanitizedName = sanitizedTestName(name)
         let nameWithCategory = "\(sanitizedName)_\(shortCategoryName(category))"
 
-        return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
+        return Predicate { actualExpression in
             mock.mockPreferredContentSizeCategory(category)
             updateTraitCollection(on: actualExpression)
 
             let predicate: Predicate<Snapshotable>
             if isDeviceAgnostic {
                 predicate = haveValidDeviceAgnosticSnapshot(named: nameWithCategory, identifier: identifier,
-                                                            usesDrawRect: usesDrawRect, tolerance: tolerance)
+                                                            usesDrawRect: usesDrawRect, pixelTolerance: pixelTolerance,
+                                                            tolerance: tolerance)
             } else {
                 predicate = haveValidSnapshot(named: nameWithCategory,
                                               identifier: identifier,
                                               usesDrawRect: usesDrawRect,
+                                              pixelTolerance: pixelTolerance,
                                               tolerance: tolerance)
             }
 
-            return try predicate.matches(actualExpression, failureMessage: failureMessage)
+            return try predicate.satisfies(actualExpression)
         }
     }
 
@@ -81,7 +81,7 @@ public func recordDynamicTypeSnapshot(named name: String? = nil,
         let sanitizedName = sanitizedTestName(name)
         let nameWithCategory = "\(sanitizedName)_\(shortCategoryName(category))"
 
-        return Predicate.fromDeprecatedClosure { actualExpression, failureMessage in
+        return Predicate { actualExpression in
             mock.mockPreferredContentSizeCategory(category)
             updateTraitCollection(on: actualExpression)
 
@@ -94,11 +94,11 @@ public func recordDynamicTypeSnapshot(named name: String? = nil,
                 predicate = recordSnapshot(named: nameWithCategory, identifier: identifier, usesDrawRect: usesDrawRect)
             }
 
-            return try predicate.matches(actualExpression, failureMessage: failureMessage)
+            return try predicate.satisfies(actualExpression)
         }
     }
 
-    return combinePredicates(predicates, ignoreFailures: true) {
+    return combinePredicates(predicates) {
         mock.stopMockingPreferredContentSizeCategory()
     }
 }

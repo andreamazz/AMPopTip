@@ -7,14 +7,12 @@
  *
  */
 
-#import <FBSnapshotTestCase/FBSnapshotTestCasePlatform.h>
-#import <FBSnapshotTestCase/FBSnapshotTestController.h>
-
 #import <QuartzCore/QuartzCore.h>
-
 #import <UIKit/UIKit.h>
-
 #import <XCTest/XCTest.h>
+
+#import "FBSnapshotTestCasePlatform.h"
+#import "FBSnapshotTestController.h"
 
 /*
  There are three ways of setting reference image directories.
@@ -23,7 +21,8 @@
     c-string with the path. This only works for Objective-C tests.
  2. Set an environment variable named FB_REFERENCE_IMAGE_DIR with the path. This
     takes precedence over the preprocessor macro to allow for run-time override.
- 3. Keep everything unset, which will cause the reference images to be looked up
+ 3. Set `FBSnapshotTestCase.bundleResourcePath` as the root folder where reference images are stored.
+ 4. Keep everything unset, which will cause the reference images to be looked up
     inside the bundle holding the current test, in the
     Resources/ReferenceImages_* directories.
  */
@@ -112,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  The base class of view snapshotting tests. If you have small UI component, it's often easier to configure it in a test
- and compare an image of the view to a reference image that write lots of complex layout-code tests.
+ and compare an image of the view to a reference image than write lots of complex layout-code tests.
 
  In order to flip the tests in your subclass to record the reference images set @c recordMode to @c YES.
 
@@ -135,6 +134,13 @@ NS_ASSUME_NONNULL_BEGIN
  When YES, the test macros will save reference images, rather than performing an actual test.
  */
 @property (readwrite, nonatomic, assign) BOOL recordMode;
+
+
+/**
+ The bundleResourcePath can be manually set to the root folder where reference images are stored.
+ If the bundle is not set via FB_REFERENCE_IMAGE_DIR (Steps 1, 2 stated above) then it checks if bundleResourcePath is set. This is useful for testing with SPM
+ */
+@property (readwrite, nonatomic, copy, nullable) NSString *bundleResourcePath;
 
 /**
  When set, allows fine-grained control over what you want the file names to include.

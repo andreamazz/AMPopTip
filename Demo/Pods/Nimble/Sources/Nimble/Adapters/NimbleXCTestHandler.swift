@@ -45,7 +45,7 @@ class NimbleXCTestUnavailableHandler: AssertionHandler {
     private var stashed_swift_reportFatalErrorsToDebugger: Bool = false
 
     @objc func testCaseWillStart(_ testCase: XCTestCase) {
-        #if swift(>=3.2) && !os(tvOS)
+        #if os(macOS) || os(iOS)
         stashed_swift_reportFatalErrorsToDebugger = _swift_reportFatalErrorsToDebugger
         _swift_reportFatalErrorsToDebugger = false
         #endif
@@ -56,7 +56,7 @@ class NimbleXCTestUnavailableHandler: AssertionHandler {
     @objc func testCaseDidFinish(_ testCase: XCTestCase) {
         currentTestCase = nil
 
-        #if swift(>=3.2) && !os(tvOS)
+        #if os(macOS) || os(iOS)
         _swift_reportFatalErrorsToDebugger = stashed_swift_reportFatalErrorsToDebugger
         #endif
     }
@@ -78,7 +78,10 @@ public func recordFailure(_ message: String, location: SourceLocation) {
 #else
     if let testCase = CurrentTestCaseTracker.sharedInstance.currentTestCase {
         let line = Int(location.line)
-        testCase.recordFailure(withDescription: message, inFile: location.file, atLine: line, expected: true)
+        let location = XCTSourceCodeLocation(filePath: location.file, lineNumber: line)
+        let sourceCodeContext = XCTSourceCodeContext(location: location)
+        let issue = XCTIssue(type: .assertionFailure, compactDescription: message, sourceCodeContext: sourceCodeContext)
+        testCase.record(issue)
     } else {
         let msg = """
             Attempted to report a test failure to XCTest while no test case was running. The failure was:

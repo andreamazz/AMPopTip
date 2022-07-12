@@ -1,4 +1,5 @@
 import Nimble
+import UIKit
 
 // MARK: - Nicer syntax using == operator
 
