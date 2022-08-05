@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import AMPopTip
 
 class ViewController: UIViewController {
@@ -82,6 +83,7 @@ class ViewController: UIViewController {
     autolayoutView?.frame.size = CGSize(width: 180, height: 100)
   }
   
+  var swiftUIView = false
   var showSwiftUIView = false
   var showMaskAndCutout = false
 
@@ -140,7 +142,12 @@ class ViewController: UIViewController {
       }
       else if #available(iOS 13.0.0, *) {
         #if canImport(SwiftUI) && canImport(Combine)
-        popTip.show(rootView: SwiftUIView(), direction: .down, in: view, from: sender.frame, parent: self)
+        if swiftUIView {
+          popTip.show(rootView: SwiftUIOneView(), direction: .down, in: view, from: sender.frame, parent: self)
+        } else {
+          popTip.show(rootView: SwiftUITwoView(), direction: .down, in: view, from: sender.frame, parent: self)
+        }
+        self.swiftUIView.toggle()
         #endif
       }
       popTip.entranceAnimationHandler = { [weak self] completion in

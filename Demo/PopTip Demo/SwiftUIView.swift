@@ -10,7 +10,7 @@
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct SwiftUIView: View {
+struct SwiftUIOneView: View {
   
   var items = [Item(string: "First"),
                Item(string: "Second"),
@@ -44,9 +44,37 @@ class Item: Identifiable {
 }
 
 @available(iOS 13.0, *)
-struct SwiftUIView_Previews: PreviewProvider {
+struct SwiftUIOneView_Previews: PreviewProvider {
   static var previews: some View {
-    SwiftUIView()
+    SwiftUIOneView()
+      .previewLayout(.sizeThatFits)
   }
 }
+
+@available(iOS 13.0, *)
+struct SwiftUITwoView: View {
+  
+  var body: some View {
+    HStack(alignment: .top, spacing: 8) {
+      VStack(alignment: .leading, spacing: 4) {
+        Text("This is a title")
+        Text("This is an AMPopTip which utilises a SwiftUI view as its content")
+      }
+      Spacer(minLength: 0)
+      Image(systemName: "bubble.left")
+        .resizable()
+        .scaledToFit()
+        .frame(width: 12, height: 12)
+    }
+  }
+}
+
+@available(iOS 13.0, *)
+struct SwiftUITwoView_Previews: PreviewProvider {
+  static var previews: some View {
+    SwiftUITwoView()
+      .previewLayout(.sizeThatFits)
+  }
+}
+
 #endif
