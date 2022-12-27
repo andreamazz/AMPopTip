@@ -245,6 +245,8 @@ open class PopTip: UIView {
   open private(set) var direction = PopTipDirection.none
   /// Holds the readonly BOOL with the poptip animation state.
   open private(set) var isAnimating: Bool = false
+  /// Holds the readonly BOOL with the state of the poptip exit animation.
+  open private(set) var isPerformingExitAnimation: Bool = false
   /// The view that dims the background (including the button that triggered PopTip.
   /// The mask by appears with fade in effect only.
   open private(set) var backgroundMask: UIView?
@@ -763,12 +765,14 @@ open class PopTip: UIView {
       self.layer.removeAllAnimations()
       self.transform = .identity
       self.isAnimating = false
+      self.isPerformingExitAnimation = false
       self.dismissHandler?(self)
     }
 
     if isApplicationInBackground ?? false {
       completion()
     } else {
+      isPerformingExitAnimation = true
       performExitAnimation(completion: completion)
     }
   }
@@ -817,6 +821,10 @@ open class PopTip: UIView {
 
     setNeedsLayout()
     performEntranceAnimation {
+      guard !self.isPerformingExitAnimation && self.isVisible else {
+        return
+      }
+        
       self.customView?.layoutIfNeeded()
 
       if let tapRemoveGesture = self.tapToRemoveGestureRecognizer {
