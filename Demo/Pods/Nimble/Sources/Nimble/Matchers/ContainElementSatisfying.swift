@@ -10,10 +10,31 @@ public func containElementSatisfying<S: Sequence>(
         }
 
         if let sequence = try actualExpression.evaluate() {
-            for object in sequence {
-                if predicate(object) {
-                    return PredicateResult(bool: true, message: message)
-                }
+            for object in sequence where predicate(object) {
+                return PredicateResult(bool: true, message: message)
+            }
+
+            return PredicateResult(bool: false, message: message)
+        }
+
+        return PredicateResult(status: .fail, message: message)
+    }
+}
+
+public func containElementSatisfying<S: Sequence>(
+    _ predicate: @escaping ((S.Element) async -> Bool), _ predicateDescription: String = ""
+) -> AsyncPredicate<S> {
+    return AsyncPredicate.define { actualExpression in
+        let message: ExpectationMessage
+        if predicateDescription == "" {
+            message = .expectedTo("find object in collection that satisfies predicate")
+        } else {
+            message = .expectedTo("find object in collection \(predicateDescription)")
+        }
+
+        if let sequence = try await actualExpression.evaluate() {
+            for object in sequence where await predicate(object) {
+                return PredicateResult(bool: true, message: message)
             }
 
             return PredicateResult(bool: false, message: message)

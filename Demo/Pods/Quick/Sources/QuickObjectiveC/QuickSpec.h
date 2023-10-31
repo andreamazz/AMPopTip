@@ -34,7 +34,7 @@
  and examples.
 
  @code
- override func spec() {
+ override class func spec() {
      describe("winter") {
          it("is coming") {
              // ...
@@ -45,11 +45,13 @@
 
  See DSL.swift for more information on what syntax is available.
  */
-- (void)spec;
++ (void)spec;
 
 /**
  Returns the currently executing spec. Use in specs that require XCTestCase
  methods, e.g. expectationWithDescription.
+
+ If you're using `beforeSuite`/`afterSuite`, you should consider the ``currentSpec()`` helper.
 */
 @property (class, nonatomic, readonly) QuickSpec *current;
 

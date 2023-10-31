@@ -1,9 +1,13 @@
-#import <Nimble/DSL.h>
+#import "DSL.h"
 
+#if SWIFT_PACKAGE
+@import Nimble;
+#else
 #if __has_include("Nimble-Swift.h")
 #import "Nimble-Swift.h"
 #else
 #import <Nimble/Nimble-Swift.h>
+#endif
 #endif
 
 
@@ -68,27 +72,27 @@ NIMBLE_EXPORT NIMBLE_OVERLOADABLE NMBPredicate *NMB_beLessThanOrEqualTo(NSNumber
     return [NMBPredicate beLessThanOrEqualToMatcher:expectedValue];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beTruthy() {
+NIMBLE_EXPORT NMBPredicate *NMB_beTruthy(void) {
     return [NMBPredicate beTruthyMatcher];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beFalsy() {
+NIMBLE_EXPORT NMBPredicate *NMB_beFalsy(void) {
     return [NMBPredicate beFalsyMatcher];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beTrue() {
+NIMBLE_EXPORT NMBPredicate *NMB_beTrue(void) {
     return [NMBPredicate beTrueMatcher];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beFalse() {
+NIMBLE_EXPORT NMBPredicate *NMB_beFalse(void) {
     return [NMBPredicate beFalseMatcher];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beNil() {
+NIMBLE_EXPORT NMBPredicate *NMB_beNil(void) {
     return [NMBPredicate beNilMatcher];
 }
 
-NIMBLE_EXPORT NMBPredicate *NMB_beEmpty() {
+NIMBLE_EXPORT NMBPredicate *NMB_beEmpty(void) {
     return [NMBPredicate beEmptyMatcher];
 }
 
@@ -142,9 +146,11 @@ NIMBLE_EXPORT NMBPredicate *NMB_satisfyAllOfWithMatchers(id matchers) {
     return [NMBPredicate satisfyAllOfMatcher:matchers];
 }
 
-NIMBLE_EXPORT NMBObjCRaiseExceptionPredicate *NMB_raiseException() {
+#if !SWIFT_PACKAGE
+NIMBLE_EXPORT NMBObjCRaiseExceptionPredicate *NMB_raiseException(void) {
     return [NMBPredicate raiseExceptionMatcher];
 }
+#endif
 
 NIMBLE_EXPORT NMBWaitUntilTimeoutBlock NMB_waitUntilTimeoutBuilder(NSString *file, NSUInteger line) {
     return ^(NSTimeInterval timeout, void (^ _Nonnull action)(void (^ _Nonnull)(void))) {

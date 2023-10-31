@@ -3,51 +3,35 @@ import XCTest
 
 #if SWIFT_PACKAGE
 
+/**
+ Subclass QuickConfiguration and override the `configure(_:)` class
+ method in order to configure how Quick behaves when running specs, or to define
+ shared examples that are used across spec files.
+ */
 open class QuickConfiguration: NSObject {
+    /**
+     This method is executed on each subclass of this class before Quick runs
+     any examples. You may override this method on as many subclasses as you like, but
+     there is no guarantee as to the order in which these methods are executed.
+
+     You can override this method in order to:
+
+     1. Configure how Quick behaves, by modifying properties on the Configuration object.
+        Setting the same properties in several methods has undefined behavior.
+
+     2. Define shared examples using `sharedExamples`.
+
+     - Parameter configuration: A mutable object that is used to configure how Quick behaves on
+                          a framework level. For details on all the options, see the
+                          documentation in QCKConfiguration.swift.
+     */
     open class func configure(_ configuration: QCKConfiguration) {}
 }
 
 #endif
 
 extension QuickConfiguration {
-    #if !canImport(Darwin)
     private static var configurationSubclasses: [QuickConfiguration.Type] = []
-    #endif
-
-    /// Finds all direct subclasses of QuickConfiguration and passes them to the block provided.
-    /// The classes are iterated over in the order that objc_getClassList returns them.
-    ///
-    /// - parameter block: A block that takes a QuickConfiguration.Type.
-    ///                    This block will be executed once for each subclass of QuickConfiguration.
-    private static func enumerateSubclasses(_ block: (QuickConfiguration.Type) -> Void) {
-        #if canImport(Darwin)
-        let classesCount = objc_getClassList(nil, 0)
-
-        guard classesCount > 0 else {
-            return
-        }
-
-        let classes = UnsafeMutablePointer<AnyClass?>.allocate(capacity: Int(classesCount))
-        defer { free(classes) }
-
-        let autoreleasingClasses = AutoreleasingUnsafeMutablePointer<AnyClass>(classes)
-        objc_getClassList(autoreleasingClasses, classesCount)
-
-        var configurationSubclasses: [QuickConfiguration.Type] = []
-        for index in 0..<classesCount {
-            guard
-                let subclass = classes[Int(index)],
-                let superclass = class_getSuperclass(subclass),
-                superclass.isSubclass(of: QuickConfiguration.self)
-                else { continue }
-
-            // swiftlint:disable:next force_cast
-            configurationSubclasses.append(subclass as! QuickConfiguration.Type)
-        }
-        #endif
-
-        configurationSubclasses.forEach(block)
-    }
 
     #if canImport(Darwin)
     @objc
@@ -70,7 +54,8 @@ extension QuickConfiguration {
 
         // Perform all configurations (ensures that shared examples have been discovered)
         world.configure { configuration in
-            enumerateSubclasses { configurationClass in
+            (allSubclasses(ofType: QuickConfiguration.self) + configurationSubclasses)
+                .forEach { (configurationClass: QuickConfiguration.Type) in
                 configurationClass.configure(configuration)
             }
         }

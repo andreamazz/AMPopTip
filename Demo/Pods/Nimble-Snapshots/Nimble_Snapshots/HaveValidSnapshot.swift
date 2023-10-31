@@ -202,11 +202,11 @@ func getTolerance() -> CGFloat {
     return FBSnapshotTest.sharedInstance.tolerance
 }
 
-private func performSnapshotTest(_ name: String?,
+private func performSnapshotTest<T: Snapshotable>(_ name: String?,
                                  identifier: String? = nil,
                                  isDeviceAgnostic: Bool = false,
                                  usesDrawRect: Bool = false,
-                                 actualExpression: Expression<Snapshotable>,
+                                 actualExpression: Expression<T>,
                                  pixelTolerance: CGFloat? = nil,
                                  tolerance: CGFloat?,
                                  shouldIgnoreScale: Bool) -> PredicateResult {
@@ -230,11 +230,11 @@ private func performSnapshotTest(_ name: String?,
                            message: .fail("expected a matching snapshot in \(snapshotName)"))
 }
 
-private func recordSnapshot(_ name: String?,
+private func recordSnapshot<T: Snapshotable>(_ name: String?,
                             identifier: String? = nil,
                             isDeviceAgnostic: Bool = false,
                             usesDrawRect: Bool = false,
-                            actualExpression: Expression<Snapshotable>,
+                            actualExpression: Expression<T>,
                             shouldIgnoreScale: Bool) -> PredicateResult {
     // swiftlint:disable:next force_try force_unwrapping
     let instance = try! actualExpression.evaluate()!
@@ -275,12 +275,12 @@ private func currentTestName() -> String? {
 
 internal var switchChecksWithRecords = false
 
-public func haveValidSnapshot(named name: String? = nil,
+public func haveValidSnapshot<T: Snapshotable>(named name: String? = nil,
                               identifier: String? = nil,
                               usesDrawRect: Bool = false,
                               pixelTolerance: CGFloat? = nil,
                               tolerance: CGFloat? = nil,
-                              shouldIgnoreScale: Bool = false) -> Predicate<Snapshotable> {
+                              shouldIgnoreScale: Bool = false) -> Nimble.Predicate<T> {
 
     return Predicate { actualExpression in
         if switchChecksWithRecords {
@@ -301,12 +301,12 @@ public func haveValidSnapshot(named name: String? = nil,
     }
 }
 
-public func haveValidDeviceAgnosticSnapshot(named name: String? = nil,
+public func haveValidDeviceAgnosticSnapshot<T: Snapshotable>(named name: String? = nil,
                                             identifier: String? = nil,
                                             usesDrawRect: Bool = false,
                                             pixelTolerance: CGFloat? = nil,
                                             tolerance: CGFloat? = nil,
-                                            shouldIgnoreScale: Bool = false) -> Predicate<Snapshotable> {
+                                            shouldIgnoreScale: Bool = false) -> Nimble.Predicate<T> {
 
     return Predicate { actualExpression in
         if switchChecksWithRecords {
@@ -329,10 +329,10 @@ public func haveValidDeviceAgnosticSnapshot(named name: String? = nil,
     }
 }
 
-public func recordSnapshot(named name: String? = nil,
+public func recordSnapshot<T: Snapshotable>(named name: String? = nil,
                            identifier: String? = nil,
                            usesDrawRect: Bool = false,
-                           shouldIgnoreScale: Bool = false) -> Predicate<Snapshotable> {
+                           shouldIgnoreScale: Bool = false) -> Nimble.Predicate<T> {
 
     return Predicate { actualExpression in
         return recordSnapshot(name, identifier: identifier, usesDrawRect: usesDrawRect,
@@ -341,10 +341,10 @@ public func recordSnapshot(named name: String? = nil,
     }
 }
 
-public func recordDeviceAgnosticSnapshot(named name: String? = nil,
+public func recordDeviceAgnosticSnapshot<T: Snapshotable>(named name: String? = nil,
                                          identifier: String? = nil,
                                          usesDrawRect: Bool = false,
-                                         shouldIgnoreScale: Bool = false) -> Predicate<Snapshotable> {
+                                         shouldIgnoreScale: Bool = false) -> Nimble.Predicate<T> {
 
     return Predicate { actualExpression in
         return recordSnapshot(name, identifier: identifier, isDeviceAgnostic: true, usesDrawRect: usesDrawRect,

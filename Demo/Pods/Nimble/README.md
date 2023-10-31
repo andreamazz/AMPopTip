@@ -32,7 +32,8 @@ expect(ocean.isClean).toEventually(beTruthy())
   - [Operator Overloads](#operator-overloads)
   - [Lazily Computed Values](#lazily-computed-values)
   - [C Primitives](#c-primitives)
-  - [Asynchronous Expectations](#asynchronous-expectations)
+  - [Async/Await in Expectations](#asyncawait-support)
+  - [Polling Expectations](#polling-expectations)
   - [Objective-C Support](#objective-c-support)
   - [Disabling Objective-C Shorthand](#disabling-objective-c-shorthand)
 - [Built-in Matcher Functions](#built-in-matcher-functions)
@@ -297,7 +298,66 @@ expect(1 as CInt).to(equal(1))
 expect(@(1 + 1)).to(equal(@2));
 ```
 
-## Asynchronous Expectations
+## Async/Await Support
+
+Nimble makes it easy to await for an async function to complete. Simply pass
+the async function in to `expect`:
+
+```swift
+// Swift
+await expect { await aFunctionReturning1() }.to(equal(1))
+```
+
+The async function is awaited on first, before passing it to the matcher. This
+enables the matcher to run synchronous code like before, without caring about
+whether the value it's processing was abtained async or not.
+
+Async support is Swift-only, and it requires that you execute the test in an
+async context. For XCTest, this is as simple as marking your test function with
+`async`. If you use Quick, all tests in Quick 6 are executed in an async context.
+In Quick 7 and later, only tests that are in an `AsyncSpec` subclass will be
+executed in an async context.
+
+To avoid a compiler errors when using synchronous `expect` in asynchronous contexts,
+`expect` with async expressions does not support autoclosures. However, the `expecta`
+(expect async) function is provided as an alternative, which does support autoclosures.
+
+```swift
+// Swift
+await expecta(await aFunctionReturning1()).to(equal(1)))
+```
+
+Similarly, if you're ever in a situation where you want to force the compiler to
+produce a `SyncExpectation`, you can use the `expects` (expect sync) function to
+produce a `SyncExpectation`. Like so:
+
+```swift
+// Swift
+expects(someNonAsyncFunction()).to(equal(1)))
+
+expects(await someAsyncFunction()).to(equal(1)) // Compiler error: 'async' call in an autoclosure that does not support concurrency
+```
+
+### Async Matchers
+
+In addition to asserting on async functions prior to passing them to a
+synchronous predicate, you can also write matchers that directly take in an
+async value. These are called `AsyncPredicate`s. This is most obviously useful
+when directly asserting against an actor. In addition to writing your own
+async matchers, Nimble currently ships with async versions of the following
+predicates:
+
+- `allPass`
+- `containElementSatisfying`
+- `satisfyAllOf` and the `&&` operator overload accept both `AsyncPredicate` and
+  synchronous `Predicate`s.
+- `satisfyAnyOf` and the `||` operator overload accept both `AsyncPredicate` and
+  synchronous `Predicate`s.
+
+Note: Async/Await support is different than the `toEventually`/`toEventuallyNot`
+feature described below.
+
+## Polling Expectations
 
 In Nimble, it's easy to make expectations on values that are updated
 asynchronously. Just use `toEventually` or `toEventuallyNot`:
@@ -333,6 +393,39 @@ contains dolphins and whales, the expectation passes. If `ocean` still
 doesn't contain them, even after being continuously re-evaluated for one
 whole second, the expectation fails.
 
+### Using Polling Expectations in Async Tests
+
+You can easily use `toEventually` or `toEventuallyNot` in async contexts as
+well. You only need to add an `await` statement to the beginning of the line:
+
+```swift
+// Swift
+DispatchQueue.main.async {
+    ocean.add("dolphins")
+    ocean.add("whales")
+}
+await expect(ocean).toEventually(contain("dolphens", "whiles"))
+```
+
+Starting in Nimble 12,  `toEventually` et. al. now also supports async
+expectations. For example, the following test is now supported:
+
+```swift
+actor MyActor {
+    private var counter = 0
+
+    func access() -> Int {
+        counter += 1
+        return counter
+    }
+}
+
+let subject = MyActor()
+await expect { await subject.access() }.toEventually(equal(2))
+```
+
+### Verifying a Predicate will Never or Always Match
+
 You can also test that a value always or never matches throughout the length of the timeout. Use `toNever` and `toAlways` for this:
 
 ```swift
@@ -349,25 +442,7 @@ expect(ocean).toAlways(contain(@"dolphins"))
 expect(ocean).toNever(contain(@"hares"))
 ```
 
-Sometimes it takes more than a second for a value to update. In those
-cases, use the `timeout` parameter:
-
-```swift
-// Swift
-
-// Waits three seconds for ocean to contain "starfish":
-expect(ocean).toEventually(contain("starfish"), timeout: .seconds(3))
-
-// Evaluate someValue every 0.2 seconds repeatedly until it equals 100, or fails if it timeouts after 5.5 seconds.
-expect(someValue).toEventually(equal(100), timeout: .milliseconds(5500), pollInterval: .milliseconds(200))
-```
-
-```objc
-// Objective-C
-
-// Waits three seconds for ocean to contain "starfish":
-expect(ocean).withTimeout(3).toEventually(contain(@"starfish"));
-```
+### Waiting for a Callback to be Called
 
 You can also provide a callback by using the `waitUntil` function:
 
@@ -423,6 +498,30 @@ pollution for whatever incomplete code that was running on the main thread.
 Blocking the main thread can be caused by blocking IO, calls to sleep(),
 deadlocks, and synchronous IPC.
 
+### Changing the Timeout and Polling Intervals
+
+Sometimes it takes more than a second for a value to update. In those
+cases, use the `timeout` parameter:
+
+```swift
+// Swift
+
+// Waits three seconds for ocean to contain "starfish":
+expect(ocean).toEventually(contain("starfish"), timeout: .seconds(3))
+
+// Evaluate someValue every 0.2 seconds repeatedly until it equals 100, or fails if it timeouts after 5.5 seconds.
+expect(someValue).toEventually(equal(100), timeout: .milliseconds(5500), pollInterval: .milliseconds(200))
+```
+
+```objc
+// Objective-C
+
+// Waits three seconds for ocean to contain "starfish":
+expect(ocean).withTimeout(3).toEventually(contain(@"starfish"));
+```
+
+### Changing default Timeout and Poll Intervals
+
 In some cases (e.g. when running on slower machines) it can be useful to modify
 the default timeout and poll interval values. This can be done as follows:
 
@@ -430,11 +529,72 @@ the default timeout and poll interval values. This can be done as follows:
 // Swift
 
 // Increase the global timeout to 5 seconds:
-Nimble.AsyncDefaults.timeout = .seconds(5)
+Nimble.PollingDefaults.timeout = .seconds(5)
 
 // Slow the polling interval to 0.1 seconds:
-Nimble.AsyncDefaults.pollInterval = .milliseconds(100)
+Nimble.PollingDefaults.pollInterval = .milliseconds(100)
 ```
+
+You can set these globally at test startup in two ways:
+
+#### Quick
+
+If you use [Quick](https://github.com/Quick/Quick), add a [`QuickConfiguration` subclass](https://github.com/Quick/Quick/blob/main/Documentation/en-us/ConfiguringQuick.md) which sets your desired `PollingDefaults`.
+
+```swift
+import Quick
+import Nimble
+
+class PollingConfiguration: QuickConfiguration {
+    override class func configure(_ configuration: QCKConfiguration) {
+        Nimble.PollingDefaults.timeout = .seconds(5)
+        Nimble.PollingDefaults.pollInterval = .milliseconds(100)
+    }
+}
+```
+
+#### XCTest
+
+If you use [XCTest](https://developer.apple.com/documentation/xctest), add an object that conforms to [`XCTestObservation`](https://developer.apple.com/documentation/xctest/xctestobservation) and implement [`testBundleWillStart(_:)`](https://developer.apple.com/documentation/xctest/xctestobservation/1500772-testbundlewillstart).
+
+Additionally, you will need to register this observer with the [`XCTestObservationCenter`](https://developer.apple.com/documentation/xctest/xctestobservationcenter) at test startup. To do this, set the `NSPrincipalClass` key in your test bundle's Info.plist and implement a class with that same name.
+
+For example
+
+```xml
+<!-- Info.plist -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- ... -->
+	<key>NSPrincipalClass</key>
+	<string>MyTests.TestSetup</string>
+</dict>
+</plist>
+```
+
+```swift
+// TestSetup.swift
+import XCTest
+import Nimble
+
+@objc
+class TestSetup: NSObject {
+	override init() {
+		XCTestObservationCenter.shared.register(PollingConfigurationTestObserver())
+	}
+}
+
+class PollingConfigurationTestObserver: NSObject, XCTestObserver {
+    func testBundleWillStart(_ testBundle: Bundle) {
+        Nimble.PollingDefaults.timeout = .seconds(5)
+        Nimble.PollingDefaults.pollInterval = .milliseconds(100)
+    }
+}
+```
+
+In Linux, you can implement `LinuxMain` to set the PollingDefaults before calling `XCTMain`.
 
 ## Objective-C Support
 
@@ -494,6 +654,7 @@ For the following matchers:
 - `beTruthy`
 - `beFalsy`
 - `haveCount`
+
 
 If you would like to see more, [file an issue](https://github.com/Quick/Nimble/issues).
 
@@ -1048,6 +1209,9 @@ expect(turtles).to(containElementSatisfying({ turtle in
 // should it fail
 ```
 
+Note: in Swift, `containElementSatisfying` also has a variant that takes in an
+async function.
+
 ```objc
 // Objective-C
 
@@ -1140,6 +1304,19 @@ expect([1, 2, 3, 4]).to(allPass { $0 < 5 })
 
 // Composing the expectation with another matcher:
 expect([1, 2, 3, 4]).to(allPass(beLessThan(5)))
+```
+
+There are also variants of `allPass` that check against async matchers, and
+that take in async functions:
+
+```swift
+// Swift
+
+// Providing a custom function:
+expect([1, 2, 3, 4]).to(allPass { await asyncFunctionReturningBool($0) })
+
+// Composing the expectation with another matcher:
+expect([1, 2, 3, 4]).to(allPass(someAsyncMatcher()))
 ```
 
 ### Objective-C
@@ -1268,6 +1445,9 @@ expect(6).to(satisfyAnyOf(equal(2), equal(3), equal(4), equal(5), equal(6), equa
 // in Swift you also have the option to use the || operator to achieve a similar function
 expect(82).to(beLessThan(50) || beGreaterThan(80))
 ```
+
+Note: In swift, you can mix and match synchronous and asynchronous predicates
+using by `satisfyAnyOf`/`||`.
 
 ```objc
 // Objective-C
@@ -1564,6 +1744,39 @@ For a more comprehensive message that spans multiple lines, use
 .expectedActualValueTo("be true").appended(details: "use beFalse() for inverse\nor use beNil()")
 ```
 
+## Asynchronous Predicates
+
+To write predicates against async expressions, return an instance of
+`AsyncPredicate`. The closure passed to `AsyncPredicate` is async, and the
+expression you evaluate is also asynchronous and needs to be awaited on.
+
+```swift
+// Swift
+
+actor CallRecorder<Arguments> {
+    private(set) var calls: [Arguments] = []
+    
+    func record(call: Arguments) {
+        calls.append(call)
+    }
+}
+
+func beCalled<Argument: Equatable>(with arguments: Argument) -> AsyncPredicate<CallRecorder<Argument>> {
+    AsyncPredicate { (expression: AsyncExpression<CallRecorder<Argument>>) in
+        let message = ExpectationMessage.expectedActualValueTo("be called with \(arguments)")
+        guard let calls = try await expression.evaluate()?.calls else {
+            return PredicateResult(status: .fail, message: message.appendedBeNilHint())
+        }
+        
+        return PredicateResult(bool: calls.contains(args), message: message.appended(details: "called with \(calls)"))
+    }
+}
+```
+
+In this example, we created an actor to act as an object to record calls to an
+async function. Then, we created the `beCalled(with:)` matcher to check if the
+actor has received a call with the given arguments.
+
 ## Supporting Objective-C
 
 To use a custom matcher written in Swift from Objective-C, you'll have
@@ -1644,17 +1857,6 @@ extension NMBPredicate {
 }
 ```
 
-## Migrating from the Old Matcher API
-
-Previously (`<7.0.0`), Nimble supported matchers via the following types:
-
-- `Matcher`
-- `NonNilMatcherFunc`
-- `MatcherFunc`
-
-All of those types have been replaced by `Predicate`. The old API has been
-removed completely in Nimble v10.
-
 # Installing Nimble
 
 > Nimble can be used on its own, or in conjunction with its sister
@@ -1682,7 +1884,7 @@ install just Nimble.
 
 ## Installing Nimble via CocoaPods
 
-To use Nimble in CocoaPods to test your macOS, iOS or tvOS applications, add
+To use Nimble in CocoaPods to test your macOS, iOS, tvOS or watchOS applications, add
 Nimble to your podfile and add the ```use_frameworks!``` line to enable Swift
 support for CocoaPods.
 
@@ -1700,6 +1902,51 @@ end
 ```
 
 Finally run `pod install`.
+
+## Installing Nimble via Swift Package Manager
+
+### Xcode
+
+To install Nimble via Xcode's Swift Package Manager Integration:
+Select your project configuration, then the project tab, then the Package
+Dependencies tab. Click on the "plus" button at the bottom of the list,
+then follow the wizard to add Quick to your project. Specify
+`https://github.com/Quick/Nimble.git` as the url, and be sure to add
+Nimble as a dependency of your unit test target, not your app target.
+
+### Package.Swift
+
+To use Nimble with Swift Package Manager to test your applications, add Nimble
+to your `Package.Swift` and link it with your test target:
+
+```swift
+// swift-tools-version:5.5
+
+import PackageDescription
+
+let package = Package(
+    name: "MyAwesomeLibrary",
+    products: [
+        // ...
+    ],
+    dependencies: [
+        // ...
+        .package(url:  "https://github.com/Quick/Nimble.git", from: "12.0.0"),
+    ],
+    targets: [
+        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+        // Targets can depend on other targets in this package, and on products in packages this package depends on.
+        .target(
+            name: "MyAwesomeLibrary",
+            dependencies: ...),
+        .testTarget(
+            name: "MyAwesomeLibraryTests",
+            dependencies: ["MyAwesomeLibrary", "Nimble"]),
+    ]
+)
+```
+
+Please note that if you install Nimble using Swift Package Manager, then `raiseException` is not available.
 
 ## Using Nimble without XCTest
 

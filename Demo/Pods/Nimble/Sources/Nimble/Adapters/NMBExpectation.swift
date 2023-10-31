@@ -1,9 +1,8 @@
 #if !os(WASI)
 
-#if canImport(Darwin) && !SWIFT_PACKAGE
+#if canImport(Darwin)
 import class Foundation.NSObject
 import typealias Foundation.TimeInterval
-import enum Dispatch.DispatchTimeInterval
 
 private func from(objcPredicate: NMBPredicate) -> Predicate<NSObject> {
     return Predicate { actualExpression in
@@ -19,7 +18,7 @@ public class NMBExpectation: NSObject {
     internal var _negative: Bool
     internal let _file: FileString
     internal let _line: UInt
-    internal var _timeout: DispatchTimeInterval = .seconds(1)
+    internal var _timeout: NimbleTimeInterval = .seconds(1)
 
     @objc public init(actualBlock: @escaping () -> NSObject?, negative: Bool, file: FileString, line: UInt) {
         self._actualBlock = actualBlock
@@ -28,12 +27,12 @@ public class NMBExpectation: NSObject {
         self._line = line
     }
 
-    private var expectValue: Expectation<NSObject> {
+    private var expectValue: SyncExpectation<NSObject> {
         return expect(file: _file, line: _line, self._actualBlock() as NSObject?)
     }
 
     @objc public var withTimeout: (TimeInterval) -> NMBExpectation {
-        return { timeout in self._timeout = timeout.dispatchInterval
+        return { timeout in self._timeout = timeout.nimbleInterval
             return self
         }
     }

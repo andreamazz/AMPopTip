@@ -6,18 +6,38 @@ import Foundation
     writers use in their specs.
 */
 extension World {
+    // MARK: - Before Suite
+#if canImport(Darwin)
+    @objc(beforeSuite:)
+    internal func objc_beforeSuite(_ closure: @escaping BeforeSuiteNonThrowingClosure) {
+        suiteHooks.appendBefore(closure)
+    }
+#endif
+
+    @nonobjc
     internal func beforeSuite(_ closure: @escaping BeforeSuiteClosure) {
         suiteHooks.appendBefore(closure)
     }
 
+    // MARK: - After Suite
+#if canImport(Darwin)
+    @objc(afterSuite:)
+    internal func objc_afterSuite(_ closure: @escaping AfterSuiteNonThrowingClosure) {
+        suiteHooks.appendAfter(closure)
+    }
+#endif
+
+    @nonobjc
     internal func afterSuite(_ closure: @escaping AfterSuiteClosure) {
         suiteHooks.appendAfter(closure)
     }
 
+    // MARK: - Specifying shared examples
     internal func sharedExamples(_ name: String, closure: @escaping SharedExampleClosure) {
         registerSharedExample(name, closure: closure)
     }
 
+    // MARK: - Example groups.
     internal func describe(_ description: String, flags: FilterFlags = [:], closure: () -> Void) {
         guard currentExampleMetadata == nil else {
             raiseError("'describe' cannot be used inside '\(currentPhase)', 'describe' may only be used inside 'context' or 'describe'.")
@@ -46,6 +66,53 @@ extension World {
         self.describe(description, flags: [Filter.pending: true], closure: closure)
     }
 
+    // MARK: - Just Before Each
+#if canImport(Darwin)
+    @objc(justBeforeEach:)
+    internal func objc_justBeforeEach(_ closure: @escaping BeforeExampleNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'justBeforeEach' cannot be used inside '\(currentPhase)', 'justBeforeEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendJustBeforeEach(closure)
+    }
+#endif
+
+    @nonobjc
+    internal func justBeforeEach(_ closure: @escaping BeforeExampleClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'justBeforeEach' cannot be used inside '\(currentPhase)', 'justBeforeEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendJustBeforeEach(closure)
+    }
+
+    // MARK: - Before Each
+#if canImport(Darwin)
+    @objc(beforeEachWithMetadata:)
+    internal func objc_beforeEach(closure: @escaping BeforeExampleWithMetadataNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'beforeEach' cannot be used inside '\(currentPhase)', 'beforeEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendBefore(closure)
+    }
+
+    @objc(beforeEach:)
+    internal func objc_beforeEach(closure: @escaping BeforeExampleNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'beforeEach' cannot be used inside '\(currentPhase)', 'beforeEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendBefore(closure)
+    }
+#endif
+
+    @nonobjc
+    internal func beforeEach(closure: @escaping BeforeExampleWithMetadataClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'beforeEach' cannot be used inside '\(currentPhase)', 'beforeEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendBefore(closure)
+    }
+
+    @nonobjc
     internal func beforeEach(_ closure: @escaping BeforeExampleClosure) {
         guard currentExampleMetadata == nil else {
             raiseError("'beforeEach' cannot be used inside '\(currentPhase)', 'beforeEach' may only be used inside 'context' or 'describe'.")
@@ -53,17 +120,34 @@ extension World {
         currentExampleGroup.hooks.appendBefore(closure)
     }
 
+    // MARK: - After Each
 #if canImport(Darwin)
-    @objc(beforeEachWithMetadata:)
-    internal func beforeEach(closure: @escaping BeforeExampleWithMetadataClosure) {
-        currentExampleGroup.hooks.appendBefore(closure)
+    @objc(afterEachWithMetadata:)
+    internal func objc_afterEach(closure: @escaping AfterExampleWithMetadataNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'afterEach' cannot be used inside '\(currentPhase)', 'afterEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendAfter(closure)
     }
-#else
-    internal func beforeEach(closure: @escaping BeforeExampleWithMetadataClosure) {
-        currentExampleGroup.hooks.appendBefore(closure)
+
+    @objc(afterEach:)
+    internal func objc_afterEach(_ closure: @escaping AfterExampleNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'afterEach' cannot be used inside '\(currentPhase)', 'afterEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendAfter(closure)
     }
 #endif
 
+    @nonobjc
+    internal func afterEach(closure: @escaping AfterExampleWithMetadataClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'afterEach' cannot be used inside '\(currentPhase)', 'afterEach' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendAfter(closure)
+    }
+
+    @nonobjc
     internal func afterEach(_ closure: @escaping AfterExampleClosure) {
         guard currentExampleMetadata == nil else {
             raiseError("'afterEach' cannot be used inside '\(currentPhase)', 'afterEach' may only be used inside 'context' or 'describe'.")
@@ -71,17 +155,26 @@ extension World {
         currentExampleGroup.hooks.appendAfter(closure)
     }
 
-#if canImport(Darwin)
-    @objc(afterEachWithMetadata:)
-    internal func afterEach(closure: @escaping AfterExampleWithMetadataClosure) {
-        currentExampleGroup.hooks.appendAfter(closure)
+    // MARK: - Around Each
+    #if canImport(Darwin)
+    @objc(aroundEach:)
+    internal func objc_aroundEach(_ closure: @escaping AroundExampleNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'aroundEach' cannot be used inside '\(currentPhase)', 'aroundEach' may only be used inside 'context' or 'describe'. ")
+        }
+        currentExampleGroup.hooks.appendAround(closure)
     }
-#else
-    internal func afterEach(closure: @escaping AfterExampleWithMetadataClosure) {
-        currentExampleGroup.hooks.appendAfter(closure)
-    }
-#endif
 
+    @objc(aroundEachWithMetadata:)
+    internal func objc_aroundEach(_ closure: @escaping AroundExampleWithMetadataNonThrowingClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'aroundEach' cannot be used inside '\(currentPhase)', 'aroundEach' may only be used inside 'context' or 'describe'. ")
+        }
+        currentExampleGroup.hooks.appendAround(closure)
+    }
+    #endif
+
+    @nonobjc
     internal func aroundEach(_ closure: @escaping AroundExampleClosure) {
         guard currentExampleMetadata == nil else {
             raiseError("'aroundEach' cannot be used inside '\(currentPhase)', 'aroundEach' may only be used inside 'context' or 'describe'. ")
@@ -89,17 +182,15 @@ extension World {
         currentExampleGroup.hooks.appendAround(closure)
     }
 
-#if canImport(Darwin)
-    @objc(aroundEachWithMetadata:)
+    @nonobjc
     internal func aroundEach(_ closure: @escaping AroundExampleWithMetadataClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'aroundEach' cannot be used inside '\(currentPhase)', 'aroundEach' may only be used inside 'context' or 'describe'. ")
+        }
         currentExampleGroup.hooks.appendAround(closure)
     }
-#else
-    internal func aroundEach(_ closure: @escaping AroundExampleWithMetadataClosure) {
-        currentExampleGroup.hooks.appendAround(closure)
-    }
-#endif
 
+    // MARK: - Examples (Swift)
     @nonobjc
     internal func it(_ description: String, flags: FilterFlags = [:], file: FileString, line: UInt, closure: @escaping () throws -> Void) {
         if beforesCurrentlyExecuting {
@@ -126,6 +217,7 @@ extension World {
         self.it(description, flags: [Filter.pending: true], file: file, line: line, closure: closure)
     }
 
+    // MARK: - Shared Behavior
     @nonobjc
     internal func itBehavesLike(_ name: String, sharedExampleContext: @escaping SharedExampleContext, flags: FilterFlags = [:], file: FileString, line: UInt) {
         guard currentExampleMetadata == nil else {
@@ -182,20 +274,37 @@ extension World {
         self.itBehavesLike(behavior, context: context, flags: [Filter.pending: true], file: file, line: line)
     }
 
+    // MARK: Examples & Shared behavior (objc)
 #if canImport(Darwin) && !SWIFT_PACKAGE
+    @nonobjc
+    internal func syncIt(_ description: String, flags: FilterFlags = [:], file: FileString, line: UInt, closure: @escaping () throws -> Void) {
+        if beforesCurrentlyExecuting {
+            raiseError("'it' cannot be used inside 'beforeEach', 'it' may only be used inside 'context' or 'describe'.")
+        }
+        if aftersCurrentlyExecuting {
+            raiseError("'it' cannot be used inside 'afterEach', 'it' may only be used inside 'context' or 'describe'.")
+        }
+        guard currentExampleMetadata == nil else {
+            raiseError("'it' cannot be used inside 'it', 'it' may only be used inside 'context' or 'describe'.")
+        }
+        let callsite = Callsite(file: file, line: line)
+        let example = Example(description: description, callsite: callsite, flags: flags, closure: closure)
+        currentExampleGroup.appendExample(example)
+    }
+
     @objc(itWithDescription:file:line:closure:)
     internal func objc_it(_ description: String, file: FileString, line: UInt, closure: @escaping () -> Void) {
-        it(description, file: file, line: line, closure: closure)
+        syncIt(description, file: file, line: line, closure: closure)
     }
 
     @objc(fitWithDescription:file:line:closure:)
     internal func objc_fit(_ description: String, file: FileString, line: UInt, closure: @escaping () -> Void) {
-        fit(description, file: file, line: line, closure: closure)
+        syncIt(description, flags: [Filter.focused: true], file: file, line: line, closure: closure)
     }
 
     @objc(xitWithDescription:file:line:closure:)
     internal func objc_xit(_ description: String, file: FileString, line: UInt, closure: @escaping () -> Void) {
-        xit(description, file: file, line: line, closure: closure)
+        syncIt(description, flags: [Filter.pending: true], file: file, line: line, closure: closure)
     }
 
     @objc(itBehavesLikeSharedExampleNamed:sharedExampleContext:file:line:)
@@ -213,6 +322,12 @@ extension World {
         xitBehavesLike(name, sharedExampleContext: sharedExampleContext, file: file, line: line)
     }
 #endif
+
+    // MARK: - Pending
+    @nonobjc
+    internal func pending(_ description: String, closure: () async throws -> Void) {
+        print("Pending: \(description)")
+    }
 
     internal func pending(_ description: String, closure: () -> Void) {
         print("Pending: \(description)")

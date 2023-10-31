@@ -28,11 +28,19 @@ public func recordSnapshot(_ name: String? = nil,
     return Snapshot(name: name, identifier: identifier, record: true, usesDrawRect: usesDrawRect)
 }
 
-public func == (lhs: Expectation<Snapshotable>, rhs: Snapshot) {
+public func ==(lhs: Nimble.SyncExpectation<Snapshotable>, rhs: Snapshot) {
     if rhs.record {
         lhs.to(recordSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
     } else {
         lhs.to(haveValidSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
+    }
+}
+
+public func ==(lhs: Nimble.AsyncExpectation<Snapshotable>, rhs: Snapshot) async {
+    if rhs.record {
+        await lhs.to(recordSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
+    } else {
+        await lhs.to(haveValidSnapshot(named: rhs.name, identifier: rhs.identifier, usesDrawRect: rhs.usesDrawRect))
     }
 }
 

@@ -4,11 +4,11 @@ import CoreFoundation
 import Dispatch
 import Foundation
 
-private let timeoutLeeway = DispatchTimeInterval.milliseconds(1)
-private let pollLeeway = DispatchTimeInterval.milliseconds(1)
+private let timeoutLeeway = NimbleTimeInterval.milliseconds(1)
+private let pollLeeway = NimbleTimeInterval.milliseconds(1)
 
 /// Stores debugging information about callers
-internal struct WaitingInfo: CustomStringConvertible {
+internal struct WaitingInfo: CustomStringConvertible, Sendable {
     let name: String
     let file: FileString
     let lineNumber: UInt
@@ -24,18 +24,16 @@ internal protocol WaitLock {
     func isWaitingLocked() -> Bool
 }
 
-internal class AssertionWaitLock: WaitLock {
+internal final class AssertionWaitLock: WaitLock, @unchecked Sendable {
     private var currentWaiter: WaitingInfo?
+    private let lock = NSRecursiveLock()
+
     init() { }
 
     func acquireWaitingLock(_ fnName: String, file: FileString, line: UInt) {
+        lock.lock()
+        defer { lock.unlock() }
         let info = WaitingInfo(name: fnName, file: file, lineNumber: line)
-        let isMainThread = Thread.isMainThread
-        nimblePrecondition(
-            isMainThread,
-            "InvalidNimbleAPIUsage",
-            "\(fnName) can only run on the main thread."
-        )
         nimblePrecondition(
             currentWaiter == nil,
             "InvalidNimbleAPIUsage",
@@ -53,15 +51,19 @@ internal class AssertionWaitLock: WaitLock {
     }
 
     func isWaitingLocked() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
         return currentWaiter != nil
     }
 
     func releaseWaitingLock() {
+        lock.lock()
+        defer { lock.unlock() }
         currentWaiter = nil
     }
 }
 
-internal enum AwaitResult<T> {
+internal enum PollResult<T> {
     /// Incomplete indicates None (aka - this value hasn't been fulfilled yet)
     case incomplete
     /// TimedOut indicates the result reached its defined timeout limit before returning
@@ -95,9 +97,9 @@ internal enum AwaitResult<T> {
 }
 
 /// Holds the resulting value from an asynchronous expectation.
-/// This class is thread-safe at receiving an "response" to this promise.
+/// This class is thread-safe at receiving a "response" to this promise.
 internal final class AwaitPromise<T> {
-    private(set) internal var asyncResult: AwaitResult<T> = .incomplete
+    private(set) internal var asyncResult: PollResult<T> = .incomplete
     private var signal: DispatchSemaphore
 
     init() {
@@ -113,7 +115,8 @@ internal final class AwaitPromise<T> {
     ///
     /// @returns a Bool that indicates if the async result was accepted or rejected because another
     ///          value was received first.
-    func resolveResult(_ result: AwaitResult<T>) -> Bool {
+    @discardableResult
+    func resolveResult(_ result: PollResult<T>) -> Bool {
         if signal.wait(timeout: .now()) == .success {
             self.asyncResult = result
             return true
@@ -123,7 +126,7 @@ internal final class AwaitPromise<T> {
     }
 }
 
-internal struct AwaitTrigger {
+internal struct PollAwaitTrigger {
     let timeoutSource: DispatchSourceTimer
     let actionSource: DispatchSourceTimer?
     let start: () throws -> Void
@@ -136,53 +139,53 @@ internal struct AwaitTrigger {
 internal class AwaitPromiseBuilder<T> {
     let awaiter: Awaiter
     let waitLock: WaitLock
-    let trigger: AwaitTrigger
+    let trigger: PollAwaitTrigger
     let promise: AwaitPromise<T>
 
     internal init(
         awaiter: Awaiter,
         waitLock: WaitLock,
         promise: AwaitPromise<T>,
-        trigger: AwaitTrigger) {
+        trigger: PollAwaitTrigger) {
             self.awaiter = awaiter
             self.waitLock = waitLock
             self.promise = promise
             self.trigger = trigger
     }
 
-    func timeout(_ timeoutInterval: DispatchTimeInterval, forcefullyAbortTimeout: DispatchTimeInterval) -> Self {
-        // = Discussion =
-        //
-        // There's a lot of technical decisions here that is useful to elaborate on. This is
-        // definitely more lower-level than the previous NSRunLoop based implementation.
-        //
-        //
-        // Why Dispatch Source?
-        //
-        //
-        // We're using a dispatch source to have better control of the run loop behavior.
-        // A timer source gives us deferred-timing control without having to rely as much on
-        // a run loop's traditional dispatching machinery (eg - NSTimers, DefaultRunLoopMode, etc.)
-        // which is ripe for getting corrupted by application code.
-        //
-        // And unlike dispatch_async(), we can control how likely our code gets prioritized to
-        // executed (see leeway parameter) + DISPATCH_TIMER_STRICT.
-        //
-        // This timer is assumed to run on the HIGH priority queue to ensure it maintains the
-        // highest priority over normal application / test code when possible.
-        //
-        //
-        // Run Loop Management
-        //
-        // In order to properly interrupt the waiting behavior performed by this factory class,
-        // this timer stops the main run loop to tell the waiter code that the result should be
-        // checked.
-        //
-        // In addition, stopping the run loop is used to halt code executed on the main run loop.
+    func timeout(_ timeoutInterval: NimbleTimeInterval, forcefullyAbortTimeout: NimbleTimeInterval) -> Self {
+        /// = Discussion =
+        ///
+        /// There's a lot of technical decisions here that is useful to elaborate on. This is
+        /// definitely more lower-level than the previous NSRunLoop based implementation.
+        ///
+        ///
+        /// Why Dispatch Source?
+        ///
+        ///
+        /// We're using a dispatch source to have better control of the run loop behavior.
+        /// A timer source gives us deferred-timing control without having to rely as much on
+        /// a run loop's traditional dispatching machinery (eg - NSTimers, DefaultRunLoopMode, etc.)
+        /// which is ripe for getting corrupted by application code.
+        ///
+        /// And unlike `dispatch_async()`, we can control how likely our code gets prioritized to
+        /// executed (see leeway parameter) + DISPATCH_TIMER_STRICT.
+        ///
+        /// This timer is assumed to run on the HIGH priority queue to ensure it maintains the
+        /// highest priority over normal application / test code when possible.
+        ///
+        ///
+        /// Run Loop Management
+        ///
+        /// In order to properly interrupt the waiting behavior performed by this factory class,
+        /// this timer stops the main run loop to tell the waiter code that the result should be
+        /// checked.
+        ///
+        /// In addition, stopping the run loop is used to halt code executed on the main run loop.
         trigger.timeoutSource.schedule(
-            deadline: DispatchTime.now() + timeoutInterval,
+            deadline: DispatchTime.now() + timeoutInterval.dispatchTimeInterval,
             repeating: .never,
-            leeway: timeoutLeeway
+            leeway: timeoutLeeway.dispatchTimeInterval
         )
         trigger.timeoutSource.setEventHandler {
             guard self.promise.asyncResult.isIncomplete() else { return }
@@ -206,7 +209,7 @@ internal class AwaitPromiseBuilder<T> {
             }
             // potentially interrupt blocking code on run loop to let timeout code run
             CFRunLoopStop(runLoop)
-            let now = DispatchTime.now() + forcefullyAbortTimeout
+            let now = DispatchTime.now() + forcefullyAbortTimeout.dispatchTimeInterval
             let didNotTimeOut = timedOutSem.wait(timeout: now) != .success
             let timeoutWasNotTriggered = semTimedOutOrBlocked.wait(timeout: .now()) == .success
             if didNotTimeOut && timeoutWasNotTriggered {
@@ -221,9 +224,8 @@ internal class AwaitPromiseBuilder<T> {
     /// Blocks for an asynchronous result.
     ///
     /// @discussion
-    /// This function must be executed on the main thread and cannot be nested. This is because
-    /// this function (and it's related methods) coordinate through the main run loop. Tampering
-    /// with the run loop can cause undesirable behavior.
+    /// This function cannot be nested. This is because this function (and it's related methods)
+    /// coordinate through the main run loop. Tampering with the run loop can cause undesirable behavior.
     ///
     /// This method will return an AwaitResult in the following cases:
     ///
@@ -234,8 +236,8 @@ internal class AwaitPromiseBuilder<T> {
     /// - The async expectation raised an unexpected exception (objc)
     /// - The async expectation raised an unexpected error (swift)
     ///
-    /// The returned AwaitResult will NEVER be .incomplete.
-    func wait(_ fnName: String = #function, file: FileString = #file, line: UInt = #line) -> AwaitResult<T> {
+    /// The returned PollResult will NEVER be .incomplete.
+    func wait(_ fnName: String = #function, file: FileString = #file, line: UInt = #line) -> PollResult<T> {
         waitLock.acquireWaitingLock(
             fnName,
             file: file,
@@ -282,7 +284,7 @@ internal class Awaiter {
             self.timeoutQueue = timeoutQueue
     }
 
-    private func createTimerSource(_ queue: DispatchQueue) -> DispatchSourceTimer {
+    internal func createTimerSource(_ queue: DispatchQueue) -> DispatchSourceTimer {
         return DispatchSource.makeTimerSource(flags: .strict, queue: queue)
     }
 
@@ -294,7 +296,7 @@ internal class Awaiter {
             let promise = AwaitPromise<T>()
             let timeoutSource = createTimerSource(timeoutQueue)
             var completionCount = 0
-            let trigger = AwaitTrigger(timeoutSource: timeoutSource, actionSource: nil) {
+            let trigger = PollAwaitTrigger(timeoutSource: timeoutSource, actionSource: nil) {
                 try closure { result in
                     completionCount += 1
                     if completionCount < 2 {
@@ -323,13 +325,17 @@ internal class Awaiter {
                 trigger: trigger)
     }
 
-    func poll<T>(_ pollInterval: DispatchTimeInterval, closure: @escaping () throws -> T?) -> AwaitPromiseBuilder<T> {
+    func poll<T>(_ pollInterval: NimbleTimeInterval, closure: @escaping () throws -> T?) -> AwaitPromiseBuilder<T> {
         let promise = AwaitPromise<T>()
         let timeoutSource = createTimerSource(timeoutQueue)
         let asyncSource = createTimerSource(asyncQueue)
-        let trigger = AwaitTrigger(timeoutSource: timeoutSource, actionSource: asyncSource) {
+        let trigger = PollAwaitTrigger(timeoutSource: timeoutSource, actionSource: asyncSource) {
             let interval = pollInterval
-            asyncSource.schedule(deadline: .now(), repeating: interval, leeway: pollLeeway)
+            asyncSource.schedule(
+                deadline: .now(),
+                repeating: interval.dispatchTimeInterval,
+                leeway: pollLeeway.dispatchTimeInterval
+            )
             asyncSource.setEventHandler {
                 do {
                     if let result = try closure() {
@@ -355,19 +361,21 @@ internal class Awaiter {
 }
 
 internal func pollBlock(
-    pollInterval: DispatchTimeInterval,
-    timeoutInterval: DispatchTimeInterval,
+    pollInterval: NimbleTimeInterval,
+    timeoutInterval: NimbleTimeInterval,
     file: FileString,
     line: UInt,
     fnName: String = #function,
-    expression: @escaping () throws -> Bool) -> AwaitResult<Bool> {
+    expression: @escaping () throws -> Bool) -> PollResult<Bool> {
         let awaiter = NimbleEnvironment.activeInstance.awaiter
         let result = awaiter.poll(pollInterval) { () throws -> Bool? in
             if try expression() {
                 return true
             }
             return nil
-        }.timeout(timeoutInterval, forcefullyAbortTimeout: timeoutInterval.divided).wait(fnName, file: file, line: line)
+        }
+            .timeout(timeoutInterval, forcefullyAbortTimeout: timeoutInterval.divided)
+            .wait(fnName, file: file, line: line)
 
         return result
 }
