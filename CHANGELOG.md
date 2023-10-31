@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 `AMPopTip` adheres to [Semantic Versioning](http://semver.org/).
 
+- `4.12.0` Releases - [4.12.0](#4120) 
 - `4.11.0` Releases - [4.11.0](#4110) 
 - `4.10.0` Releases - [4.10.0](#4100) 
 - `4.9.0` Releases - [4.9.0](#490) 
@@ -34,6 +35,10 @@ All notable changes to this project will be documented in this file.
 - `0.8.x` Releases - [0.8](#08)
 
 ---
+
+## [4.12.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.12.0)  
+
+- Merged #245  
 
 ## [4.11.0](https://github.com/andreamazz/AMPopTip/releases/tag/4.11.0)  
 
