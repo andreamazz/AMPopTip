@@ -17,4 +17,4 @@ jobs:
       with:
         xcode-version: latest-stable
     - name: Run tests
-      run: xcodebuild -workspace 'Demo/PopTip Demo.xcworkspace' -scheme 'PopTip Demo' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13,OS=15.2' test
+      run: xcodebuild -workspace 'Demo/PopTip Demo.xcworkspace' -scheme 'PopTip Demo' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' test

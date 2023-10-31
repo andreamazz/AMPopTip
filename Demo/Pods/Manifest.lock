@@ -1,5 +1,5 @@
 PODS:
-  - AMPopTip (4.9.0)
+  - AMPopTip (4.10.0)
   - iOSSnapshotTestCase (8.0.0):
     - iOSSnapshotTestCase/SwiftSupport (= 8.0.0)
   - iOSSnapshotTestCase/Core (8.0.0)
@@ -31,7 +31,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AMPopTip: a715485b0338575a01fb7d255a100642e10bb48d
+  AMPopTip: 4630471652faf06872f72a39bfcb6f5b68a7e208
   iOSSnapshotTestCase: a670511f9ee3829c2b9c23e6e68f315fd7b6790f
   Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
   Nimble-Snapshots: ef281b908c604f78c8313587e25ea92c8ab513d7
