@@ -691,7 +691,6 @@ open class PopTip: UIView {
     containerView = view
     let controller = UIHostingController(rootView: rootView)
     controller.view.backgroundColor = .clear
-    let window = parent.view.window
     let maxContentWidth: CGFloat
     if let window = parent.view.window {
       maxContentWidth = window.bounds.width - (self.edgeMargin * 2) - self.edgeInsets.horizontal - (self.padding * 2)
