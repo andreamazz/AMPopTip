@@ -19,4 +19,5 @@ Pod::Spec.new do |s|
   s.requires_arc  = true
   s.weak_framework = 'SwiftUI'
   s.social_media_url = 'https://twitter.com/theandreamazz'
+  s.visionos.deployment_target = '1.0'
 end
